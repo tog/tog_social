@@ -108,7 +108,7 @@ class Profile < ActiveRecord::Base
   def set_default_icon
     unless self.icon
       if Tog::Config["plugins.tog_social.profile.image.default"]
-        default_profile_icon = File.join(RAILS_ROOT, 'public', 'images', Tog::Config["plugins.tog_social.profile.image.default"])
+        default_profile_icon = File.join(RAILS_ROOT, 'public', 'tog_social', 'images', Tog::Config["plugins.tog_social.profile.image.default"])
         self.icon = File.new(default_profile_icon)
       end
     end
