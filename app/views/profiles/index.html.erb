@@ -1,0 +1,16 @@
+<div class="portlet portletB" id="profiles_list">
+    <h2><span>Profiles</span></h2>
+    <div class="portlet_content">
+        <ul>
+					<% @profiles.each do |profile|%>
+	          <li>
+	          	<div class="list image"><%=icon_for_profile(profile, small)%></div>
+							<div class="list title"><%=profile.full_name%></div>
+	          </li>
+					<%end%>
+            <li class="on">Algunos mensajes pueden estar resaltados igual que otros elementos</li>
+            <li>Jaikuin' from the iPhone. <span class="datetime">16:04</span> <a href="#">Comentar</a></li>
+            <li>Imposible tener PUSH mail con gmail y me.com. Cancelado trial. <span class="datetime">15:30</span> <a href="#">Comentar</a></li>
+        </ul>
+    </div>    
+</div>

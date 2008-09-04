@@ -11,5 +11,7 @@ Tog::Plugins.settings :tog_social, "profile.image.default"         => "default_p
                                    "profile.image.versions.big"    => "150x150",
                                    "profile.image.versions.medium" => "100x100",
                                    "profile.image.versions.small"  => "50x50",
-                                   "profile.image.versions.tiny"   => "25x25"
+                                   "profile.image.versions.tiny"   => "25x25",
+                                   "profile.list.page.size"        => "10"
 
+Tog::Interface.sections(:site).add "Profiles", "/profiles"     
