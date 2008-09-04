@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
 
+
+  before_create :create_profile
+
   has_one :profile, :dependent => :destroy
   has_many :memberships
   has_many :moderator_memberships, :class_name => 'Membership', 
@@ -14,5 +17,11 @@ class User < ActiveRecord::Base
   def name
       profile.full_name
   end
+  
+  protected
+
+    def create_profile
+      self.profile ||= Profile.new
+    end
 
 end
