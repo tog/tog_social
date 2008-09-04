@@ -13,4 +13,12 @@ class ProfilesController < ApplicationController
     end    
   end
   
+  def show
+    @profile = Profile.find(params[:id])
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @profile }
+    end    
+  end
+  
 end

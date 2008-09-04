@@ -6,7 +6,7 @@ module ProfilesHelper
       options.merge!(:alt => "Foto del usuario: #{profile.full_name}")
       return image_tag(photo_url, options) if photo_url    
     else
-      return image_tag(config["system.profile.image.default"], options)
+      return image_tag(config["plugins.tog_social.profile.image.default"], options)
   	end 
   end
   

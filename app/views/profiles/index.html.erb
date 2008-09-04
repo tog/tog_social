@@ -4,13 +4,10 @@
         <ul>
 					<% @profiles.each do |profile|%>
 	          <li>
-	          	<div class="list image"><%=icon_for_profile(profile, small)%></div>
-							<div class="list title"><%=profile.full_name%></div>
+	          	<div class="list image"><%=link_to icon_for_profile(profile, 'small'), profile_path(profile)%></div>
+							<div class="list title"><%=link_to profile.full_name, profile_path(profile)%></div>
 	          </li>
 					<%end%>
-            <li class="on">Algunos mensajes pueden estar resaltados igual que otros elementos</li>
-            <li>Jaikuin' from the iPhone. <span class="datetime">16:04</span> <a href="#">Comentar</a></li>
-            <li>Imposible tener PUSH mail con gmail y me.com. Cancelado trial. <span class="datetime">15:30</span> <a href="#">Comentar</a></li>
         </ul>
     </div>    
 </div>
