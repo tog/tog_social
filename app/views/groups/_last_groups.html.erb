@@ -1,0 +1,12 @@
+<div class="portlet portletB" id="portlet_last_groups">
+    <h2><span>Last groups</span></h2>
+    <div class="portlet_content">
+        <ul>
+		      <% last_groups do |group| %>
+						<%= link_to group.name, group_path(group) %>
+		       	<span class=""><%=h group.members.size %> members</span>
+					<% end -%>
+        </ul>
+         <p><%link_to 'See all', groups_path %></p>
+    </div>    
+</div>

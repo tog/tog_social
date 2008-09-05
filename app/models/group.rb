@@ -1,5 +1,8 @@
 class Group < ActiveRecord::Base
-
+  
+  acts_as_taggable      
+  seo_urls      
+  
   belongs_to :author, :class_name => 'User', :foreign_key => 'user_id'
 
   has_many :memberships
@@ -17,14 +20,14 @@ class Group < ActiveRecord::Base
                         :conditions => ['memberships.state = ?', 'active']
 
 
-  #file_column :image, :root_path => File.join(RAILS_ROOT, "public/system/group_photos"), :web_root => 'system/group_photos/', :magick => {
-  #    :versions => {
-  #      :big    => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.group.image.versions.big"],    :name => "big"},
-  #      :medium => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.group.image.versions.medium"], :name => "medium"},
-  #      :small  => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.group.image.versions.small"],  :name => "small" },
-  #      :tiny   => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.group.image.versions.tiny"],   :name => "tiny"  }
-  #    }
-  #}
+  file_column :image, :root_path => File.join(RAILS_ROOT, "public/system/group_photos"), :web_root => 'system/group_photos/', :magick => {
+      :versions => {
+        :big    => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.group.image.versions.big"],    :name => "big"},
+        :medium => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.group.image.versions.medium"], :name => "medium"},
+        :small  => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.group.image.versions.small"],  :name => "small" },
+        :tiny   => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.group.image.versions.tiny"],   :name => "tiny"  }
+      }
+  }
 
   acts_as_state_machine :initial => :pending
   state :pending, :enter => :make_activation_code
@@ -66,6 +69,7 @@ class Group < ActiveRecord::Base
     mem = membership_of(user)
     mem = self.memberships.build(:user => user) unless mem
     mem.save!
+    grant_moderator(user) if moderator
     mem.activate! unless self.moderated?
   end
 

@@ -1,0 +1,52 @@
+<div id="pagebody" class="clearfix towcols_right">
+    <div id="mainzone">
+        <h2 class="maintitle2 blue clearfix">
+            <span>Comunidades</span>		
+        </h2>
+        <div class="maintitlebottom">
+			<%= render :partial => "familypedia/groups/community_header" %>             
+        </div> <!-- .maintitlebottom -->
+        <div class="twocols_inside2">
+            <div class="leftcol_inside">
+            	<%= render :partial => "familypedia/groups/mycommunities" %>
+				<%= render :partial => "familypedia/groups/last_communities" %>
+            </div> <!-- .leftcol_inside -->
+            <div class="rightcol_inside">			  
+                          <br />
+                          <div class="title1 maincolor4 rss">Miembros pendientes de acceso
+                          </div>
+
+						
+  						<div class="padding1">
+  							<ul class="list4 clearfix">
+							<% for user in @group.pending_members %>
+
+							            <li class="clearfix">
+							                <div>
+							<%= icon_for_profile(user.profile, "big", :class=>"img")%>
+							                </div>
+							                <div class="info"><br/>
+							  <%= link_to user.name, profiles_show_path(user), {:class => "maincolor3", :title => "Ver perfil del usuario"} -%>
+							<br/>
+							                    <span class="members maincolor2">
+							  <%= link_to 'aceptar', groups_accept_member_path(@group, user), {:class => "maincolor2", :title => "Aceptar usuario"} -%>								
+									           --
+							  <%= link_to 'rechazar', groups_reject_member_path(@group, user), {:class => "maincolor2", :title => "Rechazar usuario"} -%>							                    </span>
+							                </div>
+							            </li>
+
+
+  							<% end %>	
+  							</ul>
+  						</div> <!-- .padding1 -->
+                          
+  						<br />
+
+            </div> <!-- .rightcol_inside -->
+        </div> <!-- .twocols_inside -->
+    </div> <!-- #mainzone -->   
+    
+    <div class="sidebar_2">
+		<%= render :partial => "familypedia/groups/rightside"%>  
+    </div> <!-- .sidebar_2 -->    
+</div>  <!-- #pagebody -->

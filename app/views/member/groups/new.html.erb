@@ -1,0 +1,46 @@
+<h2><span>Create group</span></h2>
+
+<%if @group && !@group.errors.empty? -%>
+<div class="error">
+  <%= error_messages_for :group, :header_message => "Hay errores que impiden guardar el registro", :message => "Compruebe los siguientes campos:" %>
+</div>
+<%end -%>
+
+<% form_for(:group, :url=>member_groups_path, :html=>{:multipart=>true}) do |f| %>
+<dl class="cols clearfix">
+
+        <dt>
+          <label for="name">Name</label>
+        </dt>
+        <dd><%= text_field :group, :name, :class => 'fieldbox', :size => 35 %></dd>
+        
+        <dt>
+          <label for="description">Description</label>
+        </dt>
+        <dd><%= text_area :group, :description, :class => 'fieldbox', :size => '60x10' %></dd>
+   
+        <dt>
+          <label for="tags">Tags</label>
+        </dt>
+        <dd><%= text_field :group, :tag_list, :class => 'fieldbox', :size => 35 %><br/>
+           <small>Separated by commas</small></dd>
+        <dt>
+          <label for="image" class="maincolor4">Image</label>
+        </dt>
+        <dd><%= file_column_field "group", "image" %></dd>
+ 
+	      <dt><label for="private">Private</label> <%= check_box :group, :private %><br/>A private group won't appear in listings.</dt>
+        <dd></dd>
+
+	      <dt><label for="moderated">Moderated</label> <%= check_box :group, :moderated %><br/>In a moderated roup each join reuest should be approved by one of group's moderators.</dt>
+
+
+    <dt>&nbsp;</dt>
+    <dd>
+      <div class="clearfix">
+        <%= submit_tag 'Create', :class => "button mainaction" %>
+      </div>
+    </dd>
+
+</dl>
+<% end %>

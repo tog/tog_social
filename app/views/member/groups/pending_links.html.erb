@@ -1,0 +1,84 @@
+<div id="pagebody" class="clearfix towcols_right">
+    
+    
+    
+    <div id="mainzone">
+        <h2 class="maintitle2 blue clearfix">
+            <span>Comunidad <%=@group.name%></span>
+			
+           
+        </h2>
+        <div class="maintitlebottom">
+			<%= render :partial => "familypedia/groups/community_header" %>
+             
+        </div> <!-- .maintitlebottom -->
+        
+        <div class="twocols_inside2">
+            
+            <div class="leftcol_inside">
+
+            <%= render :partial => "familypedia/groups/mycommunities" %>
+
+			<%= render :partial => "familypedia/groups/last_communities" %>
+
+
+            </div> <!-- .leftcol_inside -->
+                 
+            
+            <div class="rightcol_inside">
+
+						  
+                          <br />
+                          <div class="title1 maincolor4 rss">Enlaces para la comunidad pendientes
+						  </div>
+						
+  						<div class="padding1">
+  							<ul class="list1 right_ico">
+							<% for link in @links %>
+							<li>
+								<div class="title"><a href="/links/<%=link.url.id%>" class="maincolor3"><strong><%=link.url.title%></strong></a></div>
+								<span class="hits_ico right_ico"><%=link.url.links_count%> <img src="/img/ico/hits.gif" alt="compartido por <%= link.url.links_count %> usuarios" title="compartido por <%= link.url.links_count %> usuarios" /></span>
+
+								<div class="subtitle">
+									<span class="maincolor2"><%=link.url.url%><br />
+									Compartido por <a href="/profiles/<%=link.url.author_id%>" class="maincolor5"><%=link.url.author.name%></a> el <%=link.url.publish_date.strftime("%d/%m/%Y")%>
+									<br/>
+								    
+								  <%= link_to 'aceptar', groups_accept_link_path(@group, link), {:class => "maincolor2", :title => "Aceptar link"} -%>								
+										           --
+								  <%= link_to 'rechazar', groups_reject_link_path(@group, link), {:class => "maincolor2", :title => "Rechazar link"} -%>							                   						
+									
+									</span>
+								</div>				
+							</li>
+  							<% end %>	
+  							</ul>
+  						</div> <!-- .padding1 -->
+                          
+  						<br />
+ 						
+                          <div class="pages_navigation big">
+                              <%= will_paginate @links%>
+                          </div>  
+
+
+
+            </div> <!-- .rightcol_inside -->
+            
+
+      
+        </div> <!-- .twocols_inside -->
+        
+        
+
+
+    </div> <!-- #mainzone -->   
+    
+    
+    <div class="sidebar_2">
+	
+		<%= render :partial => "familypedia/groups/rightside"%>  
+        
+    </div> <!-- .sidebar_2 -->    
+        
+</div>  <!-- #pagebody -->

@@ -1,0 +1,78 @@
+<div id="pagebody" class="threecols clearfix">
+
+    <div id="sidebar_1">
+        
+            <%= render :partial => "familypedia/groups/mycommunities" %>
+			<%= render :partial => "familypedia/groups/last_communities" %>
+                                   
+    </div> <!-- #sidebar_1 -->
+    
+    
+    
+    <div id="mainzone">  
+
+    <div class="title1 maincolor4 rss">Editar comunidad <%=@group.name%></div>
+
+	<% if flash[:notice] -%>
+	        <div class="notice"><%= flash[:notice] %></div>
+	<% end -%>
+	<% if flash[:error] -%>
+	        <div class="error"><%= flash[:error] %></div>
+	<% end -%>
+
+    <br />
+    
+	<%= error_messages_for :group %>
+
+
+	<% form_for(@group, :url=>update_group_url, :html=>{:multipart=>true, :method => 'post'}) do |f| %>
+
+  	<input type="hidden" name="id" value="<%=@group.id%>"/>	
+      <dl>
+            <dt>
+              <label for="name" class="maincolor4">Nombre</label>
+            </dt>
+            <dd><%= f.text_field  :name, :class => 'fieldbox', :size => 35 %></dd>
+            
+            <dt>
+              <label for="description" class="maincolor4">Descripción</label>
+            </dt>
+            <dd><%= f.text_area  :description, :class => 'fieldbox', :size => '60x10' %></dd>
+       
+            <dt>
+              <label for="tags" class="maincolor4">Etiquetas (Tags)</label>
+            </dt>
+            <dd><%= f.text_field  :tag_list, :class => 'fieldbox', :size => 35 %><br/>
+	        <small>Separadas por comas</small></dd>
+            <dt>
+              <label for="image" class="maincolor4">Imagen</label>
+            </dt>
+            <dd><%= file_column_field "group", "image" %></dd>
+
+			<dt><label for="private"  class="maincolor4">Privada</label> <%= f.check_box  :private %><br/>Una comunidad privada no aparecerá en los listados.</dt>
+			     
+			<dt><label for="moderated"  class="maincolor4">Moderada</label> <%= f.check_box  :moderated %><br/>Una comunidad moderada requiere que un moderador apruebe cada solicitud de unirse a la misma.</dt>
+            <dd></dd>
+
+      </dl>	
+
+	  <p align="center">
+	    <%= f.submit "Guardar",  :class=>"button1" %>
+	  </p>
+	<% end %>
+
+
+
+    </div> <!-- #mainzone -->
+
+
+    <div id="sidebar_2">     
+        
+<%= render :partial => "familypedia/groups/tag_cloud" %>
+              
+    </div> <!-- #sidebar_2 -->   
+        
+
+
+
+</div>  <!-- #pagebody -->
