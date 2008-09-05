@@ -1,0 +1,51 @@
+<h2><%= @group.name %> 
+  <% unless @group.active? %>
+    <div id="deactivated_status" style="display: inline;font-size: 0.8em;background-color: #FEFF99;padding: 5px;">
+      <span>This group is deactivated. Click 
+      <%= link_to_remote "here",  :url => activate_admin_group_url(@group), :update => "deactivated_status" %> 
+      if you want to activate it.</span>
+    </div>
+  <% end %>
+  <% form_tag admin_group_path(@group), :method => :delete do -%>    <br/>
+    <%= submit_tag "Delete this group", :disable_with => "Please wait...", :type => "image", :class =>"button delete" %>
+  <% end -%>
+</h2>  
+<%= error_messages_for :group %>
+<% form_for :group, :url => admin_group_path(@group), :html => {:id => "settings"} do |f| -%>
+  <fieldset>
+    <fieldset id="login-details">
+      <legend>
+        Group Details<br/><%= image_tag(url_for_image_column(@group, "image", :name =>"medium")) if @group.image %>
+      </legend>
+      <label>Created by <%= link_to @group.author.profile.full_name, edit_admin_user_path(@group.author) %> on <%= @group.created_at %></label>
+      <label>Last Update: <%= @group.updated_at %></label>
+    </fieldset>
+   
+    <fieldset id="social-details">
+      <legend>Memberships</legend>
+      <label>Moderators: <%= @group.moderators.to_sentence %></label>
+      <div class="group">
+        <label><strong><%= @group.pending_members.size %> pending</strong>
+           <ul>
+             <% if !@group.pending_members.blank? %>
+               <% for member in @group.pending_members %>
+               <li><%= link_to member.profile.full_name, edit_admin_user_path(member) %> (<%= member.email %>)</li>
+               <% end %>
+             <% end %>
+           </ul>
+        </label>
+        <label><strong><%= @group.members.size %> active</strong>
+          <ul>
+            <% if !@group.members.blank? %>
+              <% for member in @group.members %>
+                <li><%= link_to member.profile.full_name, edit_admin_user_path(member) %> (<%= member.email %>)</li>
+              <% end %>
+            <% end %>
+          </ul>
+        </label>
+      </div>
+    </fieldset>
+    <%= submit_tag 'Update group', {:accesskey => "s"} %>
+
+  </fieldset>
+<% end -%>

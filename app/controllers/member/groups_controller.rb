@@ -2,10 +2,10 @@ class Member::GroupsController < Member::BaseController
   
   helper :groups
   
-  before_filter :find_group, :only => [:edit, :update, :pending, :reject, :accept, :pending_links, :reject_link, :accept_link]
-  before_filter :check_moderator, :only => [:edit, :update, :pending, :reject, :accept, :pending_links, :reject_link, :accept_link]
+  before_filter :find_group, :except => [:index, :new, :create]
+  before_filter :check_moderator, :except => [:index, :new, :create]
      
-  def my_groups
+  def index
     @moderator_memberships = current_user.moderator_memberships
     @plain_memberships = current_user.plain_memberships
   end
@@ -51,37 +51,38 @@ class Member::GroupsController < Member::BaseController
   def pending_members
   end
   
-  def reject
+  def reject_member
     user = User.find(params[:user_id])
     if !user
-      flash[:error] = 'No existe ese usuario'
-      redirect_to groups_show_path(@group)
+      flash[:error] = "User doesn't exist"
+      redirect_to pending_members_paths(@group)
       return
     end
     @group.leave(user)
     if @group.membership_of(user)
       GroupMailer.deliver_reject_join_request(@group, current_user, user)
-      flash[:notice] = "El usuario " + user.name + " ha sido rechazado de la comunidad"
+      flash[:notice] = "User " + user.name + " has been rejected for this group"
     else
-      flash[:error] = "Ha ocurrido un error al proceder a la denegación"
+      flash[:error] = "Ooops. something happened."
     end
-    redirect_to groups_pending_members_path(@group)    
+    redirect_to member_group_pending_members_url(@group)    
   end
-  def accept
+  
+  def accept_member
     user = User.find(params[:user_id])
     if !user
-      flash[:error] = 'No existe ese usuario'
-      redirect_to groups_show_path(@group)
+      flash[:error] = "User doesn't exist"
+      redirect_to pending_members_paths(@group)
       return
     end    
     @group.activate_membership(user)
     if @group.members.include? user
         GroupMailer.deliver_accept_join_request(@group, current_user, user)
-        flash[:notice] = "El usuario " + user.name + " ha sido añadido a la comunidad"
+      flash[:notice] = "User " + user.name + " has been accepted in this group"
     else
-      flash[:error] = "Ha ocurrido un error al proceder a la aceptación"
+      flash[:error] = "Ooops. something happened."
     end
-    redirect_to groups_pending_members_path(@group) 
+    redirect_to member_group_pending_members_url(@group) 
   end  
   
   def invite_send
@@ -93,32 +94,11 @@ class Member::GroupsController < Member::BaseController
         group.join(user, false)
         GroupMailer.deliver_invitation(group, current_user, user)
       end
-      flash[:notice] = 'Se han enviado las invitaciones'
+      flash[:notice] = 'Invitations has been sent'
     end  
     redirect_to profiles_show_path(user.id)
   end
   
-  def change_role_community
-    comunity = Group.find(params[:id])
-    profile = Profile.find(params[:profileid])
-    member = comunity.membership_of(profile.user)
-    if(member && !profile.user.child)
-      if(params[:active]=='1')
-        member.moderator=true
-        member.save()
-        active=0
-        msg = 'Quitar rol de moderador'
-      else
-        member.moderator=false
-        member.save()
-        active=1
-        msg = 'Asignar rol de moderador'
-      end
-      render :update do |page|    
-        page.replace_html 'changerol'+params[:profileid] , link_to_remote(msg, :url => groups_change_role_path(comunity,profile.id,active), :html=> {:class =>'maincolor5'})      
-      end
-    end
-  end
   
   protected
 
@@ -129,8 +109,8 @@ class Member::GroupsController < Member::BaseController
 
   def check_moderator
     unless @group.moderators.include? current_user
-      flash[:error] = "No eres un moderador de esta comunidad."
-      redirect_to groups_show_path(@group)
+      flash[:error] = "You are not one of this group's moderators."
+      redirect_to groups_path(@group)
     end
   end  
   

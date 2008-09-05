@@ -1,0 +1,34 @@
+<h2>Groups</h2>
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Created by</th>
+      <th scope="col">Private</th>
+      <th scope="col">Moderated</th>
+      <th scope="col">Active</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td colspan="5">
+      <%= will_paginate @groups %>
+      </td>
+    </tr>
+  </tfoot>
+  <tbody>
+
+    <% @groups.each do |group| %>
+
+    <tr<%= cycle('',' class="even"') -%>>
+      <td><%= link_to group.name, edit_admin_group_url(group), {:class => "admin", :title => "Edit group"} -%></td>
+			<td><%= link_to group.author.profile.full_name, edit_admin_user_path(group.author) %></td>
+      <td><%= group.private -%></td>
+      <td><%= group.moderated -%></td>
+      <td><%= group.active? ? "Yes" : "No"  -%></td>
+    </tr>
+
+    <% end %>
+    
+  </tbody>
+</table>

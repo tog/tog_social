@@ -71,7 +71,7 @@ class GroupsController < ApplicationController
   end
    
   def leave
-    if !@group.members.include? current_user
+    if !@group.members.include?(current_user) && !@group.pending_members.include?(current_user)
       flash[:notice] = 'You are not a member of this group.'
     else
       if @group.moderators.include?(current_user) && @group.moderators.size == 1
@@ -82,7 +82,7 @@ class GroupsController < ApplicationController
         flash[:notice] = 'You are no longer a member of this group'
       end
     end
-    redirect_to my_groups_member_groups_path
+    redirect_to member_groups_path
   end
   
   
@@ -132,7 +132,10 @@ class GroupsController < ApplicationController
     def load_group
       @group = Group.find(:first,
                           :conditions => ["id = ?", params[:id]]) 
-      redirect_to groups_index_path unless @group
+      if @group.nil? || !@group.active?
+        flash[:error] = "Error. This group is not active or doesn't exist"
+        redirect_to groups_path 
+      end
     end
     
     def send_message_to_moderators(group, user, subject, body)

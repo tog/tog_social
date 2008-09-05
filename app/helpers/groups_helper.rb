@@ -21,10 +21,10 @@ module GroupsHelper
   end
 
 
-  def last_groups
+  def last_groups(limit=3)
     groups = Group.find(:all,
                :conditions => ["state= ? and private = ?", 'active', 0],
-               :order => "created_at desc", :limit => 5)
+               :order => "created_at desc", :limit => limit)
     return if groups.empty?
 
     groups.each do |group|

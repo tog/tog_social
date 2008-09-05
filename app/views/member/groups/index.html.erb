@@ -9,6 +9,10 @@
 	          	<div class="img"><%=link_to image_for_group(membership.group, 'small'), group_path(membership.group)%></div>
 			        <div class="info">
 			          <div class="title"><%= link_to membership.group.name, group_path(membership.group) %></div>
+								<div id="actions">
+									<%= link_to "#{membership.group.pending_members.size} members waiting for approval", member_group_pending_members_path(membership.group) %>
+									
+								</div>
 			        </div><!--  fin info -->
 						<li>
 					<%end%>
