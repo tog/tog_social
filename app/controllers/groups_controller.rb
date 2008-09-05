@@ -52,37 +52,37 @@ class GroupsController < ApplicationController
 
   def join
     if @group.members.include? current_user
-      flash[:notice] = 'Ya eres miembro de esta comunidad.'
+      flash[:notice] = 'You already are a member of this group.'
     else
       if @group.pending_members.include? current_user
-        flash[:notice] = 'Tu solicitud ya está en proceso, ten un poco de paciencia.'
+        flash[:notice] = 'Your join request is already being processed. Please, be patient.'
       else      
         @group.join(current_user)
         if @group.moderated == true
           GroupMailer.deliver_join_request(@group, current_user)
-          flash[:notice] = 'Tu solicitud ha sido recibida. El moderador de la comunidad decidirá sobre ella en breve.'
+          flash[:notice] = 'You request has been received. Moderators of this groups will make a decision soon.'
         else
           @group.activate_membership(current_user)
-          flash[:notice] = 'Bienvenido a ' + @group.name + '. Disfrútalo!'          
+          flash[:notice] = 'Welcome to ' + @group.name + '. Enjoy it!'          
         end
       end
     end
-    redirect_to groups_show_url(@group)    
+    redirect_to group_url(@group)    
   end
    
   def leave
     if !@group.members.include? current_user
-      flash[:notice] = 'No eres un miembro activo de esta comunidad.'
+      flash[:notice] = 'You are not a member of this group.'
     else
       if @group.moderators.include?(current_user) && @group.moderators.size == 1
-        flash[:error] = 'Eres el último moderador, y como tal no se te permite abandonar la comunidad'
+        flash[:error] = "You are the last moderator of this group. You can't leave it before nominating a new moderator"
       else
         @group.leave(current_user)
         #todo: eliminar cuando este claro que sucede si un usuario ya es miembro
-        flash[:notice] = 'Has abandonado el grupo.'
+        flash[:notice] = 'You are no longer a member of this group'
       end
     end
-    redirect_to groups_show_url(@group)
+    redirect_to my_groups_member_groups_path
   end
   
   

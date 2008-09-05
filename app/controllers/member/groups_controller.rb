@@ -1,8 +1,15 @@
 class Member::GroupsController < Member::BaseController
   
+  helper :groups
+  
   before_filter :find_group, :only => [:edit, :update, :pending, :reject, :accept, :pending_links, :reject_link, :accept_link]
   before_filter :check_moderator, :only => [:edit, :update, :pending, :reject, :accept, :pending_links, :reject_link, :accept_link]
-        
+     
+  def my_groups
+    @moderator_memberships = current_user.moderator_memberships
+    @plain_memberships = current_user.plain_memberships
+  end
+     
   def new
   end  
   

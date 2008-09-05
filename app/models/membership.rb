@@ -11,6 +11,10 @@ class Membership < ActiveRecord::Base
     transitions :from => :pending, :to => :active
   end
   
+  def active?
+    self.state == 'active'
+  end
+  
   protected  
   
   def make_activation_code

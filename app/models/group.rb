@@ -67,7 +67,7 @@ class Group < ActiveRecord::Base
   def join(user,moderator=false)
     # todo Confirm what to do if th user is already a member. By now just ignore it and continue.
     mem = membership_of(user)
-    mem = self.memberships.build(:user => user) unless mem
+    mem = self.memberships.build(:user => user, :moderator => moderator) unless mem
     mem.save!
     grant_moderator(user) if moderator
     mem.activate! unless self.moderated?

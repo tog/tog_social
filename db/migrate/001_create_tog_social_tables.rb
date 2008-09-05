@@ -21,7 +21,7 @@ class CreateTogSocialTables < ActiveRecord::Migration
       t.string   :image
       t.string   :state
       t.boolean  :private
-      t.boolean :moderated, :default => true 
+      t.boolean :moderated, :default => false 
       t.integer  :user_id
       t.string   :activation_code, :limit => 40
       t.datetime :activated_at
@@ -31,7 +31,7 @@ class CreateTogSocialTables < ActiveRecord::Migration
     create_table :memberships do |t|
       t.integer  :user_id
       t.integer  :group_id
-      t.boolean  :moderator
+      t.boolean  :moderator, :default => false
       t.string   :state
       t.string   :activation_code, :limit => 40
       t.datetime :activated_at
