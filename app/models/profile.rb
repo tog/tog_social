@@ -63,7 +63,7 @@ class Profile < ActiveRecord::Base
       unless flw.new_record?
         # todo enable send_friendships_notifications? setting per profile
         # FriendshipMailer.deliver_new_follower(me, follower)  if me.send_friendships_notifications?
-        FriendshipMailer.deliver_new_follower(me, follower) 
+        #FriendshipMailer.deliver_new_follower(me, follower) 
         return true
       end
       return false
@@ -85,7 +85,7 @@ class Profile < ActiveRecord::Base
     relationship.accept!
     # todo enable send_friendships_notifications? setting per profile
     # FriendshipMailer.deliver_frienship_validated(relationship.inviter, relationship.invited) if relationship.inviter.send_friendships_notifications?
-    FriendshipMailer.deliver_friendship_validated(relationship.inviter, relationship.invited)
+    #FriendshipMailer.deliver_friendship_validated(relationship.inviter, relationship.invited)
     return true
   end
   def remove_friend(friend)

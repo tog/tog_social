@@ -3,16 +3,29 @@
     <div class="title"><%=@profile.full_name%></div>
     <div class="subtitle">Username:  <%=@profile.user.login%></div>
     <div class="summary">Profile summary</div>
-    <div class="text">
-        <p>blah, blah, blah</p>
-    </div>
+    <div class="portlet portletC" id="portlet_moreLinks">
+        <h2><span>Groups</span></h2>
+        <div class="portlet_content">
+          <ul>
+            <% if !@profile.user.groups.blank? %>
+              <% for group in @profile.user.groups %>
+                <li><%= link_to group.name, group_path(group) %></li>
+              <% end %>
+            <% else %>
+
+            <% end %>
+
+          </ul>
+
+        </div> 
+    </div>    
     
     <div class="portlet portletC" id="portlet_moreLinks">
         <h2><span>More links</span></h2>
         <div class="portlet_content">
             <ul>
-                <li><a href="#">Ver amigos de Aitor (67)</a></li>
-                <li><a href="#">Enviarle un mensaje a Aitor.</a></li>
+                <li><a href="#">Ver amigos de <%=@profile.full_name%> (<%= @profile.friends.size %>)</a></li>
+                <li><a href="#">Enviarle un mensaje a <%=@profile.full_name%>.</a></li>
                 <li><a href="#">Este perfil es inapropiado.</a></li>
             </ul>
         </div> 
@@ -20,3 +33,51 @@
     
 </div> <!-- /.detail1 -->    
 
+
+<% content_for :sidebar do %>
+<div class="portlet portletG" id="portlet_friends">
+    <h2><span>Amigos (<%=  @profile.friends.size %>)</span></h2>
+    <div class="portlet_content">
+        <ul class="clearfix">
+          <% unless @profile.friends.blank? %>
+            <% for friend in @profile.friends %>
+              <li><%=link_to icon_for_profile(friend, 'small'), profile_path(friend), :title => friend.full_name %></li>
+            <% end %>
+          <% else %>
+            <li><%=@profile.full_name%> tiene 0 amigos.</li>
+          <% end %>
+        </ul>
+    </div>    
+</div>    
+
+<div class="portlet portletG" id="portlet_followers">
+    <h2><span>Followers (<%= @profile.followers.size %>)</span></h2>
+    <div class="portlet_content">
+        <ul class="clearfix">
+          <% unless @profile.followers.blank? %>
+            <% for friend in @profile.followers %>
+              <li><%=link_to icon_for_profile(friend, 'small'), profile_path(friend), :title => friend.full_name %></li>
+            <% end %>
+          <% else %>
+            <li><%=@profile.full_name%> tiene 0 followers.</li>
+          <% end %>
+        </ul>
+    </div>    
+</div>    
+
+<div class="portlet portletG" id="portlet_followings">
+    <h2><span>Followings (<%= @profile.followings.size %>)</span></h2>
+    <div class="portlet_content">
+        <ul class="clearfix">
+          <% unless @profile.followings.blank? %>
+            <% for friend in @profile.followings %>
+              <li><%=link_to icon_for_profile(friend, 'small'), profile_path(friend), :title => friend.full_name %></li>
+            <% end %>
+          <% else %>
+            <li><%=@profile.full_name%> tiene 0 followings.</li>
+          <% end %>
+        </ul>
+    </div>    
+</div>    
+
+<% end %>

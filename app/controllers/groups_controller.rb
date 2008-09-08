@@ -130,9 +130,11 @@ class GroupsController < ApplicationController
   
   private 
     def load_group
-      @group = Group.find(:first,
-                          :conditions => ["id = ?", params[:id]]) 
-      if @group.nil? || !@group.active?
+      #todo be more specific with this error control
+      begin
+        @group = Group.find(params[:id]) 
+        raise "Error. This group is not active" unless @group.active?
+      rescue 
         flash[:error] = "Error. This group is not active or doesn't exist"
         redirect_to groups_path 
       end

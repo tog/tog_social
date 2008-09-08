@@ -22,13 +22,9 @@ module GroupsHelper
 
 
   def last_groups(limit=3)
-    groups = Group.find(:all,:conditions => ["state= ? and private = ?", 'active', false],:order => "created_at desc", :limit => limit)
-    return if groups.empty?
-
-    groups.each do |group|
-      yield group
-    end
+    Group.find(:all,:conditions => ["state= ? and private = ?", 'active', false],:order => "created_at desc", :limit => limit)
   end  
+  
   
   def member?(group)
     return group.members.include?(current_user)

@@ -1,8 +1,8 @@
 <div class="detail detail1">
   
-    <div class="image"><%=link_to image_for_group(@group, 'medium', :class=>"img"), group_path(@group)%></div>
+    <div class="image"><%= link_to image_for_group(@group, 'medium', :class=>"img"), group_path(@group) %></div>
     <div class="title"><%= link_to @group.name, group_path(@group) %></div>
-    <div class="subtitle">Created at <%=h @group.created_at.strftime("%d/%m/%Y") %>, <%=@group.members.size%> members</div>
+    <div class="subtitle">Created at <%= @group.created_at.strftime("%d/%m/%Y") %>, <%=@group.members.size%> members</div>
     <div class="summary">Moderated by:
 		    <% for moderator in @group.moderators %>
 		        <%=link_to moderator.name, profile_path(moderator.profile), :class=> 'maincolor4'%>
@@ -14,23 +14,39 @@
         <% end %>		
 		</div>
     <div class="text">
-        <p><%=@group.description%></p>
+        <p><%= @group.description %></p>
     </div>
     
-    <div class="portlet portletC" id="portlet_moreLinks">
-        <h2><span>Más Enlaces</span></h2>
-        <div class="portlet_content">
-            <ul>
-							<% if member?(@group) -%>
-								<li>You are a member of this group. <%= link_to 'Leave this group', leave_group_path(@group), :confirm => 'Are you sure you want to leave this group?', :class => 'delete' %></li>
-							<% else -%>
-								<li><%= link_to 'Join this group', join_group_path(@group), :class => 'add' %></li>
-							<% end -%>	
-                <li><a href="#">Members</a></li>
-                <li><a href="#">xxxx</a></li>
-                <li><a href="#">xxxx.</a></li>
-            </ul>
-        </div> 
-    </div>    
     
 </div> <!-- /.detail1 --> 
+
+<% content_for :sidebar do %>
+
+<div class="portlet portletC" id="portlet_moreLinks">
+    <h2><span>Más Enlaces</span></h2>
+    <div class="portlet_content">
+        <ul>
+					<% if member?(@group) -%>
+						<li>You are a member of this group. <%= link_to 'Leave this group', leave_group_path(@group), :confirm => 'Are you sure you want to leave this group?', :class => 'delete' %></li>
+					<% else -%>
+						<li><%= link_to 'Join this group', join_group_path(@group), :class => 'add' %></li>
+					<% end -%>	
+        </ul>
+    </div> 
+</div>    
+
+<div class="portlet portletG" id="portlet_friends">
+    <h2><span>Members (<%=  @group.members.size %>)</span></h2>
+    <div class="portlet_content">
+        <ul class="clearfix">
+          <% unless @group.members.blank? %>
+            <% for friend in @group.members %>
+              <li><%=link_to icon_for_profile(friend.profile, 'small'), profile_path(friend.profile), :title => friend.profile.full_name %></li>
+            <% end %>
+          <% else %>
+            <li><%=@group.name%> tiene 0 miembros.</li>
+          <% end %>
+        </ul>
+    </div>    
+</div>
+<% end %>
