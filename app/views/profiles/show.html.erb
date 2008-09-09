@@ -33,51 +33,25 @@
     
 </div> <!-- /.detail1 -->    
 
-
 <% content_for :sidebar do %>
-<div class="portlet portletG" id="portlet_friends">
-    <h2><span>Amigos (<%=  @profile.friends.size %>)</span></h2>
-    <div class="portlet_content">
-        <ul class="clearfix">
-          <% unless @profile.friends.blank? %>
-            <% for friend in @profile.friends %>
-              <li><%=link_to icon_for_profile(friend, 'small'), profile_path(friend), :title => friend.full_name %></li>
-            <% end %>
-          <% else %>
-            <li><%=@profile.full_name%> tiene 0 amigos.</li>
-          <% end %>
-        </ul>
-    </div>    
-</div>    
 
-<div class="portlet portletG" id="portlet_followers">
-    <h2><span>Followers (<%= @profile.followers.size %>)</span></h2>
-    <div class="portlet_content">
-        <ul class="clearfix">
-          <% unless @profile.followers.blank? %>
-            <% for friend in @profile.followers %>
-              <li><%=link_to icon_for_profile(friend, 'small'), profile_path(friend), :title => friend.full_name %></li>
-            <% end %>
-          <% else %>
-            <li><%=@profile.full_name%> tiene 0 followers.</li>
-          <% end %>
-        </ul>
-    </div>    
-</div>    
+<%= render :partial => "shared/profiles_portlet", :locals => { 
+  :items =>  @profile.friends, 
+  :style => :portletG, 
+  :title => "Friends", 
+  :no_items => "#{@profile.full_name} has 0 friends." } %>
 
-<div class="portlet portletG" id="portlet_followings">
-    <h2><span>Followings (<%= @profile.followings.size %>)</span></h2>
-    <div class="portlet_content">
-        <ul class="clearfix">
-          <% unless @profile.followings.blank? %>
-            <% for friend in @profile.followings %>
-              <li><%=link_to icon_for_profile(friend, 'small'), profile_path(friend), :title => friend.full_name %></li>
-            <% end %>
-          <% else %>
-            <li><%=@profile.full_name%> tiene 0 followings.</li>
-          <% end %>
-        </ul>
-    </div>    
-</div>    
+<%= render :partial => "shared/profiles_portlet", :locals => { 
+  :items =>  @profile.followers, 
+  :style => :portletG, 
+  :title => "Followers", 
+  :no_items => "#{@profile.full_name} has 0 followers." } %>
+
+<%= render :partial => "shared/profiles_portlet", :locals => { 
+  :items =>  @profile.followings, 
+  :style => :portletG, 
+  :title => "Fans", 
+  :no_items => "#{@profile.full_name} has 0 fans." } %>
+
 
 <% end %>

@@ -26,7 +26,7 @@
     <h2><span>Más Enlaces</span></h2>
     <div class="portlet_content">
         <ul>
-					<% if member?(@group) -%>
+					<% if i_am_member_of @group -%>
 						<li>You are a member of this group. <%= link_to 'Leave this group', leave_group_path(@group), :confirm => 'Are you sure you want to leave this group?', :class => 'delete' %></li>
 					<% else -%>
 						<li><%= link_to 'Join this group', join_group_path(@group), :class => 'add' %></li>
@@ -35,18 +35,10 @@
     </div> 
 </div>    
 
-<div class="portlet portletG" id="portlet_friends">
-    <h2><span>Members (<%=  @group.members.size %>)</span></h2>
-    <div class="portlet_content">
-        <ul class="clearfix">
-          <% unless @group.members.blank? %>
-            <% for friend in @group.members %>
-              <li><%=link_to icon_for_profile(friend.profile, 'small'), profile_path(friend.profile), :title => friend.profile.full_name %></li>
-            <% end %>
-          <% else %>
-            <li><%=@group.name%> tiene 0 miembros.</li>
-          <% end %>
-        </ul>
-    </div>    
-</div>
+<%= render :partial => "shared/profiles_portlet", :locals => { 
+  :items => @group.members.collect(&:profile), 
+  :style => :portletG, 
+  :title => "Members", 
+  :no_items => "#{@group.name} has 0 members" } %>
+
 <% end %>

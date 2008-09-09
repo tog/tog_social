@@ -26,10 +26,10 @@ module GroupsHelper
   end  
   
   
-  def member?(group)
+  def i_am_member_of(group)
     return group.members.include?(current_user)
   end
-  def moderator?(group)
+  def i_am_moderator_of(group)
     return group.moderators.include?(current_user)
   end  
   
