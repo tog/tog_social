@@ -24,11 +24,11 @@ class Member::GroupsController < Member::BaseController
     if @group.errors.empty?
       if current_user.admin == true || Tog::Config['plugins.tog_social.group.moderation.creation'] != 'true'
          @group.activate!
-         flash[:notice] = 'Group created successfully.'
+         flash[:ok] = 'Group created successfully.'
          redirect_to group_path(@group)
       else
         GroupMailer.deliver_activation_request(@group)
-        flash[:notice] = 'Your group has been created but is pending for administration approval.'
+        flash[:warning] = 'Your group has been created but is pending for administration approval.'
         redirect_to groups_path          
       end      
     else
@@ -44,7 +44,7 @@ class Member::GroupsController < Member::BaseController
     @group.update_attributes!(params[:group])
     @group.tag_list = params[:group][:tag_list]
     @group.save
-    flash[:notice] = "Group #{@group.name} succcessfully updated!"     
+    flash[:ok] = "Group #{@group.name} succcessfully updated!"     
     redirect_to groups_show_path(@group)   
   end
   
@@ -61,7 +61,7 @@ class Member::GroupsController < Member::BaseController
     @group.leave(user)
     if @group.membership_of(user)
       GroupMailer.deliver_reject_join_request(@group, current_user, user)
-      flash[:notice] = "User " + user.name + " has been rejected for this group"
+      flash[:ok] = "User " + user.name + " has been rejected for this group"
     else
       flash[:error] = "Ooops. something happened."
     end
@@ -78,27 +78,14 @@ class Member::GroupsController < Member::BaseController
     @group.activate_membership(user)
     if @group.members.include? user
         GroupMailer.deliver_accept_join_request(@group, current_user, user)
-      flash[:notice] = "User " + user.name + " has been accepted in this group"
+      flash[:ok] = "User " + user.name + " has been accepted in this group"
     else
       flash[:error] = "Ooops. something happened."
     end
     redirect_to member_group_pending_members_url(@group) 
   end  
   
-  def invite_send
-    user = User.find(params[:user_id])
 
-    params[:community].each do |comm_id|
-      group = Group.find(comm_id)
-      if group.moderators.include?(current_user)
-        group.join(user, false)
-        GroupMailer.deliver_invitation(group, current_user, user)
-      end
-      flash[:notice] = 'Invitations has been sent'
-    end  
-    redirect_to profiles_show_path(user.id)
-  end
-  
   
   protected
 

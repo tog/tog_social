@@ -60,10 +60,10 @@ class GroupsController < ApplicationController
         @group.join(current_user)
         if @group.moderated == true
           GroupMailer.deliver_join_request(@group, current_user)
-          flash[:notice] = 'You request has been received. Moderators of this groups will make a decision soon.'
+          flash[:ok] = 'You request has been received. Moderators of this groups will make a decision soon.'
         else
           @group.activate_membership(current_user)
-          flash[:notice] = 'Welcome to ' + @group.name + '. Enjoy it!'          
+          flash[:ok] = 'Welcome to ' + @group.name + '. Enjoy it!'          
         end
       end
     end
@@ -72,65 +72,22 @@ class GroupsController < ApplicationController
    
   def leave
     if !@group.members.include?(current_user) && !@group.pending_members.include?(current_user)
-      flash[:notice] = 'You are not a member of this group.'
+      flash[:error] = 'You are not a member of this group.'
     else
       if @group.moderators.include?(current_user) && @group.moderators.size == 1
         flash[:error] = "You are the last moderator of this group. You can't leave it before nominating a new moderator"
       else
         @group.leave(current_user)
         #todo: eliminar cuando este claro que sucede si un usuario ya es miembro
-        flash[:notice] = 'You are no longer a member of this group'
+        flash[:ok] = 'You are no longer a member of this group'
       end
     end
     redirect_to member_groups_path
   end
   
-  
-  def invite_accept
-    mem = Membership.find(params[:id])
-    if mem
-      group = mem.group
-      if mem.user_id == current_user.id
-        mem.group.activate_membership(current_user)
-        flash[:notice] = 'Ahora formas parte de esta comunidad'
-        subject = 'Invitación a la comunidad ' + group.name + ' aceptada'
-        body = 'El usuario ' + current_user.name + ' ha aceptado ser parte de la comunidad.'
-        send_message_to_moderators(group, current_user, subject, body)
-        redirect_to groups_members_path(group)
-      else
-        flash[:error] = 'Esta invitación no es para tí'
-        redirect_to groups_members_path(group)
-      end
-    else
-      flash[:error] = 'No se ha encontrado esa invitación'
-      redirect_to profiles_show_path(current_user)
-    end
-  end
-  
-  def invite_reject
-    mem = Membership.find(params[:id])
-    if mem
-      group = mem.group
-      if mem.user_id == current_user.id
-        mem.destroy
-        flash[:notice] = 'Has rechazado la invitación'
-        subject = 'Invitación a la comunidad ' + group.name + ' rechazada'
-        body = 'El usuario ' + current_user.name + ' ha rechazado ser parte de la comunidad.'
-        send_message_to_moderators(group, current_user, subject, body)
-        redirect_to groups_members_path(group)
-      else
-        flash[:error] = 'Esta invitación no es para tí'
-        redirect_to groups_members_path(group)
-      end
-    else
-      flash[:error] = 'No se ha encontrado esa invitación'
-      redirect_to profiles_show_path(current_user)
-    end    
-  end
-  
   private 
     def load_group
-      #todo be more specific with this error control
+      #TODO be more specific with this error control
       begin
         @group = Group.find(params[:id]) 
         raise "Error. This group is not active" unless @group.active?

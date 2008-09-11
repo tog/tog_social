@@ -17,7 +17,7 @@ class Admin::GroupsController < Admin::BaseController
     @group.destroy
     respond_to do |wants|
       wants.html do
-        flash[:notice]='Group deleted.'
+        flash[:ok]='Group deleted.'
         redirect_to meta_groups_path
       end
     end
