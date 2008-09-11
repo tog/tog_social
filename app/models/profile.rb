@@ -90,11 +90,25 @@ class Profile < ActiveRecord::Base
   end
   def remove_friend(friend)
     relationships = me.friendships.select{|f| f.inviter == friend  || f.invited == friend }
-    relationships.each{|r| r.destroy}
+    destroy_relationships(relationships)
   end
 
+  def remove_follower(friend)
+    relationships = me.follower_friendships.select{|f| f.inviter == friend}
+    destroy_relationships(relationships)
+  end
+
+  def remove_following(friend)
+    relationships = me.following_friendships.select{|f| f.invited == friend}
+    destroy_relationships(relationships)
+  end
   
   private
+  def destroy_relationships(relationships)
+    # todo maybe we need to save this somewhere to keep historical records?
+    relationships.each{|r| r.destroy}
+  end
+  
   # Freud will be happy.
   def me
     self
