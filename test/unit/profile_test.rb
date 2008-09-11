@@ -32,15 +32,8 @@ class ProfileTest < Test::Unit::TestCase
       assert @evo.follows?(@chavez), "Evo should follow Chavez"
       assert @chavez.followed_by?(@evo), "Chavez should be followed by Evo"
     end
-    
 
-    def test_add_following
-      @evo.add_following(@chavez)
-      assert @evo.follows?(@chavez), "Evo should follow Chavez"
-      assert @chavez.followed_by?(@evo), "Chavez should be followed by Evo"
-    end
-
-    def test_add_follower_twice_has_no_effect
+    should "allow to add a follower twice with no side effects" do
       assert_difference(Friendship, :count) do
         @chavez.add_follower(@evo)
       end
@@ -48,31 +41,44 @@ class ProfileTest < Test::Unit::TestCase
         @chavez.add_follower(@evo)
       end
     end
-
-
-    def test_add_follower_from_a_person_im_following_should_convert_the_relationship_on_a_friendship
+    should "treat add_follower and add_following as symmetrical relationships" do
+      @evo.add_following(@chavez)
+      assert @evo.follows?(@chavez), "Evo should follow Chavez"
+      assert @chavez.followed_by?(@evo), "Chavez should be followed by Evo"
+    end
+    
+    should "convert a mutual follower relationship between 2 users on a friendship" do
       @chavez.add_follower(@evo)
       @evo.add_follower(@chavez)
       assert @evo.is_friend_of?(@chavez)
       assert @chavez.is_friend_of?(@evo)
     end
-
-    def test_add_friend
+    should "allow to add a friend" do
       assert !@evo.is_related_to?(@chavez)
       assert @evo.add_friend(@chavez)
       assert @evo.is_friend_of?(@chavez), "Evo and Chavez should be friends"
       assert @chavez.is_friend_of?(@evo), "Chavez and Evo should be friends"
     end
-
-    def test_remove_friend
+    should "allow to remove a friend" do
       assert @evo.add_friend(@chavez)
       assert @evo.is_friend_of?(@chavez), "Evo and Chavez should be friends"
       @evo.remove_friend(@chavez)
       assert !@evo.is_friend_of?(@chavez)
       assert !@evo.is_related_to?(@chavez)
     end
-    
-    
-    
+    should "allow to remove a follower" do
+      @chavez.add_follower(@evo)
+      assert @chavez.is_related_to?(@evo)
+      @chavez.remove_follower(@evo)
+      assert !@evo.follows?(@chavez), "Evo should not follow Chavez anymore"
+      assert !@chavez.followed_by?(@evo), "Chavez should not be followed by Evo anymore"
+    end
+    should "allow to remove a following" do
+      @evo.add_following(@chavez)
+      assert @evo.is_related_to?(@chavez)
+      @evo.remove_following(@chavez)
+      assert !@evo.follows?(@chavez), "Evo should not follow Chavez anymore"
+      assert !@chavez.followed_by?(@evo), "Chavez should not be followed by Evo anymore"
+    end
   end
 end
