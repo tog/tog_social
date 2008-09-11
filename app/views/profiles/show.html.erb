@@ -24,9 +24,8 @@
         <h2><span>More links</span></h2>
         <div class="portlet_content">
             <ul>
-                <li><a href="#">Ver amigos de <%=@profile.full_name%> (<%= @profile.friends.size %>)</a></li>
-                <li><a href="#">Enviarle un mensaje a <%=@profile.full_name%>.</a></li>
-                <li><a href="#">Este perfil es inapropiado.</a></li>
+                <li><%= link_to 'Send a private message', member_new_message_to_path(@profile.user) %></li>
+                <li><%= following_options(@profile) %></li>
             </ul>
         </div> 
     </div>    
