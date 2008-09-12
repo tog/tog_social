@@ -47,25 +47,33 @@ class ProfileTest < Test::Unit::TestCase
       assert @chavez.followed_by?(@evo), "Chavez should be followed by Evo"
     end
     
-    should "convert a mutual follower relationship between 2 users on a friendship" do
-      @chavez.add_follower(@evo)
-      @evo.add_follower(@chavez)
+    should "treat a friendship as a bidirectional relationship" do
+      @evo.add_friend(@chavez)
       assert @evo.is_friend_of?(@chavez)
       assert @chavez.is_friend_of?(@evo)
     end
+    
+    should "convert a mutual follower relationship between 2 profiles on a friendship" do
+      @chavez.add_follower(@evo)
+      @evo.add_follower(@chavez)
+      assert @evo.is_friend_of?(@chavez)
+    end
+    
     should "allow to add a friend" do
       assert !@evo.is_related_to?(@chavez)
-      assert @evo.add_friend(@chavez)
+      @evo.add_friend(@chavez)
       assert @evo.is_friend_of?(@chavez), "Evo and Chavez should be friends"
       assert @chavez.is_friend_of?(@evo), "Chavez and Evo should be friends"
     end
+    
     should "allow to remove a friend" do
-      assert @evo.add_friend(@chavez)
+      @evo.add_friend(@chavez)
       assert @evo.is_friend_of?(@chavez), "Evo and Chavez should be friends"
       @evo.remove_friend(@chavez)
       assert !@evo.is_friend_of?(@chavez)
       assert !@evo.is_related_to?(@chavez)
     end
+    
     should "allow to remove a follower" do
       @chavez.add_follower(@evo)
       assert @chavez.is_related_to?(@evo)
@@ -73,12 +81,32 @@ class ProfileTest < Test::Unit::TestCase
       assert !@evo.follows?(@chavez), "Evo should not follow Chavez anymore"
       assert !@chavez.followed_by?(@evo), "Chavez should not be followed by Evo anymore"
     end
+    
     should "allow to remove a following" do
       @evo.add_following(@chavez)
       assert @evo.is_related_to?(@chavez)
       @evo.remove_following(@chavez)
       assert !@evo.follows?(@chavez), "Evo should not follow Chavez anymore"
       assert !@chavez.followed_by?(@evo), "Chavez should not be followed by Evo anymore"
+    end
+    
+    should "allow unidirectional remove_followings on a friendship" do
+      @evo.add_friend(@chavez)
+      @chavez.remove_following(@evo)
+      assert @evo.follows?(@chavez)
+      assert !@chavez.follows?(@evo)
+    end
+    
+    should "allow unidirectional remove_followings on a friendship created through a two-step follow process" do
+      @chavez.add_following @evo
+      @evo.add_following @chavez
+      @chavez.remove_following @evo
+      @chavez.follows? @evo
+    end
+    should "treat a friendship as mutual follower relationship between the 2 profiles" do
+      @evo.add_friend(@chavez)
+      assert @evo.follows?(@chavez)
+      assert @chavez.follows?(@evo)
     end
   end
 end
