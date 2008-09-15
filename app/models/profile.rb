@@ -78,6 +78,8 @@ class Profile < ActiveRecord::Base
   end
 
   def add_friend(friend)
+    return false if friend.is_friend_of? me
+      
     relationship = if friend.follows? me
       find_friendship(friend, me, Friendship::PENDING)
     elsif friend.followed_by? me
