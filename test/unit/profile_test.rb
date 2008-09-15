@@ -20,6 +20,7 @@ class ProfileTest < Test::Unit::TestCase
         assert_equal "Chavez", @chavez.full_name,  "Full name should Chavez if first name is blank"
       }
     end
+    
     should "return login as full_name if first name and last name are blank" do
       [nil, ""].each {|value|
         @chavez.first_name = @chavez.last_name = value
@@ -41,6 +42,7 @@ class ProfileTest < Test::Unit::TestCase
         @chavez.add_follower(@evo)
       end
     end
+    
     should "treat add_follower and add_following as symmetrical relationships" do
       @evo.add_following(@chavez)
       assert @evo.follows?(@chavez), "Evo should follow Chavez"
@@ -103,6 +105,7 @@ class ProfileTest < Test::Unit::TestCase
       @chavez.remove_following @evo
       @chavez.follows? @evo
     end
+    
     should "treat a friendship as mutual follower relationship between the 2 profiles" do
       @evo.add_friend(@chavez)
       assert @evo.follows?(@chavez)
