@@ -1,46 +1,44 @@
-<h2><span>Create group</span></h2>
+<div class="titleB">Create group</div>
+<br />
 
-<%if @group && !@group.errors.empty? -%>
+<% if @group && !@group.errors.empty? -%>
 <div class="error">
-  <%= error_messages_for :group, :header_message => "Hay errores que impiden guardar el registro", :message => "Compruebe los siguientes campos:" %>
+  <%= error_messages_for :group %>
 </div>
-<%end -%>
+<% end -%>
 
 <% form_for(:group, :url=>member_groups_path, :html=>{:multipart=>true}) do |f| %>
-<dl class="cols clearfix">
-
-        <dt>
-          <label for="name">Name</label>
-        </dt>
-        <dd><%= text_field :group, :name, :class => 'fieldbox', :size => 35 %></dd>
-        
-        <dt>
-          <label for="description">Description</label>
-        </dt>
-        <dd><%= text_area :group, :description, :class => 'fieldbox', :size => '60x10' %></dd>
-   
-        <dt>
-          <label for="tags">Tags</label>
-        </dt>
-        <dd><%= text_field :group, :tag_list, :class => 'fieldbox', :size => 35 %><br/>
-           <small>Separated by commas</small></dd>
-        <dt>
-          <label for="image" class="maincolor4">Image</label>
-        </dt>
-        <dd><%= file_column_field "group", "image" %></dd>
- 
-	      <dt><label for="private">Private</label> <%= check_box :group, :private %><br/>A private group won't appear in listings.</dt>
-        <dd></dd>
-
-	      <dt><label for="moderated">Moderated</label> <%= check_box :group, :moderated %><br/>In a moderated roup each join reuest should be approved by one of group's moderators.</dt>
-
-
-    <dt>&nbsp;</dt>
-    <dd>
-      <div class="clearfix">
-        <%= submit_tag 'Create', :class => "button mainaction" %>
-      </div>
-    </dd>
-
-</dl>
+  <fieldset>
+    <legend>Group details</legend>
+    <div class="fields">
+      <p>
+        <label for="group_name">Name</label>
+        <%= f.text_field :name, :class=>"fieldbox", :size => 35 %>
+      </p>
+      <p>
+        <label for="group_description">Description</label>
+        <%= f.text_area :description, :class => 'fieldbox', :size => '60x10' %>
+      </p>
+      <p>
+        <label for="group_tag_list">Tags</label>
+        <%= f.text_field :tag_list, :class => 'fieldbox', :size => 35 %><br/>
+        <span class="helpinfo">Separated by commas</span>
+      </p>
+      <p>
+        <label for="group_image">Image</label>
+        <%= file_column_field "group", "image" %>
+      </p>
+      <p>
+        <label for="group_private" class="nolabel">Private <%= f.check_box :private %></label><br/>
+        <span class="helpinfo">A private group won't appear in listings.</span>
+      </p>
+      <p>
+        <label for="group_moderated" class="nolabel">Moderated  <%= f.check_box :moderated %></label><br/>
+        <span class="helpinfo">In a moderated roup each join reuest should be approved by one of group's moderators.</span>
+      </p>
+    </div>
+    <div class="actions">
+      <%= submit_tag 'Create', :class => "button mainaction" %>
+    </div>
+  </fieldset>
 <% end %>
