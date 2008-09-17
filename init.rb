@@ -1,7 +1,6 @@
 require_plugin 'tog_core'
 require_plugin 'acts_as_state_machine'
 require_plugin 'seo_urls'
-require_plugin 'acts_as_taggable_on_steroids'
 require_plugin 'file_column'
 
 Tog::Plugins.settings :tog_social, "group.image.storage"         => "file_system",
