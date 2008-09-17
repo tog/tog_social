@@ -1,7 +1,5 @@
 class Member::GroupsController < Member::BaseController
   
-  helper :groups
-  
   before_filter :find_group, :except => [:index, :new, :create]
   before_filter :check_moderator, :except => [:index, :new, :create]
      
@@ -10,9 +8,6 @@ class Member::GroupsController < Member::BaseController
     @plain_memberships = current_user.plain_memberships
   end
      
-  def new
-  end  
-  
   def create
     @group = Group.new(params[:group])
     @group.author = current_user
@@ -37,18 +32,12 @@ class Member::GroupsController < Member::BaseController
 
   end
   
-  def edit
-  end
-  
   def update
     @group.update_attributes!(params[:group])
     @group.tag_list = params[:group][:tag_list]
     @group.save
     flash[:ok] = "Group #{@group.name} succcessfully updated!"     
     redirect_to groups_show_path(@group)   
-  end
-  
-  def pending_members
   end
   
   def reject_member
