@@ -11,7 +11,7 @@ module ProfilesHelper
   end
   
   def its_me?
-    return logged_in? && @profile && current_user.profile = @profile ? true : false
+    logged_in? && @profile && current_user.profile == @profile
   end
 
   def following_options(profile=@profile) 
