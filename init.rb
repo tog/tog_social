@@ -19,6 +19,8 @@ Tog::Plugins.settings :tog_social, "profile.image.default"         => "default_p
                                    "profile.image.versions.tiny"   => "25x25",
                                    "profile.list.page.size"        => "10"
 
+Tog::Plugins.helpers ProfilesHelper, GroupsHelper
+
 Tog::Interface.sections(:site).add "Profiles", "/profiles"     
 Tog::Interface.sections(:site).add "Groups", "/Groups"     
 Tog::Interface.sections(:member).add "My groups", "/member/groups"     
