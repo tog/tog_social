@@ -1,8 +1,5 @@
 class Group < ActiveRecord::Base
-  
-  acts_as_taggable      
-  seo_urls      
-  
+
   belongs_to :author, :class_name => 'User', :foreign_key => 'user_id'
 
   has_many :memberships
@@ -19,6 +16,9 @@ class Group < ActiveRecord::Base
   has_many :moderators, :through => :moderator_memberships, :source => :user,
                         :conditions => ['memberships.state = ?', 'active']
 
+  validates_uniqueness_of :name
+  validates_presence_of :name
+  validates_presence_of :author
 
   file_column :image, :root_path => File.join(RAILS_ROOT, "public/system/group_photos"), :web_root => 'system/group_photos/', :magick => {
       :versions => {
@@ -30,6 +30,9 @@ class Group < ActiveRecord::Base
   }
 
   record_activity_of :user
+  acts_as_abusable
+  acts_as_taggable      
+  seo_urls      
 
   acts_as_state_machine :initial => :pending
   state :pending, :enter => :make_activation_code
@@ -38,9 +41,6 @@ class Group < ActiveRecord::Base
     transitions :from => :pending, :to => :active
   end
 
-  validates_uniqueness_of :name
-  validates_presence_of :name
-  validates_presence_of :author
 
   def membership_of(user)
     mem = memberships.select{|m| m.user == user}

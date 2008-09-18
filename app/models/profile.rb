@@ -1,17 +1,7 @@
 class Profile < ActiveRecord::Base
+
   belongs_to :user
   
-  record_activity_of :user
-  
-  file_column :icon, :root_path => File.join(RAILS_ROOT, "public/system/profile"), :web_root => 'system/profile/', :magick => {
-    :versions => {
-      :big    => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.profile.image.versions.big"],    :name => "big"},
-      :medium => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.profile.image.versions.medium"], :name => "medium"},
-      :small  => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.profile.image.versions.small"],  :name => "small"},
-      :tiny   => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.profile.image.versions.tiny"],   :name => "tiny"}
-    }
-  }
-
   has_many :friendships_by_others, :class_name => "Friendship", :foreign_key => 'invited_id', :conditions => "status = #{Friendship::ACCEPTED}"
   has_many :friendships_by_me, :class_name => "Friendship", :foreign_key => 'inviter_id', :conditions => "status = #{Friendship::ACCEPTED}"
 
@@ -26,7 +16,17 @@ class Profile < ActiveRecord::Base
 
   before_create :set_default_icon
 
-
+  file_column :icon, :root_path => File.join(RAILS_ROOT, "public/system/profile"), :web_root => 'system/profile/', :magick => {
+    :versions => {
+      :big    => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.profile.image.versions.big"],    :name => "big"},
+      :medium => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.profile.image.versions.medium"], :name => "medium"},
+      :small  => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.profile.image.versions.small"],  :name => "small"},
+      :tiny   => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.profile.image.versions.tiny"],   :name => "tiny"}
+    }
+  }
+  record_activity_of :user
+  acts_as_abusable
+  
   def friends
     # Reload associations just to make sure we're working with the current staff. Bad smell!
     # todo check this... if we don't should reload the relationship to get the test working...
