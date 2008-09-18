@@ -22,6 +22,6 @@ Tog::Plugins.settings :tog_social, "profile.image.default"         => "default_p
 Tog::Plugins.helpers ProfilesHelper, GroupsHelper
 
 Tog::Interface.sections(:site).add "Profiles", "/profiles"     
-Tog::Interface.sections(:site).add "Groups", "/Groups"     
+Tog::Interface.sections(:site).add "Groups", "/groups"     
 Tog::Interface.sections(:member).add "My groups", "/member/groups"     
 Tog::Interface.sections(:admin).add "Groups", "/admin/groups"     
