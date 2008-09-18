@@ -1,7 +1,9 @@
 class Membership < ActiveRecord::Base
   belongs_to :group
   belongs_to :user
-
+  
+  record_activity_of :user
+  
   acts_as_state_machine :initial => :pending
   
   state :pending, :enter => :make_activation_code

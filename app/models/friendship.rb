@@ -11,6 +11,7 @@
 #  jerry    tom      accept  |                               | jerry "begun" the friendship
 #  or                        |  jerry and tom are friends    |    
 #  jerry    tom      accept  |                               | tom "begun" the friendship
+
 class Friendship  < ActiveRecord::Base
    belongs_to :inviter, :class_name => 'Profile'
    belongs_to :invited, :class_name => 'Profile'

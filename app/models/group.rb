@@ -29,6 +29,8 @@ class Group < ActiveRecord::Base
       }
   }
 
+  record_activity_of :user
+
   acts_as_state_machine :initial => :pending
   state :pending, :enter => :make_activation_code
   state :active,  :enter => :do_activate

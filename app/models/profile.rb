@@ -1,6 +1,8 @@
 class Profile < ActiveRecord::Base
   belongs_to :user
-
+  
+  record_activity_of :user
+  
   file_column :icon, :root_path => File.join(RAILS_ROOT, "public/system/profile"), :web_root => 'system/profile/', :magick => {
     :versions => {
       :big    => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.profile.image.versions.big"],    :name => "big"},
