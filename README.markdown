@@ -5,13 +5,13 @@ Tog Social is the plugin that adds basic social-network support to you site.
 
 == Included functionality
 
-# Profiles (including photos)
-# Groups (including images)
-# Moderated and open groups
-# Public and private groups
-# Invitations for joining a group
-# Bi-directional friendships
-# Followers and fan friendships
+* Profiles (including photos)
+* Groups (including images)
+* Moderated and open groups
+* Public and private groups
+* Invitations for joining a group
+* Bi-directional friendships
+* Followers and fan friendships
 
 Resources
 =========
