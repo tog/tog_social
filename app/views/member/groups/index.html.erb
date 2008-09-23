@@ -4,39 +4,38 @@
     <h2><span>Groups moderated by you</span></h2>
     <div class="portlet_content">
         <ul>
-					<% @moderator_memberships.each do |membership|%>
-	          <li>
-	          	<div class="img"><%=link_to image_for_group(membership.group, 'small'), group_path(membership.group)%></div>
-			        <div class="info">
-			          <div class="title"><%= link_to membership.group.name, group_path(membership.group) %></div>
-								<div id="actions">
-									<%= link_to "#{membership.group.pending_members.size} members waiting for approval", member_group_pending_members_path(membership.group) %>
-									
-								</div>
-			        </div><!--  fin info -->
-						<li>
-					<%end%>
+          <% @moderator_memberships.each do |membership|%>
+            <li>
+              <div class="img"><%=link_to image_for_group(membership.group, 'small'), group_path(membership.group)%></div>
+              <div class="info">
+                <div class="title"><%= link_to membership.group.name, group_path(membership.group) %></div>
+                <div id="actions">
+                <%= link_to "Edit Group", edit_member_group_path(membership.group) -%>  <%= link_to "#{membership.group.pending_members.size} members waiting for approval", member_group_pending_members_path(membership.group) %>
+                </div>
+              </div><!--  fin info -->
+            <li>
+          <%end%>
         </ul>
-    </div>    
+    </div>
 </div>
 
 <div class="portlet portletB" id="profiles_list">
     <h2><span>Groups you are a plain member of</span></h2>
     <div class="portlet_content">
         <ul>
-					<% @plain_memberships.each do |membership|%>
-	          <li>
-	          	<div class="img"><%=link_to image_for_group(membership.group, 'small'), group_path(membership.group)%></div>
-			        <div class="info">
-			          <div class="title"><%= link_to membership.group.name, group_path(membership.group) %></div>
-								<div id="actions">
-									Status: <%=membership.state%>
-								<br/>
-								<%= link_to 'Leave this group', leave_group_path(membership.group), :confirm => 'Are you sure you want to leave this group?', :class => 'delete' %>
-								</div>
-			        </div><!--  fin info -->
-						<li>
-					<%end%>
+          <% @plain_memberships.each do |membership|%>
+            <li>
+              <div class="img"><%=link_to image_for_group(membership.group, 'small'), group_path(membership.group)%></div>
+              <div class="info">
+                <div class="title"><%= link_to membership.group.name, group_path(membership.group) %></div>
+                <div id="actions">
+                  Status: <%=membership.state%>
+                <br/>
+                <%= link_to 'Leave this group', leave_group_path(membership.group), :confirm => 'Are you sure you want to leave this group?', :class => 'delete' %>
+                </div>
+              </div><!--  fin info -->
+            <li>
+          <%end%>
         </ul>
-    </div>    
+    </div>
 </div>
