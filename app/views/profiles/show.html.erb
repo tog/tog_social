@@ -25,6 +25,7 @@
         <div class="portlet_content">
             <ul>
                 <li><%= link_to 'Send a private message', member_new_message_to_path(@profile.user) %></li>
+                <li><%= report_abuse_link @profile %></li>
                 <li><%= following_options(@profile) %></li>
             </ul>
         </div> 
