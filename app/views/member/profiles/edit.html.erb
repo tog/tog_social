@@ -1,0 +1,33 @@
+<div class="titleB">Update profile</div>
+<br />
+
+<%= error_messages_for :profile %>
+<% form_for :profile, :url => member_profile_path(@profile), :html => {:method => :put, :multipart=>true} do |f| -%>
+  <fieldset>
+    <legend>Profile details</legend>
+    <div class="fields">
+      <p>
+        <label for="profile_first_name">First name</label>
+        <%= f.text_field :first_name, :class=>"fieldbox" %>
+      </p>
+      <p>
+        <label for="profile_last_name">Last name</label>
+        <%= f.text_field :last_name, :class=>"fieldbox" %>
+      </p>
+      <p>
+        <label for="profile_website">Website</label>
+        <%= f.text_field :website, :class=>"fieldbox wide" %>
+      </p>
+      <p>
+        <label for="profile_icon">Avatar</label>
+        <%= icon_for_profile(@profile, 'big')%>
+        <%= file_column_field "profile", "icon" %><br />
+        <span class="helpinfo">If you want to change the profile´s avatar, select a new image file. Otherwise, let them unchanged.</span>
+      </p>
+    </div>
+  </fieldset>
+
+  <div class="actions">
+    <%= submit_tag 'Update profile', {:accesskey => "s", :class=>"button mainaction"} %>
+  </div>
+<% end -%>
