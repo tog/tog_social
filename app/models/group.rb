@@ -20,6 +20,8 @@ class Group < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :author
 
+  before_create :set_default_image
+
   file_column :image, :root_path => File.join(RAILS_ROOT, "public/system/group_photos"), :web_root => 'system/group_photos/', :magick => {
       :versions => {
         :big    => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.group.image.versions.big"],    :name => "big"},
@@ -31,8 +33,8 @@ class Group < ActiveRecord::Base
 
   record_activity_of :user
   acts_as_abusable
-  acts_as_taggable      
-  seo_urls      
+  acts_as_taggable
+  seo_urls
 
   acts_as_state_machine :initial => :pending
   state :pending, :enter => :make_activation_code
@@ -99,6 +101,15 @@ class Group < ActiveRecord::Base
     self.activated_at = Time.now.utc
     self.activation_code = nil
     self.moderator_memberships.each{|mod| mod.activate!}
+  end
+
+  def set_default_image
+    unless self.image
+      if Tog::Config["plugins.tog_social.group.image.default"]
+        default_group_image = File.join(RAILS_ROOT, 'public', 'tog_social', 'images', Tog::Config["plugins.tog_social.group.image.default"])
+        self.image = File.new(default_group_image)
+      end
+    end
   end
 
 end
