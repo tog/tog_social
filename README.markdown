@@ -3,7 +3,8 @@ Tog Social
 
 Tog Social is the plugin that adds basic social-network support to you site.
 
-== Included functionality
+Included functionality
+----------------------
 
 * Profiles (including photos)
 * Groups (including images)
@@ -19,9 +20,9 @@ Resources
 Plugin requirements
 -------------------
 
-* https://github.com/tog/tog/wikis/3rd-party-plugins-acts_as_state_machine
-* https://github.com/tog/tog/wikis/3rd-party-plugins-seo_urls
-* https://github.com/tog/tog/wikis/3rd-party-plugins-file_column
+* [http://github.com/tog/tog/wikis/3rd-party-plugins-acts\_as\_state\_machine](http://github.com/tog/tog/wikis/3rd-party-plugins-acts\_as\_state\_machine)
+* [http://github.com/tog/tog/wikis/3rd-party-plugins-seo\_urls](http://github.com/tog/tog/wikis/3rd-party-plugins-seo\_urls)
+* [http://github.com/tog/tog/wikis/3rd-party-plugins-file\_column](http://github.com/tog/tog/wikis/3rd-party-plugins-file\_column)
 
 Install
 -------
@@ -72,13 +73,13 @@ rake db:migrate
 More
 -------
 
-"https://github.com/tog/tog_social":https://github.com/tog/tog_social
+[http://github.com/tog/tog\_social]:(http://github.com/tog/tog_social)
 
-"https://github.com/tog/tog_social/wikis":https://github.com/tog/tog_social/wikis
+[http://github.com/tog/tog\_social/wikis](http://github.com/tog/tog_social/wikis)
 
-"Creating relationships between users":https://github.com/tog/tog_social/wikis/creating-relationships-between-users
+[Creating relationships between users](http://github.com/tog/tog_social/wikis/creating-relationships-between-users)
 
-"Showing friends, followers or followings in a portlet":https://github.com/tog/tog_social/wikis/showing-friends-followers-or-followings-in-a-portlet
+[Showing friends, followers or followings in a portlet](http://github.com/tog/tog_social/wikis/showing-friends-followers-or-followings-in-a-portlet)
 
 
 
