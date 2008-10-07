@@ -8,26 +8,30 @@ class CreateTogSocialTables < ActiveRecord::Migration
       t.string   :blog
       t.string   :icon
       t.timestamps
-    end 
+    end
     User.find(:all).each{|u|
-      profile = Profile.new 
+      profile = Profile.new
       profile.user = u
+      if Tog::Config["plugins.tog_social.profile.image.default"]
+        default_profile_icon = File.join(RAILS_ROOT, 'public', 'tog_social', 'images', Tog::Config["plugins.tog_social.profile.image.default"])
+        profile.icon = File.new(default_profile_icon)
+      end
       profile.save!
     }
-    
+
     create_table :groups do |t|
       t.string   :name
       t.string   :description
       t.string   :image
       t.string   :state
       t.boolean  :private
-      t.boolean :moderated, :default => false 
+      t.boolean  :moderated, :default => false
       t.integer  :user_id
       t.string   :activation_code, :limit => 40
       t.datetime :activated_at
       t.timestamps
     end
-    
+
     create_table :memberships do |t|
       t.integer  :user_id
       t.integer  :group_id
@@ -37,6 +41,7 @@ class CreateTogSocialTables < ActiveRecord::Migration
       t.datetime :activated_at
       t.timestamps
     end
+
     create_table :friendships do |t|
       t.integer  :inviter_id
       t.integer  :invited_id
