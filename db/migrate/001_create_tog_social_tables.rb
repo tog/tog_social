@@ -12,10 +12,6 @@ class CreateTogSocialTables < ActiveRecord::Migration
     User.find(:all).each{|u|
       profile = Profile.new
       profile.user = u
-      if Tog::Config["plugins.tog_social.profile.image.default"]
-        default_profile_icon = File.join(RAILS_ROOT, 'public', 'tog_social', 'images', Tog::Config["plugins.tog_social.profile.image.default"])
-        profile.icon = File.new(default_profile_icon)
-      end
       profile.save!
     }
 
