@@ -2,7 +2,7 @@ class Group < ActiveRecord::Base
 
   belongs_to :author, :class_name => 'User', :foreign_key => 'user_id'
 
-  has_many :memberships
+  has_many :memberships, :dependent => :destroy
 
   has_many :moderator_memberships, :class_name => 'Membership',
                                    :conditions => ['memberships.moderator = ?', true]
