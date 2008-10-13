@@ -17,18 +17,14 @@
     </tr>
   </tfoot>
   <tbody>
-
     <% @groups.each do |group| %>
-
-    <tr<%= cycle('',' class="even"') -%>>
+    <tr<%= cycle('',' class="pair"') -%>>
       <td><%= link_to group.name, edit_admin_group_url(group), {:class => "admin", :title => "Edit group"} -%></td>
-			<td><%= link_to group.author.profile.full_name, edit_admin_user_path(group.author) %></td>
+      <td><%= link_to group.author.profile.full_name, edit_admin_user_path(group.author) %></td>
       <td><%= group.private -%></td>
       <td><%= group.moderated -%></td>
       <td><%= group.active? ? "Yes" : "No"  -%></td>
     </tr>
-
     <% end %>
-    
   </tbody>
 </table>

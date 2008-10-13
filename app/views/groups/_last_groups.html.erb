@@ -2,12 +2,11 @@
   <h2><span>Last groups</span></h2>
   <div class="portlet_content">
     <ul>
-      <% last_groups(3).each do |group| %>
-      <li>
-        <%= link_to group.name, group_path(group) %>
-        <span class=""><%= group.members.size %> members</span>
+      <% last_groups(3).each do |group| -%>
+        <li>
+          <%= link_to group.name, group_path(group) -%> <%= group.members.size -%> members
         </li>
       <% end -%>
     </ul>
-  </div>    
+  </div>
 </div>
