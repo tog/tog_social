@@ -1,0 +1,24 @@
+<div class="portlet portletB" id="profiles_list">
+  <h2><span>Groups with tag "<%=@tag%>"</span></h2>
+  <div class="portlet_content">
+    <ul>
+      <% @groups.each do |group|%>
+        <li>
+          <div class="img"><%=link_to image_for_group(group, 'small'), group_path(group)%></div>
+          <div class="info">
+            <div class="title"><%= link_to group.name, group_path(group) %></div>
+            <div class="subtitle maincolor2">Created <%=group.created_at.strftime("%d/%m/%Y")%> by <%=link_to group.author.profile.full_name, profile_path(group.author.profile)%><br/>
+              Members: <%=group.members.size%><br/>
+              Tags:
+              <% for tag in group.tag_list %>
+                <%= link_to tag, tag_groups_path(tag) %>
+              <% end %>
+              <br/>
+            </div>
+            <div class="text"><%=group.description%></div>
+          </div>
+        <li>
+      <%end%>
+    </ul>
+  </div>
+</div>
