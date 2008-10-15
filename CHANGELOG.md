@@ -1,5 +1,8 @@
 Edge
 ----
+
+0.3.0
+----
 * Fix memberships relation and redirection after delete
 * New styles applied and tabs removed
 * Tag search view
