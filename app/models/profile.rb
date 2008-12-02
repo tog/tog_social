@@ -26,6 +26,8 @@ class Profile < ActiveRecord::Base
   }
   record_activity_of :user
   acts_as_abusable
+
+  named_scope :active, :conditions => {'users.state' => 'active'}, :include => :user
   
   def friends
     # Reload associations just to make sure we're working with the current staff. Bad smell!

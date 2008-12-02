@@ -4,9 +4,9 @@ class ProfilesController < ApplicationController
     @order = params[:order] || 'created_at'
     @page = params[:page] || '1'
     @asc = params[:asc] || 'desc'   
-    @profiles = Profile.paginate :per_page => Tog::Config["plugins.tog_social.profile.list.page.size"],
+    @profiles = Profile.active.paginate :per_page => Tog::Config["plugins.tog_social.profile.list.page.size"],
                                  :page => @page,
-                                 :order => @order + " " + @asc 
+                                 :order => "profiles.#{@order} #{@asc}"
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @profiles }
@@ -14,7 +14,7 @@ class ProfilesController < ApplicationController
   end
   
   def show
-    @profile = Profile.find(params[:id])
+    @profile = Profile.active.find(params[:id])
     store_location
     respond_to do |format|
       format.html # index.html.erb
