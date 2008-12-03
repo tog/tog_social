@@ -42,7 +42,10 @@ class Group < ActiveRecord::Base
   event :activate do
     transitions :from => :pending, :to => :active
   end
-
+  
+  def self.site_search(query, search_options={})
+    Group.find(:all, :conditions => ["state = 'active' and name like ?", '%' + query + '%'])
+  end
 
   def membership_of(user)
     mem = memberships.select{|m| m.user == user}
