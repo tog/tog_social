@@ -12,7 +12,7 @@ module GroupsHelper
 
   def image_for_group(group, size, options={})
     if group.image
-      photo_url = url_for_image_column(group, "image", :name => size)
+      photo_url = group.image.url(size)
       options.merge!(:alt => "Photo for group: #{group.name}")
       return image_tag(photo_url, options) if photo_url
     else

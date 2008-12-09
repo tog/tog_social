@@ -1,12 +1,12 @@
-<h2><%= @group.name %> 
+<h2><%= @group.name %>
   <% unless @group.active? %>
     <div id="deactivated_status" style="display: inline;font-size: 0.8em;background-color: #FEFF99;padding: 5px;">
-      <span>This group is deactivated. Click 
-      <%= link_to_remote "here",  :url => activate_admin_group_url(@group), :update => "deactivated_status" %> 
+      <span>This group is deactivated. Click
+      <%= link_to_remote "here",  :url => activate_admin_group_url(@group), :update => "deactivated_status" %>
       if you want to activate it.</span>
     </div>
   <% end %>
-</h2>  
+</h2>
 
 <% form_tag admin_group_path(@group), :method => :delete do -%>
   <%= submit_tag "Delete this group", :disable_with => "Please wait...", :class =>"button delete" %>
@@ -19,12 +19,12 @@
   <fieldset>
     <fieldset id="login-details">
       <legend>
-        Group Details<br/><%= image_tag(url_for_image_column(@group, "image", :name =>"medium")) if @group.image %>
+        Group Details<br/><%= image_tag(@group.image.url(:medium)) if @group.image %>
       </legend>
       <label>Created by <%= link_to @group.author.profile.full_name, edit_admin_user_path(@group.author) %> on <%= @group.created_at %></label>
       <label>Last Update: <%= @group.updated_at %></label>
     </fieldset>
-   
+
     <fieldset id="social-details">
       <legend>Memberships</legend>
       <label>Moderators: <%= @group.moderators.to_sentence %></label>

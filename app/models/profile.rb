@@ -16,14 +16,17 @@ class Profile < ActiveRecord::Base
 
   before_create :set_default_icon
 
-  file_column :icon, :root_path => File.join(RAILS_ROOT, "public/system/profile"), :web_root => 'system/profile/', :magick => {
-    :versions => {
-      :big    => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.profile.image.versions.big"],    :name => "big"},
-      :medium => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.profile.image.versions.medium"], :name => "medium"},
-      :small  => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.profile.image.versions.small"],  :name => "small"},
-      :tiny   => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.profile.image.versions.tiny"],   :name => "tiny"}
+  has_attached_file :icon, 
+    :url => "/system/:class/:attachment/:id/:style_:basename.:extension",
+    :path => ":rails_root/public/system/:class/:attachment/:id/:style_:basename.:extension",
+    :styles => { 
+      :big    => Tog::Plugins.settings(:tog_social, "profile.image.versions.big"),
+      :medium => Tog::Plugins.settings(:tog_social, "profile.image.versions.medium"),
+      :small  => Tog::Plugins.settings(:tog_social, "profile.image.versions.small"),
+      :tiny   => Tog::Plugins.settings(:tog_social, "profile.image.versions.tiny")
     }
-  }
+  
+  
   record_activity_of :user
   acts_as_abusable
 

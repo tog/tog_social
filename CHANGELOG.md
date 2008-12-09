@@ -1,5 +1,6 @@
 Edge
 ----
+* Migrated from FileColumn to Paperclip
 
 0.3.0
 ----
