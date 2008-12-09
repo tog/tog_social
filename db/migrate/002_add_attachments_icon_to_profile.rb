@@ -14,7 +14,7 @@ class AddAttachmentsIconToProfile < ActiveRecord::Migration
 
     Profile.all.each do |p|
       unless p.old_file_name.blank?
-        p.icon = File.new("public/system/profile/profile/icon/#{p.id}/#{p.old_file_name}")
+        p.icon = File.new("public/system/profile/profile/icon/#{p.id}/#{p.old_file_name}") if File.exists?("public/system/profile/profile/icon/#{p.id}/#{p.old_file_name}")
         p.save!
       end
     end
@@ -33,7 +33,7 @@ class AddAttachmentsIconToProfile < ActiveRecord::Migration
 
     Profile.all.each do |p|
       unless p.image_file_name.blank?
-        p.icon = File.new("public/system/profiles/images/#{p.id}/#{p.image_file_name}")
+        p.icon = File.new("public/system/profiles/images/#{p.id}/#{p.image_file_name}") if File.exists?("public/system/profiles/images/#{p.id}/#{p.image_file_name}")
         p.save!
       end
     end

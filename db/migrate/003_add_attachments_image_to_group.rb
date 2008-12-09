@@ -14,7 +14,7 @@ class AddAttachmentsImageToGroup < ActiveRecord::Migration
 
     Group.all.each do |p|
       unless p.old_file_name.blank?
-        p.image = File.new("public/system/group_photos/group/image/#{p.id}/#{p.old_file_name}")
+        p.image = File.new("public/system/group_photos/group/image/#{p.id}/#{p.old_file_name}") if File.exists?("public/system/group_photos/group/image/#{p.id}/#{p.old_file_name}")
         p.save!
       end
     end
@@ -33,7 +33,7 @@ class AddAttachmentsImageToGroup < ActiveRecord::Migration
 
     Group.all.each do |p|
       unless p.image_file_name.blank?
-        p.image = File.new("public/system/groups/images/#{p.id}/#{p.image_file_name}")
+        p.image = File.new("public/system/groups/images/#{p.id}/#{p.image_file_name}") if File.exists?("public/system/groups/images/#{p.id}/#{p.image_file_name}")
         p.save!
       end
     end
