@@ -1,7 +1,7 @@
 module ProfilesHelper
 
   def icon_for_profile(profile, size, options={})
-    if profile.icon
+    if profile.icon?
       photo_url = profile.icon.url(size)
       options.merge!(:alt => "Photo for user: #{profile.full_name}")
       return image_tag(photo_url, options) if photo_url
