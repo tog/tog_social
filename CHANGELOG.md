@@ -1,5 +1,8 @@
 Edge
 ----
+
+0.4.0
+----
 * beta oauth support
 * Migrated from FileColumn to Paperclip
 * link for editing user's profile
