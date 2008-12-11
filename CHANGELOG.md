@@ -1,5 +1,6 @@
 Edge
 ----
+* beta oauth support
 * Migrated from FileColumn to Paperclip
 * link for editing user's profile
 * Only pending users should be displayed on the profiles section
