@@ -24,13 +24,12 @@ class Group < ActiveRecord::Base
 
   has_attached_file :image, 
     :url => "/system/:class/:attachment/:id/:style_:basename.:extension",
-    :path => ":rails_root/public/system/:class/:attachment/:id/:style_:basename.:extension",
     :styles => { 
       :big    => Tog::Plugins.settings(:tog_social, "group.image.versions.big"),
       :medium => Tog::Plugins.settings(:tog_social, "group.image.versions.medium"),
       :small  => Tog::Plugins.settings(:tog_social, "group.image.versions.small"),
       :tiny   => Tog::Plugins.settings(:tog_social, "group.image.versions.tiny")
-    }
+    }}.merge(Tog::Plugins.storage_options)
 
   record_activity_of :user
   acts_as_abusable
