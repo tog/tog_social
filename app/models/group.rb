@@ -22,7 +22,7 @@ class Group < ActiveRecord::Base
 
   before_create :set_default_image
 
-  has_attached_file :image, 
+  has_attached_file :image, {
     :url => "/system/:class/:attachment/:id/:style_:basename.:extension",
     :styles => { 
       :big    => Tog::Plugins.settings(:tog_social, "group.image.versions.big"),
