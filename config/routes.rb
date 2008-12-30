@@ -5,6 +5,7 @@ resources :profiles
 
 with_options(:controller => 'groups') do |group|
   group.tag_groups  '/groups/tag/:tag',  :action => 'tag'
+  group.share_with_group  '/:id/share/:shareable_type/:shareable_id',  :action => 'share'
 end
 
 resources :groups, :collection => { :search => :get }, :member => { :join => :get, :leave => :get }

@@ -19,11 +19,11 @@ class Member::GroupsController < Member::BaseController
     if @group.errors.empty?
       if current_user.admin == true || Tog::Config['plugins.tog_social.group.moderation.creation'] != 'true'
          @group.activate!
-         flash[:ok] = 'Group created successfully.'
+         flash[:ok] = I18n.t("tog_social.groups.member.created")
          redirect_to group_path(@group)
       else
         GroupMailer.deliver_activation_request(@group)
-        flash[:warning] = 'Your group has been created but is pending for administration approval.'
+        flash[:warning] = I18n.t("tog_social.groups.member.pending")
         redirect_to groups_path
       end
     else
@@ -36,23 +36,23 @@ class Member::GroupsController < Member::BaseController
     @group.update_attributes!(params[:group])
     @group.tag_list = params[:group][:tag_list]
     @group.save
-    flash[:ok] = "Group #{@group.name} succcessfully updated!"
+    flash[:ok] =  I18n.t("tog_social.groups.member.updated", :name => @group.name) 
     redirect_to group_path(@group)
   end
 
   def reject_member
     user = User.find(params[:user_id])
     if !user
-      flash[:error] = "User doesn't exist"
+      flash[:error] = I18n.t("tog_social.groups.member.user_doesnot_exists")
       redirect_to pending_members_paths(@group)
       return
     end
     @group.leave(user)
     if @group.membership_of(user)
       GroupMailer.deliver_reject_join_request(@group, current_user, user)
-      flash[:ok] = "User " + user.name + " has been rejected for this group"
+      flash[:ok] = I18n.t("tog_social.groups.member.user_rejected", :name => user.name) 
     else
-      flash[:error] = "Ooops. something happened."
+      flash[:error] = I18n.t("tog_social.groups.member.error") 
     end
     redirect_to member_group_pending_members_url(@group)
   end
@@ -60,16 +60,16 @@ class Member::GroupsController < Member::BaseController
   def accept_member
     user = User.find(params[:user_id])
     if !user
-      flash[:error] = "User doesn't exist"
+      flash[:error] = I18n.t("tog_social.groups.member.user_doesnot_exists")
       redirect_to pending_members_paths(@group)
       return
     end
     @group.activate_membership(user)
     if @group.members.include? user
         GroupMailer.deliver_accept_join_request(@group, current_user, user)
-      flash[:ok] = "User " + user.name + " has been accepted in this group"
+      flash[:ok] = I18n.t("tog_social.groups.member.user_accepted", :name => user.name)
     else
-      flash[:error] = "Ooops. something happened."
+      flash[:error] = I18n.t("tog_social.groups.member.error") 
     end
     redirect_to member_group_pending_members_url(@group)
   end
@@ -85,7 +85,7 @@ class Member::GroupsController < Member::BaseController
 
   def check_moderator
     unless @group.moderators.include? current_user
-      flash[:error] = "You are not one of this group's moderators."
+      flash[:error] = I18n.t("tog_social.groups.member.not_moderator") 
       redirect_to groups_path(@group)
     end
   end

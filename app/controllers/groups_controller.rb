@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
   
   before_filter :login_required, :only => [:join, :leave]   
-  before_filter :load_group, :only => [:show, :join, :leave, :members, :invite_accept, :invite_reject] 
+  before_filter :load_group, :only => [:show, :join, :leave, :members, :invite_accept, :invite_reject, :share] 
       
   def index
     @order = params[:order] || 'created_at'
@@ -16,6 +16,27 @@ class GroupsController < ApplicationController
       format.rss { render(:layout => false) }
     end    
   end  
+  
+  def share
+    if @group.members.include? current_user
+      if @group.share(current_user, params[:shareable_type], params[:shareable_id])    
+        message = I18n.t("tog_social.groups.site.shared_ok", :name => @group.name)    
+        html_class = 'notice ok'
+      else
+        message = I18n.t("tog_social.groups.site.shared_nok", :name => @group.name)    
+        html_class = 'notice'        
+      end
+      respond_to do |format|
+         format.html { render :text => "<div class=\"#{html_class}\">#{message}</div>"}
+         format.xml  { render :xml => message, :head => :ok } 
+      end        
+    else
+      respond_to do |format|
+         format.html { render :text => "<div class=\"notice error\">#{I18n.t("tog_social.groups.site.not_member")}</div>"}
+         format.xml  { render :xml => I18n.t("tog_social.groups.site.not_member"), :head => :error } 
+      end
+    end    
+  end
   
   def search
     @order = params[:order] || 'name'
@@ -52,18 +73,18 @@ class GroupsController < ApplicationController
 
   def join
     if @group.members.include? current_user
-      flash[:notice] = 'You already are a member of this group.'
+      flash[:notice] = I18n.t("tog_social.groups.site.already_member")
     else
       if @group.pending_members.include? current_user
-        flash[:notice] = 'Your join request is already being processed. Please, be patient.'
+        flash[:notice] = I18n.t("tog_social.groups.site.request_waiting")
       else      
         @group.join(current_user)
         if @group.moderated == true
           GroupMailer.deliver_join_request(@group, current_user)
-          flash[:ok] = 'You request has been received. Moderators of this groups will make a decision soon.'
+          flash[:ok] = I18n.t("tog_social.groups.site.request_received")
         else
           @group.activate_membership(current_user)
-          flash[:ok] = 'Welcome to ' + @group.name + '. Enjoy it!'          
+          flash[:ok] = I18n.t("tog_social.groups.site.welcome", :name => @group.name)          
         end
       end
     end
@@ -72,14 +93,14 @@ class GroupsController < ApplicationController
    
   def leave
     if !@group.members.include?(current_user) && !@group.pending_members.include?(current_user)
-      flash[:error] = 'You are not a member of this group.'
+      flash[:error] = I18n.t("tog_social.groups.site.not_member")
     else
       if @group.moderators.include?(current_user) && @group.moderators.size == 1
-        flash[:error] = "You are the last moderator of this group. You can't leave it before nominating a new moderator"
+        flash[:error] = I18n.t("tog_social.groups.site.last_moderator")
       else
         @group.leave(current_user)
         #todo: eliminar cuando este claro que sucede si un usuario ya es miembro
-        flash[:ok] = 'You are no longer a member of this group'
+        flash[:ok] = I18n.t("tog_social.groups.site.leaved")
       end
     end
     redirect_to member_groups_path
@@ -90,9 +111,9 @@ class GroupsController < ApplicationController
       #TODO be more specific with this error control
       begin
         @group = Group.find(params[:id]) 
-        raise "Error. This group is not active" unless @group.active?
+        raise I18n.t("tog_social.site.groups.unactive") unless @group.active?
       rescue 
-        flash[:error] = "Error. This group is not active or doesn't exist"
+        flash[:error] = I18n.t("tog_social.groups.site.not_found")
         redirect_to groups_path 
       end
     end

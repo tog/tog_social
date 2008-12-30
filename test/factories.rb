@@ -11,6 +11,7 @@ end
 
 
 Factory.define :group do |g|
-  g.state 'active'
+  g.state 'pending'
+  #g.state '#{a.state}'
   #g.author{|author| author.association :user, :login => 'chavez'} 
 end

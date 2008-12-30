@@ -27,7 +27,7 @@ class Member::FriendshipsController < Member::BaseController
     def find_friend_profile
       @friend = Profile.find(params[:friend_id]) 
       unless @friend 
-        flash[:error] = "There isn't any user with this id: " + params[:friend_id].to_s
+        flash[:error] = I18n.t("tog_social.friendships.member.not_found", :id => params[:friend_id].to_s)
         redirect_to profiles_path 
       end  
     end

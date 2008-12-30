@@ -11,6 +11,7 @@ module GroupsHelper
   end
 
   def image_for_group(group, size, options={})
+    return if !group
     if group.image
       photo_url = url_for_image_column(group, "image", :name => size)
       options.merge!(:alt => "Photo for group: #{group.name}")
@@ -31,6 +32,12 @@ module GroupsHelper
   end
   def i_am_moderator_of(group)
     return group.moderators.include?(current_user)
+  end
+  
+  def share_with_groups_link(shareable, only_moderated_groups=false)
+    return if !shareable
+    groups = only_moderated_groups ? current_user.moderated_groups : current_user.groups
+    render :partial => 'shared/share_with_groups', :locals => {:groups => groups, :shareable => shareable}
   end
 
 end

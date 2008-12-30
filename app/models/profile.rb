@@ -27,8 +27,10 @@ class Profile < ActiveRecord::Base
   record_activity_of :user
   acts_as_abusable
   
+  named_scope :active, :conditions => {'users.state' => 'active'}, :include => :user  
+  
   def self.site_search(query, search_options={})
-    Profile.find(:all, :conditions => ["first_name like ? or last_name like ?", '%' + query + '%', '%' + query + '%'])
+    Profile.find(:all, :conditions => ["first_name like ? or last_name like ?", "%#{query}%", "%#{query}%"])
   end
   
   def friends

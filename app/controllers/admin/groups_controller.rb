@@ -17,7 +17,7 @@ class Admin::GroupsController < Admin::BaseController
     @group.destroy
     respond_to do |wants|
       wants.html do
-        flash[:ok]='Group deleted.'
+        flash[:ok]= I18n.t("tog_social.groups.admin.deleted")
         redirect_to admin_groups_path
       end
     end
@@ -29,7 +29,7 @@ class Admin::GroupsController < Admin::BaseController
     respond_to do |wants|
       if @group.activate!
         wants.html do
-          render :text => "<span>Group is now active</span>"
+          render :text => "<span>"+I18n.t("tog_social.groups.admin.activated")+"</span>"
         end
       end
     end

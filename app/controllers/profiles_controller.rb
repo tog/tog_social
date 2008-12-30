@@ -1,10 +1,10 @@
 class ProfilesController < ApplicationController
   
   def index
-    @order = params[:order] || 'created_at'
+    @order = params[:order] || 'profiles.created_at'
     @page = params[:page] || '1'
     @asc = params[:asc] || 'desc'   
-    @profiles = Profile.paginate :per_page => Tog::Config["plugins.tog_social.profile.list.page.size"],
+    @profiles = Profile.active.paginate :per_page => Tog::Config["plugins.tog_social.profile.list.page.size"],
                                  :page => @page,
                                  :order => @order + " " + @asc 
     respond_to do |format|

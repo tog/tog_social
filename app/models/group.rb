@@ -15,6 +15,8 @@ class Group < ActiveRecord::Base
 
   has_many :moderators, :through => :moderator_memberships, :source => :user,
                         :conditions => ['memberships.state = ?', 'active']
+                        
+  has_many :sharings, :class_name => 'GroupSharing'
 
   validates_uniqueness_of :name
   validates_presence_of :name
@@ -43,8 +45,10 @@ class Group < ActiveRecord::Base
     transitions :from => :pending, :to => :active
   end
   
+  named_scope :active, :conditions => {:state => 'active'}
+  
   def self.site_search(query, search_options={})
-    Group.find(:all, :conditions => ["state = 'active' and name like ?", '%' + query + '%'])
+    Group.active.find(:all, :conditions => ["name like ?", "%#{query}%"])
   end
 
   def membership_of(user)
@@ -93,6 +97,14 @@ class Group < ActiveRecord::Base
     raise "Implement this..."
   end
 
+  def share(user, shareable_type, shareable_id)
+    shared = GroupSharing.count(
+       :conditions => ['shareable_type = ? and shareable_id = ? and group_id = ?', shareable_type, shareable_id, self.id])
+    return false if shared > 0
+    shared = self.sharings.build(:shared_by => user, :shareable_type => shareable_type, :shareable_id => shareable_id) 
+    shared.save!
+    return true
+  end
 
 
   protected

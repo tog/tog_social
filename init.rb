@@ -3,6 +3,11 @@ require_plugin 'acts_as_state_machine'
 require_plugin 'seo_urls'
 require_plugin 'file_column'
 
+require "i18n" unless defined?(I18n)
+Dir[File.dirname(__FILE__) + '/locale/**/*.yml'].each do |file|
+  I18n.load_path << file
+end
+
 Tog::Plugins.settings :tog_social, "group.image.storage"         => "file_system",
                                    "group.image.versions.big"    => "128x128",
                                    "group.image.versions.medium" => "72x72",
@@ -24,4 +29,7 @@ Tog::Plugins.helpers ProfilesHelper, GroupsHelper
 Tog::Interface.sections(:site).add "Profiles", "/profiles"     
 Tog::Interface.sections(:site).add "Groups", "/groups"     
 Tog::Interface.sections(:member).add "My groups", "/member/groups"     
-Tog::Interface.sections(:admin).add "Groups", "/admin/groups"     
+Tog::Interface.sections(:admin).add "Groups", "/admin/groups"
+
+Tog::Search.sources << "Group"
+Tog::Search.sources << "Profile"     
