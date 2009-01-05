@@ -1,29 +1,33 @@
-<h2>Groups</h2>
-<table>
+<h1><%= I18n.t("tog_social.groups.admin.groups") %></h1>
+
+<table class="tableE">
   <thead>
     <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Created by</th>
-      <th scope="col">Private</th>
-      <th scope="col">Moderated</th>
-      <th scope="col">Active</th>
+      <th scope="col"><%= I18n.t("tog_social.groups.model.name") -%></th>
+      <th scope="col"><%= I18n.t("tog_social.groups.model.created_by") -%></th>
+      <th scope="col"><%= I18n.t("tog_social.groups.model.private") -%></th>
+      <th scope="col"><%= I18n.t("tog_social.groups.model.moderated") -%></th>
+      <th scope="col"><%= I18n.t("tog_social.groups.model.active") -%></th>
     </tr>
   </thead>
   <tfoot>
     <tr>
-      <td colspan="5">
-      <%= will_paginate @groups %>
-      </td>
+      <td colspan="5" class="info_results">
+        <span class="info_items"><%= page_entries_info @groups %></span>
+        <span class="pages_navigation right">
+          <%= will_paginate @groups, :container => false %>
+        </span>
+        </td>
     </tr>
-  </tfoot>
+  </tfoot>  
   <tbody>
     <% @groups.each do |group| %>
     <tr<%= cycle('',' class="pair"') -%>>
-      <td><%= link_to group.name, edit_admin_group_url(group), {:class => "admin", :title => "Edit group"} -%></td>
+      <td>(<%= true ? 't' : 'n' %>) <%= link_to group.name, edit_admin_group_url(group), {:class => "admin", :title => I18n.t("tog_social.groups.admin.edit_group")} -%></td>
       <td><%= link_to group.author.profile.full_name, edit_admin_user_path(group.author) %></td>
-      <td><%= group.private -%></td>
-      <td><%= group.moderated -%></td>
-      <td><%= group.active? ? "Yes" : "No"  -%></td>
+      <td><%= if group.private == true ? I18n.t("tog_social.msg_yes") : I18n.t("tog_social.msg_no") -%></td>
+      <td><%= group.moderated == true ? I18n.t("tog_social.msg_yes") : I18n.t("tog_social.msg_no") -%></td>
+      <td><%= group.active? == true ? I18n.t("tog_social.msg_yes") : I18n.t("tog_social.msg_no")  -%></td>
     </tr>
     <% end %>
   </tbody>

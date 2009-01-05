@@ -4,17 +4,26 @@ es:
     plugin_name: Social
     plugin_description: Gestión de objetos sociales básicos (perfiles, grupos y amistades)
     cancel: Cancelar
-
+    msg_yes: Si
+    msg_no: No
     profile:
       member:
         updated: Su perfíl se ha actualizado con éxito
     groups:
+      model:
+        name: Nombre
+        created_by: Creado por
+        private: Privado
+        moderated: Moderado
+        active: Activo
+        icon: Icono
+        created_at: Creado el
+        updated_at: Actualizado el        
       site:
         shared_ok: Objeto compartido con el grupo '{{name}}'!
         shared_nok: Este objeto ya estaba compartido con el grupo '{{name}}'!
         share: Compartir con tus grupos
         share_title: Compartir con el grupo '{{name}}'        
-
         already_member: Ya eres un miembro de este grupo.
         not_member: No eres un miembro de este grupo.
         request_received: Su petición ha sido recibida. Los moderadores del grupo tomarán una decisión en breve.
@@ -34,8 +43,18 @@ es:
         error: Oooops. Algo ha ido mal
         not_moderator: No eres un moderador de este grupo
       admin:
+        groups: Grupos
         deleted: Grupo eliminado
-        activated: El grupo está ahora activo  
+        activated: El grupo está ahora activo
+        edit_group: Editar grupo  
+        activate: Activar
+        group_details: Detalles del grupo
+        memberships: Membresías
+        moderators: Moderadores
+        members: Miembros
+        pending_members: Miembros pendientes
+        delete_group: Eliminar grupo
+        please_wait: Por favor espere...                
     friendships: 
       member:
         not_found: No existe ningún usuario con el id '{{id}}'

@@ -1,55 +1,45 @@
-<h2><%= @group.name %> 
+<h1><%= link_to I18n.t("tog_social.groups.admin.groups"), admin_groups_path%> / <%=  @group.name -%></h1>
+
+<p>
   <% unless @group.active? %>
-    <div id="deactivated_status" style="display: inline;font-size: 0.8em;background-color: #FEFF99;padding: 5px;">
-      <span>This group is deactivated. Click 
-      <%= link_to_remote "here",  :url => activate_admin_group_url(@group), :update => "deactivated_status" %> 
-      if you want to activate it.</span>
+    <div id="deactivated_status">
+    <%= link_to_remote I18n.t("tog_social.groups.admin.activate"),  :url => activate_admin_group_url(@group), :update => "deactivated_status" %>
     </div>
   <% end %>
-</h2>  
+  <% form_tag admin_group_path(@group), :method => :delete do -%>
+    <%= submit_tag I18n.t("tog_social.groups.admin.delete_group"), :disable_with => I18n.t("tog_social.groups.admin.please_wait"), :class =>"button delete" %>
+  <% end -%>
+</p>
 
-<% form_tag admin_group_path(@group), :method => :delete do -%>
-  <%= submit_tag "Delete this group", :disable_with => "Please wait...", :class =>"button delete" %>
-<% end -%>
+<br/>
 
 
+<table class="tableE">
+  <caption><%= I18n.t("tog_social.groups.admin.group_details") %></caption>
+  <tbody>
+	<tr><th scope="row"><%= I18n.t("tog_social.groups.model.name") %></th><td><%=@group.name%></td></tr>
+	<tr><th scope="row"><%= I18n.t("tog_social.groups.model.icon") %></th><td><%= image_tag(url_for_image_column(@group, "image", :name =>"medium")) if @group.image %></td></tr>
+	<tr><th scope="row"><%= I18n.t("tog_social.groups.model.created_by") %></th><td><%= link_to @group.author.profile.full_name, edit_admin_user_path(@group.author) %></td></tr>
+	<tr><th scope="row"><%= I18n.t("tog_social.groups.model.created_at") %></th><td><%=@group.created_at%></td></tr>
+	<tr><th scope="row"><%= I18n.t("tog_social.groups.model.updated_at") %></th><td><%=@group.updated_at%></td></tr>
+	</tbody>
+</table>
 
-<%= error_messages_for :group %>
-<% form_for :group, :url => admin_group_path(@group), :html => {:id => "settings"} do |f| -%>
-  <fieldset>
-    <fieldset id="login-details">
-      <legend>
-        Group Details<br/><%= image_tag(url_for_image_column(@group, "image", :name =>"medium")) if @group.image %>
-      </legend>
-      <label>Created by <%= link_to @group.author.profile.full_name, edit_admin_user_path(@group.author) %> on <%= @group.created_at %></label>
-      <label>Last Update: <%= @group.updated_at %></label>
-    </fieldset>
-   
-    <fieldset id="social-details">
-      <legend>Memberships</legend>
-      <label>Moderators: <%= @group.moderators.to_sentence %></label>
-      <div class="group">
-        <label><strong><%= @group.pending_members.size %> pending</strong>
-           <ul>
-             <% if !@group.pending_members.blank? %>
-               <% for member in @group.pending_members %>
-               <li><%= link_to member.profile.full_name, edit_admin_user_path(member) %> (<%= member.email %>)</li>
-               <% end %>
-             <% end %>
-           </ul>
-        </label>
-        <label><strong><%= @group.members.size %> active</strong>
-          <ul>
-            <% if !@group.members.blank? %>
-              <% for member in @group.members %>
-                <li><%= link_to member.profile.full_name, edit_admin_user_path(member) %> (<%= member.email %>)</li>
-              <% end %>
-            <% end %>
-          </ul>
-        </label>
-      </div>
-    </fieldset>
-    <% submit_tag 'Update group', {:accesskey => "s"} %>
+<table class="tableE">
+  <caption><%= I18n.t("tog_social.groups.admin.memberships") %></caption>
+  <tbody>
+	<tr><th scope="row"><%= I18n.t("tog_social.groups.admin.moderators") %></th>
+	    <td>
+	      <%= @group.moderators.size %>
+	      <br/>
+	      <% for member in @group.moderators %>
+        <li><%= link_to member.profile.full_name, edit_admin_user_path(member) %> (<%= member.email %>)</li>
+        <% end %>
+	    </td>
+	</tr>
+	<tr><th scope="row"><%= I18n.t("tog_social.groups.admin.members") %></th><td><%=@group.members.size%></td></tr>
+	<tr><th scope="row"><%= I18n.t("tog_social.groups.admin.pending_members") %></th><td><%=@group.pending_members.size%></td></tr>
+	</tbody>
+</table>
 
-  </fieldset>
-<% end -%>
+<br />
