@@ -1,0 +1,43 @@
+# {{xxx}}
+en:
+  tog_social:
+    plugin_name: Social
+    plugin_description: Manage basic social objects (profiles, groups and friendships)
+    cancel: Cancel
+    
+    profile:
+      member:
+        updated: Your profile was succcessfully updated!
+    groups:
+      site:
+        shared_ok: Object shared with group '{{name}}'!
+        shared_nok: This object was already share with group '{{name}}'!
+        share: Share with your groups
+        share_title: Share with group '{{name}}'
+
+        already_member: You already are a member of this group.
+        not_member: You are not a member of this group.
+        request_received: You request has been received. Moderators of this groups will make a decision soon.
+        request_waiting: Your join request is already being processed. Please, be patient.
+        welcome: Welcome to the group '{{name}}'. Enjoy your participation!
+        leaved: You are no longer a member of this group
+        last_moderator: You are the last moderator of this group. You can't leave it before nominating a new moderator
+        not_found: Error. This group is not active or doesn't exist
+        unactive: Error. This group is not active
+      member:
+        created: Group created successfully.
+        pending: Your group has been created but is pending for administrator's approval.
+        updated: Group '{{name}}' succcessfully updated!"
+        user_doesnt_exist: User doesn't exist
+        user_rejected: User '{{name}}' has been rejected for this group
+        user_accepted: User '{{name}}' has been accepted for this group
+        error: Oooops. Something happened
+        not_moderator: You are not one of this group's moderators.
+      admin:
+        deleted: Group deleted
+        activated: Group is now active  
+    friendships: 
+      member:
+        not_found: There isn't any user with this id '{{id}}'
+
+

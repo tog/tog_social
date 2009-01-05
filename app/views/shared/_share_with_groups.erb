@@ -1,0 +1,11 @@
+<div id="share_with_groups_link_<%= shareable.id %>">
+   <a href="#" onclick="Element.toggle('share_with_groups_link_<%= shareable.id %>');Element.toggle('share_with_groups_form_<%= shareable.id %>');"><%= I18n.t("tog_social.groups.site.share") %></a>
+</div>
+<div id="share_with_groups_form_<%= shareable.id %>" style="display:none;">
+  <span id="share_with_groups_message"></span>
+  <% groups.each do |group|%>
+    <%= link_to_remote image_for_group(group, 'small'), :url => share_with_group_path(group, shareable.type, shareable.id), :update => 'share_with_groups_message', :html => {:title => I18n.t("tog_social.groups.site.share_title", :name => group.name)} %>
+  <% end %>
+  <br/><br/>
+  <a href="#" onclick="Element.toggle('share_with_groups_link_<%= shareable.id %>');Element.toggle('share_with_groups_form_<%= shareable.id %>');"><%= I18n.t("tog_social.cancel") %></a>
+</div>

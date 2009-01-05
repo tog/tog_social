@@ -45,10 +45,8 @@ class Group < ActiveRecord::Base
     transitions :from => :pending, :to => :active
   end
   
-  named_scope :active, :conditions => {:state => 'active'}
-  
   def self.site_search(query, search_options={})
-    Group.active.find(:all, :conditions => ["name like ?", "%#{query}%"])
+    Group.find(:all, :conditions => ["state = 'active' and name like ?", "%#{query}%"])
   end
 
   def membership_of(user)

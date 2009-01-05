@@ -10,7 +10,7 @@ class GroupTest < Test::Unit::TestCase
     end
 
     should "should allow to join directly" do
-      @pornfans.join(@berlusconi)  
+      @pornfans.join(@berlusconi)
       assert @pornfans.members.include?(@berlusconi), "The joined user should be on the members list"
     end
     
@@ -42,29 +42,6 @@ class GroupTest < Test::Unit::TestCase
         assert !@selectedporn.members.include?(@berlusconi)
         @selectedporn.activate_membership(@berlusconi)
         assert @selectedporn.members(true).include?(@berlusconi)
-      end
-    end
-    context "named_scope active" do
-      setup do
-        @inactive = Factory(:group, :name => 'Community', :moderated => true, :author => @chavez)
-        @active = Factory(:group, :name => 'Community 2', :moderated => true, :author => @chavez) 
-        @active.active!
-      end
-      should "not allow see inactive" do
-        puts Group.active
-        assert_contains Group.active, @active
-      end
-    end
-    
-    context "allow search" do
-      setup do
-        @inactive = Factory(:group, :name => 'Canarias', :moderated => true, :author => @chavez)
-        @active = Factory(:group, :name => 'Canarias 2', :moderated => true, :author => @chavez)
-        @active.active!
-      end
-      
-      should "not allow to find inactived groups" do
-        assert_equal Group.site_search("Canarias").size, 0
       end
     end
   
