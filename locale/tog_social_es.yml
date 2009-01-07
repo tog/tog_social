@@ -6,9 +6,15 @@ es:
     cancel: Cancelar
     msg_yes: Si
     msg_no: No
-    profile:
+    profiles:
       member:
         updated: Su perfíl se ha actualizado con éxito
+      helper:
+        photo_for_user: Foto de {{profile.full_name}}
+        follow_user: Seguir a {{name}}
+        unfollow_user: Dejar de seguir a {{name}}
+        add_friend: Añadir a {{name}} a tu lista de amigos
+        remove_friend: Eliminar a {{name}} de tu lista de amigos        
     groups:
       model:
         name: Nombre
