@@ -1,7 +1,7 @@
 class Profile < ActiveRecord::Base
 
   belongs_to :user
-  
+
   has_many :friendships_by_others, :class_name => "Friendship", :foreign_key => 'invited_id', :conditions => "status = #{Friendship::ACCEPTED}"
   has_many :friendships_by_me, :class_name => "Friendship", :foreign_key => 'inviter_id', :conditions => "status = #{Friendship::ACCEPTED}"
 
@@ -16,14 +16,16 @@ class Profile < ActiveRecord::Base
 
   before_create :set_default_icon
 
-  file_column :icon, :root_path => File.join(RAILS_ROOT, "public/system/profile"), :web_root => 'system/profile/', :magick => {
-    :versions => {
-      :big    => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.profile.image.versions.big"],    :name => "big"},
-      :medium => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.profile.image.versions.medium"], :name => "medium"},
-      :small  => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.profile.image.versions.small"],  :name => "small"},
-      :tiny   => {:crop => "1:1", :size => Tog::Config["plugins.tog_social.profile.image.versions.tiny"],   :name => "tiny"}
-    }
-  }
+  has_attached_file :icon, {
+    :url => "/system/:class/:attachment/:id/:style_:basename.:extension",
+    :styles => {
+      :big    => Tog::Plugins.settings(:tog_social, "profile.image.versions.big"),
+      :medium => Tog::Plugins.settings(:tog_social, "profile.image.versions.medium"),
+      :small  => Tog::Plugins.settings(:tog_social, "profile.image.versions.small"),
+      :tiny   => Tog::Plugins.settings(:tog_social, "profile.image.versions.tiny")
+    }}.merge(Tog::Plugins.storage_options)
+
+
   record_activity_of :user
   acts_as_abusable
   
@@ -87,7 +89,7 @@ class Profile < ActiveRecord::Base
 
   def add_friend(friend)
     return false if friend.is_friend_of? me
-      
+
     relationship = if friend.follows? me
       find_friendship(friend, me, Friendship::PENDING)
     elsif friend.followed_by? me
@@ -114,7 +116,7 @@ class Profile < ActiveRecord::Base
     if friends
       remove_friend(friend)
       add_following(friend)
-    end 
+    end
   end
 
   def remove_following(friend)
@@ -139,7 +141,7 @@ class Profile < ActiveRecord::Base
   end
 
   def set_default_icon
-    unless self.icon
+    unless self.icon?
       if Tog::Config["plugins.tog_social.profile.image.default"]
         default_profile_icon = File.join(RAILS_ROOT, 'public', 'tog_social', 'images', Tog::Config["plugins.tog_social.profile.image.default"])
         self.icon = File.new(default_profile_icon)

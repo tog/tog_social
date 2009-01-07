@@ -1,5 +1,15 @@
 Edge
 ----
+* Fixed #117. Full name and user's login used on moderated group joined notification.
+* has_many :activities added to user thanks to record\_activities macro provided by acts\_as\_scribe. kudos to John Paul for catch this one.
+
+0.4.0
+----
+* beta oauth support
+* Migrated from FileColumn to Paperclip
+* link for editing user's profile
+* Only pending users should be displayed on the profiles section
+
 
 0.3.0
 ----

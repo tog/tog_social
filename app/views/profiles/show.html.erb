@@ -24,9 +24,13 @@
         <h2><span>More links</span></h2>
         <div class="portlet_content">
             <ul>
+              <% if its_me? -%>         
+                <li><%= link_to 'Edit profile', edit_member_profile_path(@profile) %></li>
+              <% else -%>
                 <li><%= link_to 'Send a private message', member_new_message_to_path(@profile.user) %></li>
                 <li><%= report_abuse_link @profile %></li>
                 <li><%= following_options(@profile) %></li>
+              <% end -%>
             </ul>
         </div> 
     </div>    
