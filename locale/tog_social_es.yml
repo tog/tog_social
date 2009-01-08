@@ -10,7 +10,7 @@ es:
       member:
         updated: Su perfíl se ha actualizado con éxito
       helper:
-        photo_for_user: Foto de {{profile.full_name}}
+        photo_for_user: Foto de {{name}}
         follow_user: Seguir a {{name}}
         unfollow_user: Dejar de seguir a {{name}}
         add_friend: Añadir a {{name}} a tu lista de amigos
