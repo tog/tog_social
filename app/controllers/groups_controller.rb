@@ -1,75 +1,75 @@
 class GroupsController < ApplicationController
-  
-  before_filter :login_required, :only => [:join, :leave]   
-  before_filter :load_group, :only => [:show, :join, :leave, :members, :invite_accept, :invite_reject, :share] 
-      
+
+  before_filter :login_required, :only => [:join, :leave]
+  before_filter :load_group, :only => [:show, :join, :leave, :members, :invite_accept, :invite_reject, :share]
+
   def index
     @order = params[:order] || 'created_at'
     @page = params[:page] || '1'
-    @asc = params[:asc] || 'desc'    
+    @asc = params[:asc] || 'desc'
     @groups = Group.paginate :per_page => 10,
                              :page => @page,
                              :conditions => ['state = ? and private = ?', 'active', false],
-                             :order => @order + " " + @asc 
+                             :order => @order + " " + @asc
     respond_to do |format|
       format.html
       format.rss { render(:layout => false) }
-    end    
-  end  
-  
+    end
+  end
+
   def share
     if @group.members.include? current_user
-      if @group.share(current_user, params[:shareable_type], params[:shareable_id])    
-        message = I18n.t("tog_social.groups.site.shared_ok", :name => @group.name)    
+      if @group.share(current_user, params[:shareable_type], params[:shareable_id])
+        message = I18n.t("tog_social.groups.site.shared_ok", :name => @group.name)
         html_class = 'notice ok'
       else
-        message = I18n.t("tog_social.groups.site.shared_nok", :name => @group.name)    
-        html_class = 'notice'        
+        message = I18n.t("tog_social.groups.site.shared_nok", :name => @group.name)
+        html_class = 'notice'
       end
       respond_to do |format|
          format.html { render :text => "<div class=\"#{html_class}\">#{message}</div>"}
-         format.xml  { render :xml => message, :head => :ok } 
-      end        
+         format.xml  { render :xml => message, :head => :ok }
+      end
     else
       respond_to do |format|
          format.html { render :text => "<div class=\"notice error\">#{I18n.t("tog_social.groups.site.not_member")}</div>"}
-         format.xml  { render :xml => I18n.t("tog_social.groups.site.not_member"), :head => :error } 
+         format.xml  { render :xml => I18n.t("tog_social.groups.site.not_member"), :head => :error }
       end
-    end    
+    end
   end
-  
+
   def search
     @order = params[:order] || 'name'
     @page = params[:page] || '1'
     @search_term = params[:search_term]
     term = '%' + @search_term + '%'
-    @asc = params[:asc] || 'asc'    
+    @asc = params[:asc] || 'asc'
     @groups = Group.paginate :per_page => 10,
-          :conditions => ["state=? and (name like ? or description like ?)", 
+          :conditions => ["state=? and (name like ? or description like ?)",
             'active', term, term],
           :page => @page,
-          :order => @order + " " + @asc 
+          :order => @order + " " + @asc
     respond_to do |format|
        format.html { render :template => "groups/index"}
        format.xml  { render :xml => @groups }
     end
   end
-  
+
   def show
-  end  
-  
+  end
+
   def members
   end
-  
-      
+
+
   def tag
     @tag = params[:tag]
     @groups = Group.find_tagged_with(@tag, :conditions => ['state = ? and private = ?', 'active', false])
     respond_to do |format|
       format.html # tag.html.erb
       format.xml  { render :xml => @groups.to_xml }
-    end       
-  end  
+    end
+  end
 
   def join
     if @group.members.include? current_user
@@ -77,20 +77,20 @@ class GroupsController < ApplicationController
     else
       if @group.pending_members.include? current_user
         flash[:notice] = I18n.t("tog_social.groups.site.request_waiting")
-      else      
+      else
         @group.join(current_user)
         if @group.moderated == true
           GroupMailer.deliver_join_request(@group, current_user)
           flash[:ok] = I18n.t("tog_social.groups.site.request_received")
         else
           @group.activate_membership(current_user)
-          flash[:ok] = I18n.t("tog_social.groups.site.welcome", :name => @group.name)          
+          flash[:ok] = I18n.t("tog_social.groups.site.welcome", :name => @group.name)
         end
       end
     end
-    redirect_to group_url(@group)    
+    redirect_to group_url(@group)
   end
-   
+
   def leave
     if !@group.members.include?(current_user) && !@group.pending_members.include?(current_user)
       flash[:error] = I18n.t("tog_social.groups.site.not_member")
@@ -105,19 +105,19 @@ class GroupsController < ApplicationController
     end
     redirect_to member_groups_path
   end
-  
-  private 
+
+  private
     def load_group
       #TODO be more specific with this error control
       begin
-        @group = Group.find(params[:id]) 
+        @group = Group.find(params[:id])
         raise I18n.t("tog_social.site.groups.unactive") unless @group.active?
-      rescue 
+      rescue
         flash[:error] = I18n.t("tog_social.groups.site.not_found")
-        redirect_to groups_path 
+        redirect_to groups_path
       end
     end
-    
+
     def send_message_to_moderators(group, user, subject, body)
       group.moderators.each do |moderator|
         message = Message.new(
@@ -125,7 +125,7 @@ class GroupsController < ApplicationController
           :to       => moderator,
           :subject  => subject,
           :content  => body)
-        message.dispatch!   
-      end      
+        message.dispatch!
+      end
     end
 end

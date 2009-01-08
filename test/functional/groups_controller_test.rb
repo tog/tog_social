@@ -24,7 +24,7 @@ class GroupsControllerTest < Test::Unit::TestCase
         setup do
           get :join, :id => @pornfans
         end
-        should_set_the_flash_to /Welcome to Porn without frontiers. Enjoy it!/i
+        should_set_the_flash_to /Welcome to the group 'Porn without frontiers'. Enjoy your participation!/i
         should_redirect_to "group_url(@pornfans)"
       end
     end
