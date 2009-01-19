@@ -1,9 +1,6 @@
-<%=render_partial 'mails/email_header'%>
 <p>
-El usuario <%= @user.name %> ha solicitado la creación de una comunidad nueva llamada '<%= @group.name %>'.
+user <%= @user.profile.full_name %> has requested the creation of a group called '<%= @group.name %>'.
 </p><p>
-Puedes consultar la petición y tomar una decisión en:
-<br/>
+You can check this request in:<br/>
 <a href="<%= @url %>"><%= @url %></a>
 </p>
-<%=render_partial 'mails/email_footer'%>

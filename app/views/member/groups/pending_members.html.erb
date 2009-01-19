@@ -5,7 +5,7 @@
     <div class="subtitle">Created at <%=h @group.created_at.strftime("%d/%m/%Y") %>, <%=@group.members.size%> members</div>
     <div class="summary">Moderated by:
         <% for moderator in @group.moderators %>
-            <%=link_to moderator.name, profile_path(moderator.profile), :class=> 'maincolor4'%>
+            <%=link_to moderator.profile.full_name, profile_path(moderator.profile), :class=> 'maincolor4'%>
         <% end %>
         <br/>
         Tags: 

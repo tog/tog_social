@@ -50,7 +50,7 @@ class Member::GroupsController < Member::BaseController
     @group.leave(user)
     if @group.membership_of(user)
       GroupMailer.deliver_reject_join_request(@group, current_user, user)
-      flash[:ok] = I18n.t("tog_social.groups.member.user_rejected", :name => user.name) 
+      flash[:ok] = I18n.t("tog_social.groups.member.user_rejected", :name => user.profile.full_name) 
     else
       flash[:error] = I18n.t("tog_social.groups.member.error") 
     end
@@ -66,8 +66,8 @@ class Member::GroupsController < Member::BaseController
     end
     @group.activate_membership(user)
     if @group.members.include? user
-        GroupMailer.deliver_accept_join_request(@group, current_user, user)
-      flash[:ok] = I18n.t("tog_social.groups.member.user_accepted", :name => user.name)
+      GroupMailer.deliver_accept_join_request(@group, current_user, user)
+      flash[:ok] = I18n.t("tog_social.groups.member.user_accepted", :name => user.profile.full_name)
     else
       flash[:error] = I18n.t("tog_social.groups.member.error") 
     end
