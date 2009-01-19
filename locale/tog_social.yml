@@ -32,7 +32,7 @@ en:
         share_title: Share with group '{{name}}'
         already_member: You already are a member of this group.
         not_member: You are not a member of this group.
-        request_received: You request has been received. Moderators of this groups will make a decision soon.
+        request_received: You request has been received. Moderators of this group will make a decision soon.
         request_waiting: Your join request is already being processed. Please, be patient.
         welcome: Welcome to the group '{{name}}'. Enjoy your participation!
         leaved: You are no longer a member of this group
