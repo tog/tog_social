@@ -24,7 +24,7 @@ class AddAttachmentsImageToGroup < ActiveRecord::Migration
   end
 
   def self.down
-    add_column :groups, :image
+    add_column :groups, :image, :string
 
     remove_crop("plugins.tog_social.group.image.versions.big")
     remove_crop("plugins.tog_social.group.image.versions.medium")

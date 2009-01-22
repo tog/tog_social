@@ -24,7 +24,7 @@ class AddAttachmentsIconToProfile < ActiveRecord::Migration
   end
 
   def self.down
-    add_column :profiles, :image
+    add_column :profiles, :icon, :string
 
     remove_crop("plugins.tog_social.profile.image.versions.big")
     remove_crop("plugins.tog_social.profile.image.versions.medium")
@@ -32,8 +32,8 @@ class AddAttachmentsIconToProfile < ActiveRecord::Migration
     remove_crop("plugins.tog_social.profile.image.versions.tiny")
 
     Profile.all.each do |p|
-      unless p.image_file_name.blank?
-        p.icon = File.new("public/system/profiles/images/#{p.id}/#{p.image_file_name}") if File.exists?("public/system/profiles/images/#{p.id}/#{p.image_file_name}")
+      unless p.icon_file_name.blank?
+        p.icon = File.new("public/system/profiles/images/#{p.id}/#{p.icon_file_name}") if File.exists?("public/system/profiles/images/#{p.id}/#{p.icon_file_name}")
         p.save!
       end
     end
