@@ -1,34 +1,54 @@
 class Member::FriendshipsController < Member::BaseController
- 
+
   before_filter :find_friend_profile
-  
+
   def add_friend
-    current_user.profile.add_friend(@friend) 
+    Message.new(
+      :from => current_user,
+      :to   => @friend.user,
+      :subject => I18n.t("tog_social.friendships.member.mail.add_friend.subject", :user_name => current_user.profile.full_name),
+      :content => I18n.t("tog_social.friendships.member.mail.add_friend.content", 
+                         :user_name   => current_user.profile.full_name, 
+                         :friend_name => @friend.full_name, 
+                         :user_profile_url => profile_url(current_user.profile) , 
+                         :confirm_url      => member_confirm_friend_url(current_user.profile))
+    ).dispatch! if @friend.add_follower(current_user.profile)
+    
     redirect_back_or_default(profile_path(current_user.profile))
   end
-  
-  def remove_friend
-    current_user.profile.remove_friend(@friend)
-    redirect_back_or_default(profile_path(current_user.profile)) 
+
+  def confirm_friend
+    if @friend.follows?(current_user.profile)
+      Message.new(
+        :from => current_user,
+        :to   => @friend.user,
+        :subject => I18n.t("tog_social.friendships.member.mail.confirm_friend.subject", :user_name => current_user.profile.full_name),
+        :content => I18n.t("tog_social.friendships.member.mail.confirm_friend.content", 
+                           :user_name   => current_user.profile.full_name, 
+                           :friend_name => @friend.full_name, 
+                           :user_profile_url => profile_url(current_user.profile)) 
+      ).dispatch! if @friend.add_follower(current_user.profile)
+    end
+
+    redirect_back_or_default(profile_path(current_user.profile))
   end
-  
+
   def follow
     @friend.add_follower(current_user.profile)
     redirect_back_or_default(profile_path(current_user.profile))
   end
-  
+
   def unfollow
-    @friend.remove_follower(current_user.profile)   
-    redirect_back_or_default(profile_path(current_user.profile)) 
+    @friend.remove_follower(current_user.profile)
+    redirect_back_or_default(profile_path(current_user.profile))
   end
-  
-  private 
-  
+
+  private
     def find_friend_profile
-      @friend = Profile.find(params[:friend_id]) 
-      unless @friend 
+      @friend = Profile.find(params[:friend_id])
+      unless @friend
         flash[:error] = I18n.t("tog_social.friendships.member.not_found", :id => params[:friend_id].to_s)
-        redirect_to profiles_path 
-      end  
+        redirect_to profiles_path
+      end
     end
 end

@@ -72,14 +72,7 @@ class Profile < ActiveRecord::Base
     elsif me.follows? follower
       return add_friend(follower)
     else
-      flw = Friendship.create(:inviter => follower, :invited => me, :status => Friendship::PENDING)
-      unless flw.new_record?
-        # todo enable send_friendships_notifications? setting per profile
-        # FriendshipMailer.deliver_new_follower(me, follower)  if me.send_friendships_notifications?
-        #FriendshipMailer.deliver_new_follower(me, follower)
-        return true
-      end
-      return false
+      return Friendship.add_follower(follower, me)
     end
   end
 

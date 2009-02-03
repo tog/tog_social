@@ -34,6 +34,9 @@ class Friendship  < ActiveRecord::Base
       # +invited+  +Profile+ of the user followed by +inviter+
       #
       def add_follower(inviter, invited)
+        # todo enable send_friendships_notifications? setting per profile
+        # FriendshipMailer.deliver_new_follower(me, follower)  if me.send_friendships_notifications?
+        #FriendshipMailer.deliver_new_follower(me, follower)
         a = Friendship.create(:inviter => inviter, :invited => invited, :status => PENDING)
         !a.new_record?
       end

@@ -2,6 +2,7 @@ Edge
 ----
 * Fixed #117. Full name and user's login used on moderated group joined notification.
 * has_many :activities added to user thanks to record\_activities macro provided by acts\_as\_scribe. kudos to John Paul for catch this one.
+* Adding a friend should be moderated [#123 state:resolved]
 
 0.4.0
 ----

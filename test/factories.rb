@@ -9,8 +9,6 @@ end
 Factory.define :profile do |u|
 end
 
-
 Factory.define :group do |g|
   g.state 'pending'
-  #g.author{|author| author.association :user, :login => 'chavez'} 
 end
