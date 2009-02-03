@@ -13,6 +13,7 @@ class Member::FriendshipsControllerTest < ActionController::TestCase
     
     context "on POST to :add_friend" do
       setup do
+        full_name=@chavez.profile.full_name
         @request.session[:user_id]= @berlusconi.id
         post :add_friend, :friend_id => @chavez.profile.id
       end
@@ -25,6 +26,8 @@ class Member::FriendshipsControllerTest < ActionController::TestCase
         assert_equal 1, @chavez.inbox.messages.count
         assert_equal I18n.t("tog_social.friendships.member.mail.add_friend.subject", :user_name => @berlusconi.profile.full_name), @chavez.inbox.messages.first.subject
       end
+
+      should_set_the_flash_to I18n.t("tog_social.friendships.member.friend.added", :friend_name => "chavez")
     end
     
     context "on POST to :confirm_friend" do
@@ -42,6 +45,8 @@ class Member::FriendshipsControllerTest < ActionController::TestCase
         assert_equal 1, @berlusconi.inbox.messages.count
         assert_equal I18n.t("tog_social.friendships.member.mail.confirm_friend.subject", :user_name => @chavez.profile.full_name), @berlusconi.inbox.messages.first.subject
       end
+      
+      should_set_the_flash_to I18n.t("tog_social.friendships.member.friend.confirmed", :friend_name => "berlusconi")
     end
   end
 end

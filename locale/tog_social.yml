@@ -64,6 +64,9 @@ en:
     friendships: 
       member:
         not_found: There isn't any user with this id '{{id}}'
+        friend:
+          added: "You have added {{friend_name}} as your contact"
+          confirmed: "You have confirmed your friendship with {{friend_name}}"
         mail:
           add_friend:
             subject: "You are the newest contact of {{user_name}}!"
