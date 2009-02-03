@@ -67,7 +67,7 @@ en:
         mail:
           add_friend:
             subject: "You are the newest contact of {{user_name}}!"
-            content: "Hi {{friend_name}}, <p>{{user_name}} has marked you as a contact.</p> <p>Check out {{user_name}}'s profile here: <br/>{{user_profile_url}}</p> <p>To confirm yours friendship you can visit: <br/>{{confirm_url}}"
+            content: "Hi {{friend_name}}, <p>{{user_name}} has marked you as a contact.</p> <p>Check out {{user_name}}'s profile here: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p> <p>To confirm yours friendship you can visit: <br/><a href='{{confirm_url}}'>{{confirm_url}}</a>"
           confirm_friend:
             subject: "{{user_name}} has confirmed yours friendship!"
-            content: "Hi {{friend_name}}, <p>{{user_name}} has marked you as a contact too.</p> <p>Check out {{user_name}}'s profile here: <br/>{{user_profile_url}}</p>"
+            content: "Hi {{friend_name}}, <p>{{user_name}} has marked you as a contact too.</p> <p>Check out {{user_name}}'s profile here: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"

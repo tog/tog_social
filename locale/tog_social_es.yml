@@ -67,7 +67,7 @@ es:
         mail:
           add_friend:
             subject: "Eres el contacto más reciente de {{user_name}}!"
-            content: "Hola {{friend_name}}, <p>{{user_name}} te ha añadido como contacto.</p> <p>Puedes ver el perfil de {{user_name}} aquí: <br/>{{user_profile_url}}</p> <p>Para añadirlo como contacto visita: <br/>{{confirm_url}}"
+            content: "Hola {{friend_name}}, <p>{{user_name}} te ha añadido como contacto.</p> <p>Puedes ver el perfil de {{user_name}} aquí: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p> <p>Para añadirlo como contacto visita: <br/><a href='{{confirm_url}}'>{{confirm_url}}</a>"
           confirm_friend:
             subject: "!{{user_name}} te ha confirmado como contacto!"
-            content: "Hola {{friend_name}}, <p>{{user_name}} también te ha añadido como contacto.</p> <p>Puedes ver el perfil de {{user_name}} aquí: <br/>{{user_profile_url}}</p>"
+            content: "Hola {{friend_name}}, <p>{{user_name}} también te ha añadido como contacto.</p> <p>Puedes ver el perfil de {{user_name}} aquí: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"
