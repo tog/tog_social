@@ -10,7 +10,7 @@ class ProfileTest < Test::Unit::TestCase
       @evo = Factory(:profile, :first_name => 'Evo', :last_name => 'Morales', :user => @user2)
     end
     
-    should "returna full_name correctly base on first_name and last_name" do
+    should "return full_name correctly base on first_name and last_name" do
       assert_equal "Hugo Chavez", @chavez.full_name,  "Full name should Hugo Chavez"
     end  
     
