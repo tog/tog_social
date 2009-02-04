@@ -1,5 +1,12 @@
-# {{xxx}}
 en:
+  interface:
+    admin:
+      groups: Groups
+    member:
+      my_groups: My Groups
+    site:
+      profiles: People
+      groups: Groups
   tog_social:
     plugin_name: Social
     plugin_description: Manage basic social objects (profiles, groups and friendships)

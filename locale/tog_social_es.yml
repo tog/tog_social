@@ -1,5 +1,12 @@
-# {{xxx}}
 es:
+  interface:
+    admin:
+      groups: Grupos
+    member:
+      my_groups: Mis grupos
+    site:
+      profile: Gente
+      groups: Grupos
   tog_social:
     plugin_name: Social
     plugin_description: Gestión de objetos sociales básicos (perfiles, grupos y amistades)
