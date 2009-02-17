@@ -1,5 +1,8 @@
 Edge
 ----
+
+0.4.2
+----
 * Ticket #118. i18n in navigation tabs
 * Fixed #117. Full name and user's login used on moderated group joined notification.
 * has_many :activities added to user thanks to record\_activities macro provided by acts\_as\_scribe. kudos to John Paul for catch this one.
