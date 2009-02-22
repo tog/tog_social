@@ -5,7 +5,7 @@ es:
     member:
       my_groups: Mis grupos
     site:
-      profile: Gente
+      profiles: Gente
       groups: Grupos
   tog_social:
     plugin_name: Social
