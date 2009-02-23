@@ -48,13 +48,18 @@ es:
         unactive: Error. Este grupo no está activo
       member:
         created: Grupo creado con éxito.
-        pending: Tu grupo ha sidp creado pero está pendiente de aprobación por un administrador
+        pending: Tu grupo ha sido creado pero está pendiente de aprobación por un administrador
         updated: Grupo '{{name}}' actualizado con éxito"
         user_doesnt_exist: El usuario no existe
         user_rejected: El usuario '{{name}}' ha sido rechazado para este grupo
         user_accepted: El usuario '{{name}}' ha sido aceptado para este grupo
         error: Oooops. Algo ha ido mal
         not_moderator: No eres un moderador de este grupo
+        mail:
+          activation_request:
+            subject: Solicitud de nuevo grupo '{{group_name}}'
+            content: "<p>El usuario '{{user_name}}' ha solicitado la creación de un nuevo grupo llamado '{{group_name}}'.</p><p><a href=\"{{activation_url}}\">{{activation_url}}</a></p>"
+
       admin:
         groups: Grupos
         deleted: Grupo eliminado
