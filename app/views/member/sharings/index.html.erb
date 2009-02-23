@@ -1,0 +1,36 @@
+<h1><%= I18n.t('tog_social.sharings.share', :name => @shareable.name) %></h1>
+
+<span id="share_with_groups_message"></span>
+
+<div class="col_50_50 clearfix">
+  
+    <% middle = @groups.size % 2 == 1 ? @groups.size / 2 + 1 : @groups.size / 2
+       left_col, right_col  = @groups.partition {|c| @groups.index(c) < middle} %>
+    
+    <div class="left_col">
+      <% left_col.each do |group|%>
+        <div class="moduleA round">
+            <div class="title">	
+						  <%= share_link(image_for_group(group, 'small'), group, @shareable) %>
+							<%= share_link(group.name, group, @shareable) %>
+            </div>    
+        </div> 
+        <br />   
+      <%end%> 
+    </div> <!-- /.left_col -->    
+    
+    <div class="right_col">
+      <% right_col.each do |group|%>
+        <div class="moduleA round">
+            <div class="title">
+						  <%= share_link(image_for_group(group, 'small'), group, @shareable) %>
+							<%= share_link(group.name, group, @shareable) %>
+						</div>    
+        </div> 
+        <br />   
+      <%end%>
+    </div> <!-- /.right_col -->    
+    
+</div> <!-- ./col_50_50 -->
+
+<%= link_to I18n.t('tog_social.back'), @referer %>

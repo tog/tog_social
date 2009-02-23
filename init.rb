@@ -31,7 +31,7 @@ require 'oauth/request_proxy/action_controller_request'
 require 'oauth/server'
 require 'tog_oauth_controller_methods'
 
-Tog::Plugins.helpers ProfilesHelper, GroupsHelper
+Tog::Plugins.helpers ProfilesHelper, GroupsHelper, SharingsHelper
 
 Tog::Interface.sections(:site).add "Profiles", "/profiles"     
 Tog::Interface.sections(:site).add "Groups", "/groups"     

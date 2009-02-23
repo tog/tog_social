@@ -20,7 +20,7 @@ class CreateTogSocialTables < ActiveRecord::Migration
       t.string   :description
       t.string   :image
       t.string   :state
-      t.boolean  :private, :default => false
+      t.boolean  :private
       t.boolean  :moderated, :default => false
       t.integer  :user_id
       t.string   :activation_code, :limit => 40

@@ -5,7 +5,6 @@ resources :profiles
 
 with_options(:controller => 'groups') do |group|
   group.tag_groups       '/groups/tag/:tag',                         :action => 'tag'
-  group.share_with_group '/:id/share/:shareable_type/:shareable_id', :action => 'share'
 end
 
 resources :groups, :collection => { :search => :get }, :member => { :join => :get, :leave => :get }
@@ -23,6 +22,10 @@ namespace(:member) do |member|
     friendship.confirm_friend '/friend/:friend_id/confirm', :action => 'confirm_friend'
     friendship.follow_user    '/follow/:friend_id',         :action => 'follow'
     friendship.unfollow_user  '/unfollow/:friend_id',       :action => 'unfollow'
+  end
+  member.with_options(:controller => 'sharings') do |sharing|
+    sharing.share '/share/:shareable_type/:shareable_id', :action => 'index'
+    sharing.share_with_group '/group/:id/share/:shareable_type/:shareable_id', :action => 'share'
   end
 end
 

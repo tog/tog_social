@@ -1,5 +1,13 @@
 class GroupMailer < ActionMailer::Base
 
+  def activation_request(group)
+    setup_email(group.author.email, Tog::Config["plugins.tog_core.mail.system_from_address"])
+    @subject    += ' Group pending approval'
+    @body[:url]  = groups_url
+    @body[:group] = group
+    @body[:user] = group.author
+  end
+
   def join_request(group, user)
       setup_email(user.email, group.author.email)
       @subject    += " Request for joining #{group.name}"
