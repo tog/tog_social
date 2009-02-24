@@ -17,7 +17,7 @@ class Member::GroupsController < Member::BaseController
     @group.activate_membership(current_user)
 
     if @group.errors.empty?
-      if current_user.admin == true || Tog::Config['plugins.tog_social.group.moderation.creation'] != 'true'
+      if current_user.admin == true || Tog::Config['plugins.tog_social.group.moderation.creation'] != true
          @group.activate!
          flash[:ok] = I18n.t("tog_social.groups.member.created")
          redirect_to group_path(@group)
