@@ -59,6 +59,10 @@ en:
         user_accepted: User '{{name}}' has been accepted for this group
         error: Oooops. Something happened
         not_moderator: You are not one of this group's moderators.
+        mail:
+          activation_request:
+            subject: Request for new group '{{group_name}}'
+            content: "<p>User '{{user_name}}' has requested the creation of a new group called '{{group_name}}'.</p><p><a href=\"{{activation_url}}\">{{activation_url}}</a></p>"
       admin:
         groups: Groups
         deleted: Group deleted
