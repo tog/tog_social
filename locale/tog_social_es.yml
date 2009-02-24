@@ -75,13 +75,21 @@ es:
     friendships: 
       member:
         not_found: No existe ningún usuario con el id '{{id}}'
+        followed: Ahora sigues a '{{user_name}}'
+        unfollowed: Has dejado de seguir a '{{user_name}}'        
         friend:
           added: "Has añadido a {{friend_name}} como tu contacto"
           confirmed: "Has confirmado a {{friend_name}} como tu contacto"
         mail:
+          follow:
+            subject: "¡{{user_name}} te está siguiendo!"
+            content: "Hola {{friend_name}}, <p>{{user_name}} te está siguiendo.</p> <p>Consulta el perfil de {{user_name}} aquí: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"
+          unfollow:
+            subject: "¡{{user_name}} ha dejado de seguirte!"
+            content: "Hola {{friend_name}}, <p>{{user_name}} ha dejado de seguirte.</p> <p>Consulta el perfil de {{user_name}} aquí: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"
           add_friend:
-            subject: "Eres el contacto más reciente de {{user_name}}!"
+            subject: "¡Eres el contacto más reciente de {{user_name}}!"
             content: "Hola {{friend_name}}, <p>{{user_name}} te ha añadido como contacto.</p> <p>Puedes ver el perfil de {{user_name}} aquí: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p> <p>Para añadirlo como contacto visita: <br/><a href='{{confirm_url}}'>{{confirm_url}}</a>"
           confirm_friend:
-            subject: "!{{user_name}} te ha confirmado como contacto!"
+            subject: "¡{{user_name}} te ha confirmado como contacto!"
             content: "Hola {{friend_name}}, <p>{{user_name}} también te ha añadido como contacto.</p> <p>Puedes ver el perfil de {{user_name}} aquí: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"

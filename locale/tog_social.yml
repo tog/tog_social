@@ -75,10 +75,18 @@ en:
     friendships: 
       member:
         not_found: There isn't any user with this id '{{id}}'
+        followed: You are now following '{{user_name}}'
+        unfollowed: You aren't following '{{user_name}}' anymore
         friend:
           added: "You have added {{friend_name}} as your contact"
           confirmed: "You have confirmed your friendship with {{friend_name}}"
         mail:
+          follow:
+            subject: "{{user_name}} is following you!"
+            content: "Hi {{friend_name}}, <p>{{user_name}} is following you.</p> <p>Check out {{user_name}}'s profile here: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"
+          unfollow:
+            subject: "{{user_name}} isn't following you anymore!"
+            content: "Hi {{friend_name}}, <p>{{user_name}} has stopped to following you.</p> <p>Check out {{user_name}}'s profile here: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"
           add_friend:
             subject: "You are the newest contact of {{user_name}}!"
             content: "Hi {{friend_name}}, <p>{{user_name}} has marked you as a contact.</p> <p>Check out {{user_name}}'s profile here: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p> <p>To confirm yours friendship you can visit: <br/><a href='{{confirm_url}}'>{{confirm_url}}</a>"
