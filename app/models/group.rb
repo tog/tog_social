@@ -103,6 +103,10 @@ class Group < ActiveRecord::Base
     self.sharings.create params.merge!({:shared_by => user})
     return true
   end
+  
+  def creation_date(format=:short)
+    I18n.l(self.created_at, :format => format)
+  end
 
   protected
   def make_activation_code
