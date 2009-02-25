@@ -29,7 +29,7 @@ class Admin::GroupsController < Admin::BaseController
     respond_to do |wants|
       if @group.activate!
         wants.html do
-          render :text => "<span>"+I18n.t("tog_social.groups.admin.activated")+"</span>"
+          render :text => "<span>#{I18n.t("tog_social.groups.admin.activated")}</span>"
         end
       end
     end
