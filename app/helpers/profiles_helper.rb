@@ -10,8 +10,8 @@ module ProfilesHelper
     end
   end
 
-  def its_me?
-    logged_in? && @profile && current_user.profile == @profile
+  def its_me?(profile=@profile)
+    logged_in? && profile && current_user.profile == profile
   end
 
   def following_options(profile=@profile)
