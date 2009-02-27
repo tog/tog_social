@@ -17,12 +17,25 @@ class Member::GroupsController < Member::BaseController
     @group.activate_membership(current_user)
 
     if @group.errors.empty?
-      if current_user.admin == true || Tog::Config['plugins.tog_social.group.moderation.creation'] != 'true'
+      if current_user.admin == true || Tog::Config['plugins.tog_social.group.moderation.creation'] != true
          @group.activate!
          flash[:ok] = I18n.t("tog_social.groups.member.created")
          redirect_to group_path(@group)
       else
-        GroupMailer.deliver_activation_request(@group)
+
+        admins = User.find_all_by_admin(true)        
+        admins.each do |admin|
+          Message.new(
+            :from => current_user,
+            :to   => admin,
+            :subject => I18n.t("tog_social.groups.member.mail.activation_request.subject", :group_name => @group.name),
+            :content => I18n.t("tog_social.groups.member.mail.activation_request.content", 
+                               :user_name   => current_user.profile.full_name, 
+                               :group_name => @group.name, 
+                               :activation_url => edit_admin_group_url(@group)) 
+          ).dispatch!     
+        end
+
         flash[:warning] = I18n.t("tog_social.groups.member.pending")
         redirect_to groups_path
       end

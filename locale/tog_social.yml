@@ -11,8 +11,14 @@ en:
     plugin_name: Social
     plugin_description: Manage basic social objects (profiles, groups and friendships)
     cancel: Cancel
+    back: Back
     msg_yes: Yes
     msg_no: No
+    sharings: 
+      share: Share '{{name}}'
+      share_with: Share with '{{name}}'
+      shared_ok: Object shared with group "{{name}}"!
+      shared_nok: This object was already share with group "{{name}}"!      
     profiles:
       member:
         updated: Your profile was succcessfully updated!
@@ -33,8 +39,6 @@ en:
         created_at: Created at
         updated_at: Update at
       site:
-        shared_ok: Object shared with group '{{name}}'!
-        shared_nok: This object was already share with group '{{name}}'!
         share: Share with your groups
         share_title: Share with group '{{name}}'
         already_member: You already are a member of this group.
@@ -55,6 +59,10 @@ en:
         user_accepted: User '{{name}}' has been accepted for this group
         error: Oooops. Something happened
         not_moderator: You are not one of this group's moderators.
+        mail:
+          activation_request:
+            subject: Request for new group '{{group_name}}'
+            content: "<p>User '{{user_name}}' has requested the creation of a new group called '{{group_name}}'.</p><p><a href=\"{{activation_url}}\">{{activation_url}}</a></p>"
       admin:
         groups: Groups
         deleted: Group deleted
@@ -71,10 +79,18 @@ en:
     friendships: 
       member:
         not_found: There isn't any user with this id '{{id}}'
+        followed: You are now following '{{user_name}}'
+        unfollowed: You aren't following '{{user_name}}' anymore
         friend:
           added: "You have added {{friend_name}} as your contact"
           confirmed: "You have confirmed your friendship with {{friend_name}}"
         mail:
+          follow:
+            subject: "{{user_name}} is following you!"
+            content: "Hi {{friend_name}}, <p>{{user_name}} is following you.</p> <p>Check out {{user_name}}'s profile here: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"
+          unfollow:
+            subject: "{{user_name}} isn't following you anymore!"
+            content: "Hi {{friend_name}}, <p>{{user_name}} has stopped to following you.</p> <p>Check out {{user_name}}'s profile here: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"
           add_friend:
             subject: "You are the newest contact of {{user_name}}!"
             content: "Hi {{friend_name}}, <p>{{user_name}} has marked you as a contact.</p> <p>Check out {{user_name}}'s profile here: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p> <p>To confirm yours friendship you can visit: <br/><a href='{{confirm_url}}'>{{confirm_url}}</a>"

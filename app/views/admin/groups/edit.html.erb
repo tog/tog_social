@@ -2,9 +2,9 @@
 
 <p>
   <% unless @group.active? %>
-    <div id="deactivated_status">
-    <%= link_to_remote I18n.t("tog_social.groups.admin.activate"),  :url => activate_admin_group_url(@group), :update => "deactivated_status" %>
-    </div>
+    <span id="deactivated_status">
+    <%= link_to_remote I18n.t("tog_social.groups.admin.activate"),  :url => activate_admin_group_url(@group), :update => "deactivated_status", :html => {:class => 'button'} %>
+    </span>
   <% end %>
   <% form_tag admin_group_path(@group), :method => :delete do -%>
     <%= submit_tag I18n.t("tog_social.groups.admin.delete_group"), :disable_with => I18n.t("tog_social.groups.admin.please_wait"), :class =>"button delete" %>

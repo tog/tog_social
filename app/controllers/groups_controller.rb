@@ -17,27 +17,6 @@ class GroupsController < ApplicationController
     end
   end
 
-  def share
-    if @group.members.include? current_user
-      if @group.share(current_user, params[:shareable_type], params[:shareable_id])
-        message = I18n.t("tog_social.groups.site.shared_ok", :name => @group.name)
-        html_class = 'notice ok'
-      else
-        message = I18n.t("tog_social.groups.site.shared_nok", :name => @group.name)
-        html_class = 'notice'
-      end
-      respond_to do |format|
-         format.html { render :text => "<div class=\"#{html_class}\">#{message}</div>"}
-         format.xml  { render :xml => message, :head => :ok }
-      end
-    else
-      respond_to do |format|
-         format.html { render :text => "<div class=\"notice error\">#{I18n.t("tog_social.groups.site.not_member")}</div>"}
-         format.xml  { render :xml => I18n.t("tog_social.groups.site.not_member"), :head => :error }
-      end
-    end
-  end
-
   def search
     @order = params[:order] || 'name'
     @page = params[:page] || '1'

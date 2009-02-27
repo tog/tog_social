@@ -37,13 +37,35 @@ class Member::FriendshipsController < Member::BaseController
   end
 
   def follow
-    @friend.add_follower(current_user.profile)
-    redirect_back_or_default(profile_path(current_user.profile))
+    if @friend.add_follower(current_user.profile)
+      flash[:ok]=I18n.t("tog_social.friendships.member.followed", :user_name => @friend.full_name)
+      Message.new(
+        :from => current_user,
+        :to   => @friend.user,
+        :subject => I18n.t("tog_social.friendships.member.mail.follow.subject", :user_name => current_user.profile.full_name),
+        :content => I18n.t("tog_social.friendships.member.mail.follow.content", 
+                           :user_name   => current_user.profile.full_name, 
+                           :friend_name => @friend.full_name, 
+                           :user_profile_url => profile_url(current_user.profile))
+      ).dispatch!
+    end
+    redirect_back_or_default(profile_path(current_user.profile))    
   end
 
   def unfollow
-    @friend.remove_follower(current_user.profile)
-    redirect_back_or_default(profile_path(current_user.profile))
+    if @friend.remove_follower(current_user.profile)
+      flash[:ok]=I18n.t("tog_social.friendships.member.unfollowed", :user_name => @friend.full_name)
+      Message.new(
+        :from => current_user,
+        :to   => @friend.user,
+        :subject => I18n.t("tog_social.friendships.member.mail.unfollow.subject", :user_name => current_user.profile.full_name),
+        :content => I18n.t("tog_social.friendships.member.mail.unfollow.content", 
+                           :user_name   => current_user.profile.full_name, 
+                           :friend_name => @friend.full_name, 
+                           :user_profile_url => profile_url(current_user.profile))
+      ).dispatch!
+    end
+    redirect_back_or_default(profile_path(current_user.profile))    
   end
 
   private
