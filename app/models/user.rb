@@ -20,8 +20,6 @@ class User < ActiveRecord::Base
   has_many :tokens, :class_name=>"OauthToken", :order=>"authorized_at desc", :include=>[:client_application]
   # => oauth support
 
-  record_activities
-
   protected
 
     def create_profile
