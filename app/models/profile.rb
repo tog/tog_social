@@ -35,6 +35,10 @@ class Profile < ActiveRecord::Base
     Profile.find(:all, :conditions => ["first_name like ? or last_name like ?", "%#{query}%", "%#{query}%"])
   end
   
+  def network
+    friends + followings
+  end
+  
   def friends
     # Reload associations just to make sure we're working with the current staff. Bad smell!
     # todo check this... if we don't should reload the relationship to get the test working...

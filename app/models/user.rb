@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   before_create :create_profile
 
   has_one :profile, :dependent => :destroy
+  
   has_many :memberships
   has_many :plain_memberships, :class_name => 'Membership',
                                :conditions => ['memberships.moderator <> ?', true]
@@ -20,6 +21,10 @@ class User < ActiveRecord::Base
   has_many :tokens, :class_name=>"OauthToken", :order=>"authorized_at desc", :include=>[:client_application]
   # => oauth support
 
+  def network
+    profile.network.collect{|profile| profile.user}
+  end
+  
   protected
 
     def create_profile

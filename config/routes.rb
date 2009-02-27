@@ -3,6 +3,8 @@
 
 resources :profiles
 
+resources :streams, :only => [:index, :show]
+
 with_options(:controller => 'groups') do |group|
   group.tag_groups       '/groups/tag/:tag',                         :action => 'tag'
 end
