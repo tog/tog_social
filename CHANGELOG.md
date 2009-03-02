@@ -1,5 +1,7 @@
 Edge
 ----
+* Activity Streams first approach.
+* Models and controllers updated to use the new acts_as_scribe 0.1 
 
 0.4.2
 ----
