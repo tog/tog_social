@@ -1,6 +1,9 @@
 Edge
 ----
 
+0.4.4
+----
+
 0.4.3
 ----
 * Activity Streams first approach.
