@@ -10,5 +10,21 @@ class UserTest < Test::Unit::TestCase
     should_have_many :moderated_groups
     should_have_many :client_applications
     should_have_many :tokens
+
+    context "when destroyed" do
+      setup do
+        user = Factory(:user)
+        group = Factory(:group)
+        group.join(user)
+        @membership = group.membership_of(user)
+        user.destroy
+      end
+
+      should "have his group memberships destroyed, too" do
+        assert_nil Membership.find_by_id(@membership.id)
+      end
+
+    end
+
   end
 end

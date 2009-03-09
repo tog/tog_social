@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   has_one :profile, :dependent => :destroy
   
-  has_many :memberships
+  has_many :memberships, :dependent => :destroy
   has_many :plain_memberships, :class_name => 'Membership',
                                :conditions => ['memberships.moderator <> ?', true]
   has_many :moderator_memberships, :class_name => 'Membership',
