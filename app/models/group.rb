@@ -102,10 +102,6 @@ class Group < ActiveRecord::Base
   def ban(user)
     raise "Implement this..."
   end
-
-  def share(user, shareable)
-    share(user, shareable.class.name, shareable.id)
-  end
   
   def share(user, shareable_type, shareable_id)
     params = {:shareable_type => shareable_type, :shareable_id => shareable_id} 
