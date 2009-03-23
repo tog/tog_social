@@ -26,14 +26,15 @@ module Oauth
   def self.setting_for_service(service, setting)
     setting_key = "oauth.#{service}.#{setting}"
     value = Tog::Plugins.settings(:tog_social, setting_key)
-    RAILS_DEFAULT_LOGGER.warn <<-WARNING
-
-    **************************************************************************************************************************************************
-    OAUTH WARNING: #{setting_key} setting is nil and this could potentially create problem in the oauth process.
-    **************************************************************************************************************************************************
-
-    WARNING
-    ) unless value
+    unless value 
+      RAILS_DEFAULT_LOGGER.warn <<-WARNING
+      
+      **************************************************************************************************************************************************
+      OAUTH WARNING: #{setting_key} setting is nil and this could potentially create problem in the oauth process.
+      **************************************************************************************************************************************************
+      
+      WARNING
+    end
     value
   end
   
