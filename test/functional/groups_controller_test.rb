@@ -25,7 +25,7 @@ class GroupsControllerTest < ActionController::TestCase
           get :join, :id => @pornfans
         end
         should_set_the_flash_to /Welcome to the group 'Porn without frontiers'. Enjoy your participation!/i
-        should_redirect_to "group_url(@pornfans)"
+        should_redirect_to ("PornFans") { group_url(@pornfans) }
       end
     end
     
@@ -39,7 +39,7 @@ class GroupsControllerTest < ActionController::TestCase
           get :join, :id => @pornfans
         end
         should_set_the_flash_to /You request has been received. Moderators of this group will make a decision soon./i
-        should_redirect_to "group_url(@pornfans)"
+        should_redirect_to ("PornFans") { group_url(@pornfans) }
         should "send an email to the group's admin" do
           assert_sent_email do |email|
             email.subject =~ /Request for joining Porn without frontiers/ &&
