@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class UserTest < Test::Unit::TestCase
+class UserTest < ActiveSupport::TestCase
   context "A User" do
     should_have_one  :profile
     should_have_many :memberships

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ProfileTest < Test::Unit::TestCase
+class ProfileTest < ActiveSupport::TestCase
   context "A Profile " do
     setup do
       @user = Factory(:user, :login => 'chavez')  

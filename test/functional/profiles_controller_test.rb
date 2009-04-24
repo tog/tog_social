@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ProfilesControllerTest < Test::Unit::TestCase
+class ProfilesControllerTest < ActionController::TestCase
 
   context "on GET to :index" do
     setup do

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class GroupsControllerTest < Test::Unit::TestCase
+class GroupsControllerTest < ActionController::TestCase
 
   context "A regular user" do
     setup do
