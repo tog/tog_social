@@ -22,7 +22,7 @@ Plugin requirements
 
 * [http://github.com/tog/tog/wikis/3rd-party-plugins-acts\_as\_state\_machine](http://github.com/tog/tog/wikis/3rd-party-plugins-acts\_as\_state\_machine)
 * [http://github.com/tog/tog/wikis/3rd-party-plugins-seo\_urls](http://github.com/tog/tog/wikis/3rd-party-plugins-seo\_urls)
-* [http://github.com/tog/tog/wikis/3rd-party-plugins-file\_column](http://github.com/tog/tog/wikis/3rd-party-plugins-file\_column)
+* [http://wiki.github.com/tog/tog/3rd-party-plugins-paperclip](http://wiki.github.com/tog/tog/3rd-party-plugins-paperclip)
 
 Install
 -------
