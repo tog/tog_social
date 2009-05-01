@@ -116,7 +116,8 @@ es:
         members: Miembros
         pending_members: Miembros pendientes
         delete_group: Eliminar grupo
-        please_wait: Por favor espere...                
+        please_wait: Por favor espere...
+        updated: Grupo '{{name}}' actualizado con éxito"                        
     friendships: 
       member:
         not_found: No existe ningún usuario con el id '{{id}}'

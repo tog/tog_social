@@ -149,6 +149,7 @@ en:
         pending_members: Pending members
         delete_group: Delete group
         please_wait: Please wait...
+        updated: Group '{{name}}' succcessfully updated!"        
     friendships: 
       member:
         not_found: There isn't any user with this id '{{id}}'

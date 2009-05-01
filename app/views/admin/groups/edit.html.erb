@@ -17,29 +17,28 @@
 <table class="tableE">
   <caption><%= I18n.t("tog_social.groups.admin.group_details") %></caption>
   <tbody>
-	<tr><th scope="row"><%= I18n.t("tog_social.groups.model.name") %></th><td><%=@group.name%></td></tr>
-	<tr><th scope="row"><%= I18n.t("tog_social.groups.model.icon") %></th><td><%= image_for_group(@group, 'medium') if @group.image %></td></tr>
-	<tr><th scope="row"><%= I18n.t("tog_social.groups.model.created_by") %></th><td><%= link_to @group.author.profile.full_name, edit_admin_user_path(@group.author) %></td></tr>
-	<tr><th scope="row"><%= I18n.t("tog_social.groups.model.created_at") %></th><td><%=@group.created_at%></td></tr>
-	<tr><th scope="row"><%= I18n.t("tog_social.groups.model.updated_at") %></th><td><%=@group.updated_at%></td></tr>
-	</tbody>
+  <tr><th scope="row"><%= I18n.t("tog_social.groups.model.name") %></th><td><%=@group.name%></td></tr>
+  <tr><th scope="row"><%= I18n.t("tog_social.groups.model.icon") %></th><td><%= image_for_group(@group, 'medium') if @group.image %></td></tr>
+  <tr><th scope="row"><%= I18n.t("tog_social.groups.model.created_by") %></th><td><%= link_to @group.author.profile.full_name, edit_admin_user_path(@group.author) %></td></tr>
+  <tr><th scope="row"><%= I18n.t("tog_social.groups.model.created_at") %></th><td><%=@group.creation_date%></td></tr>
+  </tbody>
 </table>
 
 <table class="tableE">
   <caption><%= I18n.t("tog_social.groups.admin.memberships") %></caption>
   <tbody>
-	<tr><th scope="row"><%= I18n.t("tog_social.groups.admin.moderators") %></th>
-	    <td>
-	      <%= @group.moderators.size %>
-	      <br/>
-	      <% for member in @group.moderators %>
+  <tr><th scope="row"><%= I18n.t("tog_social.groups.admin.moderators") %></th>
+      <td>
+        <%= @group.moderators.size %>
+        <br/>
+        <% for member in @group.moderators %>
         <li><%= link_to member.profile.full_name, edit_admin_user_path(member) %> (<%= member.email %>)</li>
         <% end %>
-	    </td>
-	</tr>
-	<tr><th scope="row"><%= I18n.t("tog_social.groups.admin.members") %></th><td><%=@group.members.size%></td></tr>
-	<tr><th scope="row"><%= I18n.t("tog_social.groups.admin.pending_members") %></th><td><%=@group.pending_members.size%></td></tr>
-	</tbody>
+      </td>
+  </tr>
+  <tr><th scope="row"><%= I18n.t("tog_social.groups.admin.members") %></th><td><%=@group.members.size%></td></tr>
+  <tr><th scope="row"><%= I18n.t("tog_social.groups.admin.pending_members") %></th><td><%=@group.pending_members.size%></td></tr>
+  </tbody>
 </table>
 
 <br />
