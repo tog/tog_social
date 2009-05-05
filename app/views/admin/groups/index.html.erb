@@ -24,7 +24,7 @@
     <% @groups.each do |group| %>
     <tr<%= cycle('',' class="pair"') -%>>
       <td><%= link_to group.name, edit_admin_group_url(group), {:class => "admin", :title => I18n.t("tog_social.groups.admin.edit_group")} -%></td>
-      <td><%= link_to group.author.profile.full_name, edit_admin_user_path(group.author) %></td>
+      <td><%= link_to group.author.profile.full_name, edit_admin_user_path(group.author) if group.author %></td>
       <td><%= group.private == true ? I18n.t("tog_social.msg_yes") : I18n.t("tog_social.msg_no") -%></td>
       <td><%= group.moderated == true ? I18n.t("tog_social.msg_yes") : I18n.t("tog_social.msg_no") -%></td>
       <td><%= group.active? == true ? I18n.t("tog_social.msg_yes") : I18n.t("tog_social.msg_no")  -%></td>

@@ -19,7 +19,7 @@
   <tbody>
   <tr><th scope="row"><%= I18n.t("tog_social.groups.model.name") %></th><td><%=@group.name%></td></tr>
   <tr><th scope="row"><%= I18n.t("tog_social.groups.model.icon") %></th><td><%= image_for_group(@group, 'medium') if @group.image %></td></tr>
-  <tr><th scope="row"><%= I18n.t("tog_social.groups.model.created_by") %></th><td><%= link_to @group.author.profile.full_name, edit_admin_user_path(@group.author) %></td></tr>
+  <tr><th scope="row"><%= I18n.t("tog_social.groups.model.created_by") %></th><td><%= link_to @group.author.profile.full_name, edit_admin_user_path(@group.author) if @group.author %></td></tr>
   <tr><th scope="row"><%= I18n.t("tog_social.groups.model.created_at") %></th><td><%=@group.creation_date%></td></tr>
   </tbody>
 </table>
