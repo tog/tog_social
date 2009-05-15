@@ -2,28 +2,28 @@
   
     <div class="image"><%=link_to image_for_group(@group, 'medium', :class=>"img"), group_path(@group)%></div>
     <div class="title"><%= link_to @group.name, group_path(@group) %></div>
-    <div class="subtitle">Created at <%=h @group.created_at.strftime("%d/%m/%Y") %>, <%=@group.members.size%> members</div>
-    <div class="summary">Moderated by:
+    <div class="subtitle"><%= I18n.t('tog_social.groups.model.created_at') %> <%=h @group.created_at.strftime("%d/%m/%Y") %>, <%=@group.members.size%> members</div>
+    <div class="summary"><%= I18n.t('tog_social.groups.model.moderated_by') %>:
         <% for moderator in @group.moderators %>
             <%=link_to moderator.profile.full_name, profile_path(moderator.profile), :class=> 'maincolor4'%>
         <% end %>
         <br/>
-        Tags: 
+        <%= I18n.t('tog_social.tags.tags') %>: 
         <% for tag in @group.tag_list %>
           <%= link_to tag.to_s, tag_groups_path(tag) %>
         <% end %>   
     </div>
     
     <div class="portlet portletC" id="portlet_moreLinks">
-        <h2><span>Pending members</span></h2>
+        <h2><span><%= I18n.t('tog_social.groups.member.pending_members') %></span></h2>
         <div class="portlet_content">
             <ul>
                 <% @group.pending_members.each do |user| %>
                   <li>
                     <%= link_to user.profile.full_name, profile_path(user.profile) -%> 
-                    [<%= link_to 'accept', member_group_accept_member_path(@group, user), {:class => "add", :title => "Accept user"} -%>]               
+                    [<%= link_to I18n.t('tog_social.groups.member.accept'), member_group_accept_member_path(@group, user), {:class => "add", :title => I18n.t('tog_social.groups.member.accept_title')} -%>]               
                                  --
-                    [<%= link_to 'reject', member_group_reject_member_path(@group, user), {:class => "delete", :title => "Reject user"} -%>]
+                    [<%= link_to I18n.t('tog_social.groups.member.reject'), member_group_reject_member_path(@group, user), {:class => "delete", :title => I18n.t('tog_social.groups.member.reject_title')} -%>]
                   </li>
                   <% end %>
             </ul>

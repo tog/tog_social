@@ -1,5 +1,5 @@
 <div class="portlet portletJ" id="portlet_last_groups">
-    <h2><span>Last groups</span></h2>
+    <h2><span><%= I18n.t('tog_social.groups.site.last_groups') %></span></h2>
     <div class="portlet_content">
         <ul>
             <% last_groups(3).each do |group| -%>
@@ -7,11 +7,11 @@
                   <div class="image"><%=link_to image_for_group(group, 'medium'), group_path(group)%></div>
                   <div class="title"><%= group.name -%></div>
                   <div class="text">
-                      Created at <%=I18n.l(group.created_at, :format => :short)%>
+                      <%= I18n.t('tog_social.groups.model.created_at') %> <%=I18n.l(group.created_at, :format => :short)%>
                       <br/>
-                      <%= group.members.size -%> members
+                      <%= I18n.t('tog_social.groups.model.members', :count => group.members.size) %>
                   </div>
-                  <div class="more"><%= link_to 'more info', group_path(group) -%></div>
+                  <div class="more"><%= link_to I18n.t('tog_social.more_info'), group_path(group) -%></div>
               </li>            
             <% end -%>            
         </ul> 

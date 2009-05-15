@@ -1,5 +1,5 @@
 <form name="group_search" id="group_search" action="<%= search_groups_path %>">
-  <label for="group_search_field">Search groups</label>
+  <label for="group_search_field"><%= I18n.t('tog_social.groups.site.search_groups') %></label>
   <input type="text" name="search_term" id="search_term" value="<%=@search_term%>" class="fieldbox" />
-  <input type="submit" value="Go" class="button" />
+  <input type="submit" value="<%= I18n.t('tog_social.search') %>" class="button" />
 </form>

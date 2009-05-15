@@ -14,14 +14,40 @@ en:
     back: Back
     msg_yes: Yes
     msg_no: No
+    more_info: More Info
+    more_links: More Links
+    search: Search
+    tags:
+      tags: Tags
+      separated_by_comma: Separated by commas
     sharings: 
       share: Share '{{name}}'
       share_with: Share with '{{name}}'
       shared_ok: Object shared with group "{{name}}"!
       shared_nok: This object was already share with group "{{name}}"!      
     profiles:
+      model:
+        first_name: First Name
+        last_name: Last Name
+        website: Website
+        avatar: Avatar
+        avatar_help: If you want to change the profile´s image, select a new image file.
+        username: Username
+        friends: Friends
+        friends_not_found: "{{profile_full_name}} has 0 friends."
+        followers: Followers
+        followers_not_found: "{{profile_full_name}} has 0 followers."
+        followings: Followings
+        followings_not_found: "{{profile_full_name}} has 0 followings."
+      site:
+        title: Profiles
+        summary: Profile summary
+        edit_profile: Edit Profile
+        send_message: Send a private message
       member:
         updated: Your profile was succcessfully updated!
+        update_profile: Update Profile
+        profile_details: Profile Details
       helper:
         photo_for_user: Photo for user {{name}}
         follow_user: Follow {{name}}
@@ -30,29 +56,62 @@ en:
         remove_friend: Remove {{name}} as a friend
     groups:
       model:
+        members:
+          one: "1 member"
+          other: "{{count}} members"
         name: Name
+        description: Description
+        image: Image
+        image_help: If you want to change the group´s image, select a new image file.
         created_by: Created by
         private: Private
+        private_help: A private group won´t appear in listings.
         moderated: Moderated
+        moderated_help: In a moderated group each join request should be approved by one of group's moderators.
+        moderated_by: Moderated by
+        moderated_by_you: Groups moderated by you
         active: Active
         icon: Icon
         created_at: Created at
         updated_at: Update at
+        member_status: Status
       site:
         share: Share with your groups
         share_title: Share with group '{{name}}'
+        member: You are a member of this group.
         already_member: You already are a member of this group.
         not_member: You are not a member of this group.
         request_received: You request has been received. Moderators of this group will make a decision soon.
         request_waiting: Your join request is already being processed. Please, be patient.
         welcome: Welcome to the group '{{name}}'. Enjoy your participation!
+        leave: Leave this group
+        leave_confirm: Are you sure you want to leave this group?
         leaved: You are no longer a member of this group
+        join: Join this group
         last_moderator: You are the last moderator of this group. You can't leave it before nominating a new moderator
         not_found: Error. This group is not active or doesn't exist
         unactive: Error. This group is not active
+        title: Groups
+        create_group: Create new group
+        create: Create
+        details: Group details
+        last_groups: Last groups
+        search_groups: Search groups
+        group_tagged: Group tagged {{tag}}
+        group_tags: Group tags
       member:
         created: Group created successfully.
         pending: Your group has been created but is pending for administrator's approval.
+        group_member: Groups you are a member of
+        members_pending: "{{size}} members waiting for approval"
+        pending_members: Pending members
+        accept: Accept
+        accept_title: Accept user
+        reject: Reject
+        reject_title: Reject user
+        edit: Edit group
+        edit_group: Edit group {{group}}
+        update: Update
         updated: Group '{{name}}' succcessfully updated!"
         user_doesnt_exist: User doesn't exist
         user_rejected: User '{{name}}' has been rejected for this group

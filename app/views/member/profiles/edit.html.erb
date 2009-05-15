@@ -1,33 +1,33 @@
-<div class="titleB">Update profile</div>
+<div class="titleB"><%= I18n.t('tog_social.profiles.member.update_profile') %></div>
 <br />
 
 <%= error_messages_for :profile %>
 <% form_for :profile, :url => member_profile_path(@profile), :html => {:method => :put, :multipart=>true} do |f| -%>
   <fieldset>
-    <legend>Profile details</legend>
+    <legend><%= I18n.t('tog_social.profiles.member.profile_details') %></legend>
     <div class="fields">
       <p>
-        <label for="profile_first_name">First name</label>
+        <label for="profile_first_name"><%= I18n.t('tog_social.profiles.model.first_name') %></label>
         <%= f.text_field :first_name, :class=>"fieldbox" %>
       </p>
       <p>
-        <label for="profile_last_name">Last name</label>
+        <label for="profile_last_name"><%= I18n.t('tog_social.profiles.model.last_name') %></label>
         <%= f.text_field :last_name, :class=>"fieldbox" %>
       </p>
       <p>
-        <label for="profile_website">Website</label>
+        <label for="profile_website"><%= I18n.t('tog_social.profiles.model.website') %></label>
         <%= f.text_field :website, :class=>"fieldbox wide" %>
       </p>
       <p>
-        <label for="profile_icon">Avatar</label>
+        <label for="profile_icon"><%= I18n.t('tog_social.profiles.model.avatar') %></label>
         <%= icon_for_profile(@profile, 'big')%>
         <%= file_field "profile", "icon" %><br />
-        <span class="helpinfo">If you want to change the profile´s avatar, select a new image file. Otherwise, let them unchanged.</span>
+        <span class="helpinfo"><%= I18n.t('tog_social.profiles.model.avatar_help') %></span>
       </p>
     </div>
   </fieldset>
 
   <div class="actions">
-    <%= submit_tag 'Update profile', {:accesskey => "s", :class=>"button mainaction"} %>
+    <%= submit_tag I18n.t('tog_social.profiles.member.update_profile'), {:accesskey => "s", :class=>"button mainaction"} %>
   </div>
 <% end -%>

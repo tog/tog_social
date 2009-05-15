@@ -1,13 +1,13 @@
 <div class="detail detail1">
   <div class="image"><%= link_to image_for_group(@group, 'medium', :class=>"img"), group_path(@group) %></div>
   <div class="title"><%= link_to @group.name, group_path(@group) %></div>
-  <div class="subtitle">Created at <%= @group.created_at.strftime("%d/%m/%Y") %>, <%=@group.members.size%> members</div>
-  <div class="summary">Moderated by:
+  <div class="subtitle"><%= I18n.t('tog_social.groups.model.created_at') %> <%= @group.created_at.strftime("%d/%m/%Y") %>, <%=@group.members.size%> members</div>
+  <div class="summary"><%= I18n.t('tog_social.groups.model.moderated_by') %>:
     <% for moderator in @group.moderators -%>
       <%=link_to moderator.profile.full_name, profile_path(moderator.profile), :class=> 'maincolor4'%>
     <% end -%>
     <br/>
-    Tags: 
+    <%= I18n.t('tog_social.tags.tags') %>: 
       <% for tag in @group.tag_list %>
         <%= link_to tag.to_s, tag_groups_path(tag) %>
       <% end %>   
@@ -20,13 +20,13 @@
 <% content_for :sidebar do %>
 
 <div class="portlet portletC" id="portlet_moreLinks">
-    <h2><span>More links</span></h2>
+    <h2><span><%= I18n.t('tog_social.more_links') %></span></h2>
     <div class="portlet_content">
         <ul>
           <% if i_am_member_of @group -%>
-            <li>You are a member of this group. <%= link_to 'Leave this group', leave_group_path(@group), :confirm => 'Are you sure you want to leave this group?', :class => 'delete' %></li>
+            <li><%= I18n.t('tog_social.groups.site.member') %><%= link_to I18n.t('tog_social.groups.site.leave'), leave_group_path(@group), :confirm => I18n.t('tog_social.groups.site.leave_confirm'), :class => 'delete' %></li>
           <% else -%>
-            <li><%= link_to 'Join this group', join_group_path(@group), :class => 'add' %></li>
+            <li><%= link_to I18n.t('tog_social.groups.site.join'), join_group_path(@group), :class => 'add' %></li>
           <% end -%>  
         </ul>
     </div> 

@@ -1,7 +1,7 @@
-<p><%= link_to 'Create new group', new_member_group_path, :class => 'button add' %></p>
+<p><%= link_to I18n.t('tog_social.groups.site.create_group'), new_member_group_path, :class => 'button add' %></p>
 
 <div class="portlet portletB" id="profiles_list">
-    <h2><span>Groups moderated by you</span></h2>
+    <h2><span><%= I18n.t('tog_social.groups.model.moderated_by_you') %></span></h2>
     <div class="portlet_content">
         <ul>
           <% @moderator_memberships.each do |membership|%>
@@ -10,7 +10,8 @@
               <div class="info">
                 <div class="title"><%= link_to membership.group.name, group_path(membership.group) %></div>
                 <div id="actions">
-                <%= link_to "Edit Group", edit_member_group_path(membership.group) -%>  <%= link_to "#{membership.group.pending_members.size} members waiting for approval", member_group_pending_members_path(membership.group) %>
+                <%= link_to I18n.t('tog_social.groups.member.edit'), edit_member_group_path(membership.group) -%>
+                <%= link_to I18n.t('tog_social.groups.member.members_pending', :size => membership.group.pending_members.size), member_group_pending_members_path(membership.group) %>
                 </div>
               </div><!--  fin info -->
             <li>
@@ -20,7 +21,7 @@
 </div>
 
 <div class="portlet portletB" id="profiles_list">
-    <h2><span>Groups you are a plain member of</span></h2>
+    <h2><span><%= I18n.t('tog_social.groups.member.group_member') %></span></h2>
     <div class="portlet_content">
         <ul>
           <% @plain_memberships.each do |membership|%>
@@ -29,9 +30,9 @@
               <div class="info">
                 <div class="title"><%= link_to membership.group.name, group_path(membership.group) %></div>
                 <div id="actions">
-                  Status: <%=membership.state%>
+                  <%= I18n.t('tog_social.groups.model.member_status') %>: <%=membership.state%>
                 <br/>
-                <%= link_to 'Leave this group', leave_group_path(membership.group), :confirm => 'Are you sure you want to leave this group?', :class => 'delete' %>
+                <%= link_to I18n.t('tog_social.groups.site.leave'), leave_group_path(membership.group), :confirm => I18n.t('tog_social.groups.site.leave_confirm'), :class => 'delete' %>
                 </div>
               </div><!--  fin info -->
             <li>

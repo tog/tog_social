@@ -1,6 +1,6 @@
 <div class="portlet portletH" id="portlet_groups">
-    <h2><span>Groups</span></h2>
-    <p><%= link_to 'Create new group', new_member_group_path, :class => 'button add' %></p>
+    <h2><span><%= I18n.t('tog_social.groups.site.title') %></span></h2>
+    <p><%= link_to I18n.t('tog_social.groups.site.create_group'), new_member_group_path, :class => 'button add' %></p>
     <div class="portlet_content">
         <ul>
           <% @groups.each do |group|%>
@@ -10,7 +10,8 @@
               <div class="text">
                  <%=group.description%>
               </div>
-              <div class="members"><strong>Members: <%=group.members.size%></strong></div>
+              <div class="members"><strong>
+              <%= I18n.t('tog_social.groups.model.members', :count => group.members.size) %></strong></div>
           </li>          
           <%end%>          
         </ul>
