@@ -20,6 +20,24 @@ es:
       shared_ok: Objeto compartido con el grupo "{{name}}"!
       shared_nok: Este objeto ya estaba compartido con el grupo "{{name}}"!           
     profiles:
+      model:
+        first_name: Nombre
+        last_name: Apellido
+        website: Página web
+        avatar: Avatar
+        avatar_help: Si quieres cambiar tu avatar, selecciona una nueva imagen
+        username: Login
+        friends: Amigos
+        friends_not_found: "{{profile_full_name}} tiene  0 amigos."
+        followers: Seguidores
+        followers_not_found: "{{profile_full_name}} tiene 0 seguidores."
+        followings: Ídolos
+        followings_not_found: "{{profile_full_name}} tiene 0 ídolos."
+      site:
+        title: Perfiles
+        summary: Sumario del perfil
+        edit_profile: Edita tu perfil
+        send_message: Enviar mensaje privado
       member:
         updated: Su perfíl se ha actualizado con éxito
       helper:
@@ -46,10 +64,20 @@ es:
         request_received: Su petición ha sido recibida. Los moderadores del grupo tomarán una decisión en breve.
         request_waiting: Su petición de unirse al grupo está siendo procesada. Por favor tenga un poco de paciencia.
         welcome: Bienvenido al grupo '{{name}}'. Disfrute su participación!
+        leave: Abandonar este grupo
+        leave_confirm: ¿Seguro que quieres abandonar este grupo?
         leaved: Has dejado de pertenecer a este grupo
         last_moderator: Eres el último moderador de este grupo.No puedes abandonarlo hasta que nomines a un nuevo moderador
         not_found: Error. Este grupo no está activo o no existe
         unactive: Error. Este grupo no está activo
+        title: Grupos
+        create_group: Crear un grupo nuevo
+        create: Crear
+        details: Detalles del grupo
+        last_groups: Últimos grupos creados
+        search_groups: Busca entre los grupos
+        group_tagged: Grupos etiquetados {{tag}}
+        group_tags: Tags de grupos
       member:
         created: Grupo creado con éxito.
         pending: Tu grupo ha sido creado pero está pendiente de aprobación por un administrador
