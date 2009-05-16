@@ -59,6 +59,7 @@ en:
         members:
           one: "1 member"
           other: "{{count}} members"
+        members_not_found: "{{group_name}} has 0 members."
         name: Name
         description: Description
         image: Image

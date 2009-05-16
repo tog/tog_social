@@ -35,6 +35,6 @@
 <%= render :partial => "shared/profiles_portlet", :locals => { 
   :items => @group.members.collect(&:profile), 
   :style => :portletG, 
-  :title => "Members", 
-  :no_items => "#{@group.name} has 0 members" } %>
+  :title => I18n.t('tog_social.groups.model.members', :count => @group.members.size),  
+  :no_items => I18n.t('tog_social.groups.model.members_not_found', :group_name => @group.name) } %>
 <% end %>
