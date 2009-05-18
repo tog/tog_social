@@ -1,0 +1,35 @@
+<% form_for @group, :url => admin_groups_path, :html => { :multipart => true } do |f| -%>
+<table>
+  <caption><%= I18n.t("tog_social.groups.admin.new") %></caption>
+  <tbody>
+  <tr>
+      <th scope="row"><%= I18n.t("tog_social.groups.model.name")%></th>
+      <td nowrap="nowrap"><%= f.text_field :name, :class=>"fieldbox" %></td>
+  </tr>
+  <tr>
+      <th scope="row"><%= I18n.t("tog_social.groups.model.description")%></th>
+      <td nowrap="nowrap"><%= f.text_area :description, :class=>"fieldbox" %></td>
+  </tr>
+  <tr>
+    <th scope="row"><%= I18n.t("tog_social.groups.model.icon") %></th>
+    <td><%= image_for_group(@group, 'medium') if @group.image %><%= file_field "group", "image" %></td>
+  </tr>
+  <tr>
+      <th scope="row"><%= I18n.t("tog_social.groups.model.private")%></th>
+      <td nowrap="nowrap">
+        <%= f.check_box :private %>
+      </td>
+  </tr>
+  <tr>
+      <th scope="row"><%= I18n.t("tog_social.groups.model.moderated")%></th>
+      <td nowrap="nowrap">
+        <%= f.check_box :moderated %>
+      </td>
+  </tr>
+  <tr>
+      <th scope="row"><%= f.submit I18n.t("tog_social.groups.admin.submit") %></th>
+      <td nowrap="nowrap">        
+      </td>
+  </tr>
+</tbody></table>
+<% end -%>

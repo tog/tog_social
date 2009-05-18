@@ -49,6 +49,7 @@ es:
     groups:
       model:
         name: Nombre
+        description: Descripción
         created_by: Creado por
         private: Privado
         moderated: Moderado
@@ -95,6 +96,7 @@ es:
         groups: Grupos
         deleted: Grupo eliminado
         activated: El grupo está ahora activo
+        create_group: Crear grupo
         edit_group: Editar grupo  
         activate: Activar
         group_details: Detalles del grupo
@@ -103,7 +105,12 @@ es:
         members: Miembros
         pending_members: Miembros pendientes
         delete_group: Eliminar grupo
-        please_wait: Por favor espere...                
+        please_wait: Por favor espere...
+        new: Nuevo grupo
+        submit: Enviar
+      message:
+        creation_successful: El grupo ha sido creado
+        creation_failed: Error al crear el grupo
     friendships: 
       member:
         not_found: No existe ningún usuario con el id '{{id}}'

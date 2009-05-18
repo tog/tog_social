@@ -127,6 +127,7 @@ en:
         groups: Groups
         deleted: Group deleted
         activated: Group is now active
+        create_group: Create group
         edit_group: Edit group
         activate: Activate
         group_details: Group details
@@ -136,6 +137,11 @@ en:
         pending_members: Pending members
         delete_group: Delete group
         please_wait: Please wait...
+        new: New group
+        submit: Submit
+      message:
+        creation_successful: Group successfully created
+        creation_failed: Error during group creation
     friendships: 
       member:
         not_found: There isn't any user with this id '{{id}}'
