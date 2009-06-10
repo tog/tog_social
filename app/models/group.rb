@@ -48,7 +48,9 @@ class Group < ActiveRecord::Base
   event :activate do
     transitions :from => :pending, :to => :active
   end
-  
+
+  named_scope :public, :conditions => {:private => false}
+  named_scope :private, :conditions => {:private => true}
   named_scope :active, :conditions => {:state => 'active'}
   
   def self.site_search(query, search_options={})
