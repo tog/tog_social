@@ -5,6 +5,8 @@ Factory.define :user do |u|
   u.activation_code '8f24789ae988411ccf33ab0c30fe9106fab32e9a'
   u.state 'pending'
   u.email {|a| "#{a.login}@example.com".downcase }
+  u.association :inbox
+  u.association :outbox
 end
 
 Factory.define :profile do |u|
@@ -20,6 +22,14 @@ Factory.define :activity do |f|
   f.association :user
   f.action      'kill'
   f.association :item, :factory => :user
+end
+
+Factory.define :inbox, :class => Folder do |u|
+  u.folder_type 'Inbox'
+end
+
+Factory.define :outbox, :class => Folder do |u|
+  u.folder_type 'Outbox'
 end
 
 def random_email_address

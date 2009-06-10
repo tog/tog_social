@@ -70,6 +70,14 @@ es:
         last_moderator: Eres el último moderador de este grupo.No puedes abandonarlo hasta que nomines a un nuevo moderador
         not_found: Error. Este grupo no está activo o no existe
         unactive: Error. Este grupo no está activo
+        invite: 
+          already_member: El usuario ya es miembro del grupo
+          already_invited: El usuario ya ha sido invitado al grupo
+          invited: Invitación al grupo enviada
+          you_are_not_invited: No has sido invitado al grupo
+          invitation_accepted: Invitación aceptada
+          invitation_rejected: Invitación rechazada
+          you_could_not_invite: No tienes permisos para invitar a este grupo
         title: Grupos
         create_group: Crear un grupo nuevo
         create: Crear
@@ -91,6 +99,10 @@ es:
           activation_request:
             subject: Solicitud de nuevo grupo '{{group_name}}'
             content: "<p>El usuario '{{user_name}}' ha solicitado la creación de un nuevo grupo llamado '{{group_name}}'.</p><p><a href=\"{{activation_url}}\">{{activation_url}}</a></p>"
+          invitation:
+            subject: Invitación al grupo {{group}}
+            accept: Aceptar
+            reject: Rechazar
       admin:
         groups: Grupos
         deleted: Grupo eliminado

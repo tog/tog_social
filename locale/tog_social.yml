@@ -92,6 +92,14 @@ en:
         last_moderator: You are the last moderator of this group. You can't leave it before nominating a new moderator
         not_found: Error. This group is not active or doesn't exist
         unactive: Error. This group is not active
+        invite: 
+          already_member: This user already is a member of this group
+          already_invited: This user already has been invited to this group.¡
+          invited: Group invitation sent
+          you_are_not_invited: You aren't invited to this group
+          invitation_accepted: Invitation accepted
+          invitation_rejected: Invitation rejected
+          you_could_not_invite: You haven't permission to invite users to this group
         title: Groups
         create_group: Create new group
         create: Create
@@ -123,6 +131,10 @@ en:
           activation_request:
             subject: Request for new group '{{group_name}}'
             content: "<p>User '{{user_name}}' has requested the creation of a new group called '{{group_name}}'.</p><p><a href=\"{{activation_url}}\">{{activation_url}}</a></p>"
+          invitation:
+            subject: Invitation to the group {{group}}
+            accept: Accept
+            reject: Reject
       admin:
         groups: Groups
         deleted: Group deleted

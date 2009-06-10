@@ -24,8 +24,29 @@ class GroupsControllerTest < ActionController::TestCase
         setup do
           get :join, :id => @pornfans
         end
-        should_set_the_flash_to /Welcome to the group 'Porn without frontiers'. Enjoy your participation!/i
+        should_set_the_flash_to I18n.t("tog_social.groups.site.welcome", :name => 'Porn without frontiers')
         should_redirect_to ("PornFans") { group_url(@pornfans) }
+      end
+      context "when a invited user" do
+        setup do
+          @pornfans.invite(@berlusconi)
+        end
+      
+        context "accept invitation" do
+          setup do
+            get :accept_invitation, :id => @pornfans.id 
+          end
+          should_set_the_flash_to I18n.t("tog_social.groups.site.invite.invitation_accepted")
+          should_redirect_to ("the group's page"){ group_path(@pornfans) }
+        end
+      
+        context "reject invitation" do
+          setup do      
+            get :reject_invitation, :id => @pornfans.id
+          end
+          should_set_the_flash_to I18n.t("tog_social.groups.site.invite.invitation_rejected")      
+          should_redirect_to ("the group's page"){ group_path(@pornfans) }
+        end
       end
     end
     
@@ -38,7 +59,7 @@ class GroupsControllerTest < ActionController::TestCase
         setup do
           get :join, :id => @pornfans
         end
-        should_set_the_flash_to /You request has been received. Moderators of this group will make a decision soon./i
+        should_set_the_flash_to I18n.t("tog_social.groups.site.request_received")
         should_redirect_to ("PornFans") { group_url(@pornfans) }
         should "send an email to the group's admin" do
           assert_sent_email do |email|

@@ -1,7 +1,7 @@
 class Member::GroupsController < Member::BaseController
 
   before_filter :find_group, :except => [:index, :new, :create]
-  before_filter :check_moderator, :except => [:index, :new, :create]
+  before_filter :check_moderator, :except => [:index, :new, :create, :invite, :accept_invitation, :reject_invitation]
 
   def index
     @moderator_memberships = current_user.moderator_memberships
@@ -87,7 +87,32 @@ class Member::GroupsController < Member::BaseController
     redirect_to member_group_pending_members_url(@group)
   end
 
-
+  def invite
+    @group = Group.find(params[:membership][:group_id])
+    user = User.find(params[:membership][:user_id])
+    if @group.can_invite?(current_user)
+      if @group.members.include? user
+        flash[:notice] = I18n.t("tog_social.groups.site.already_member")
+      else
+        if @group.invited_members.include? user
+          flash[:error] = I18n.t("tog_social.groups.site.invite.already_invited")
+        else
+          @group.invite(user)
+          @message = Message.new(
+          :from => current_user,
+          :to => user,
+          :subject => I18n.t("tog_social.groups.member.mail.invitation.subject", :group=>@group.name),
+          :content => render_to_string(:partial => 'invite_mail', :locals =>{:group=>@group})
+          )
+          @message.dispatch!
+          flash[:ok] = I18n.t("tog_social.groups.site.invite.invited")
+        end
+      end
+    else
+      flash[:error] = flash[:error] = I18n.t("tog_social.groups.site.invite.you_could_not_invite")
+    end
+    redirect_to profile_path(user.profile)
+  end
 
   protected
 
@@ -99,7 +124,7 @@ class Member::GroupsController < Member::BaseController
   def check_moderator
     unless @group.moderators.include? current_user
       flash[:error] = I18n.t("tog_social.groups.member.not_moderator") 
-      redirect_to groups_path(@group)
+      redirect_to group_path(@group)
     end
   end
 

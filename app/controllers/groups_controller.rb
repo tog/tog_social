@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
 
   before_filter :login_required, :only => [:join, :leave]
-  before_filter :load_group, :only => [:show, :join, :leave, :members, :invite_accept, :invite_reject, :share]
+  before_filter :load_group, :only => [:show, :join, :leave, :members, :accept_invitation, :reject_invitation, :share]
 
   def index
     @order = params[:order] || 'created_at'
@@ -84,7 +84,25 @@ class GroupsController < ApplicationController
     end
     redirect_to member_groups_path
   end
-
+  
+  def accept_invitation
+    if(@group.accept_invitation(current_user))
+      flash[:ok] = I18n.t("tog_social.groups.site.invite.invitation_accepted")
+    else
+      flash[:error] = I18n.t("tog_social.groups.site.invite.you_are_not_invited")
+    end
+    redirect_to group_path(@group)
+  end
+  
+  def reject_invitation
+    if(@group.leave(current_user))
+      flash[:ok] = I18n.t("tog_social.groups.site.invite.invitation_rejected")
+    else
+      flash[:error] = I18n.t("tog_social.groups.site.invite.you_are_not_invited")
+    end
+    redirect_to group_path(@group)
+  end
+  
   private
     def load_group
       #TODO be more specific with this error control

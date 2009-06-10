@@ -8,8 +8,15 @@ class Membership < ActiveRecord::Base
   acts_as_state_machine :initial => :pending
   state :pending, :enter => :make_activation_code
   state :active, :enter => :do_activate
+  state :invited
   event :activate do
     transitions :from => :pending, :to => :active
+  end
+  event :invite do
+    transitions :from => :pending, :to => :invited
+  end
+  event :accept_invitation do
+    transitions :from => :invited, :to => :active
   end
   
   def active?
