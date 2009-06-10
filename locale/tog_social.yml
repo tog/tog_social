@@ -25,6 +25,7 @@ en:
       share_with: Share with '{{name}}'
       shared_ok: Object shared with group "{{name}}"!
       shared_nok: This object was already share with group "{{name}}"!      
+      removed_shared_ok: The object was successfully removed! 
     profiles:
       model:
         first_name: First Name

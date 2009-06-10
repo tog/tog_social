@@ -34,6 +34,21 @@ class Member::SharingsController < Member::BaseController
     end
   end
   
+  def remove
+    if @group.moderators.include? current_user 
+      @shared = @group.sharings.find :first, :conditions => {:group_id => params[:id], :shareable_id => params[:shareable_id]}
+      if @shared != nil        
+        if @shared.destroy          
+          flash[:ok] = I18n.t("tog_social.sharings.removed_shared_ok")
+          respond_to do |format|
+            format.html { redirect_back_or_default(Tog::Config["plugins.tog_user.default_redirect_on_login"]) }
+            format.xml
+          end
+        end
+      end
+    end
+  end
+  
   protected
 
     def find_group

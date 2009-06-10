@@ -18,6 +18,12 @@ Factory.define :group do |g|
   g.state 'pending'
 end
 
+Factory.define :group_sharing do |gs|
+  gs.status 1
+  gs.created_at Time.now
+  gs.updated_at Time.now
+end
+
 Factory.define :activity do |f|
   f.association :user
   f.action      'kill'
