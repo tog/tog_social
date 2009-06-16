@@ -1,5 +1,6 @@
 Edge
 ----
+* Remove profile activity record
 
 0.5.0
 ----

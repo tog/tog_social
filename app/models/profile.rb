@@ -25,20 +25,18 @@ class Profile < ActiveRecord::Base
       :tiny   => Tog::Plugins.settings(:tog_social, "profile.image.versions.tiny")
     }}.merge(Tog::Plugins.storage_options)
 
-
-  record_activity_of :user
   acts_as_abusable
-  
-  named_scope :active, :conditions => {'users.state' => 'active'}, :include => :user  
-  
+
+  named_scope :active, :conditions => {'users.state' => 'active'}, :include => :user
+
   def self.site_search(query, search_options={})
     Profile.find(:all, :conditions => ["first_name like ? or last_name like ?", "%#{query}%", "%#{query}%"])
   end
-  
+
   def network
     friends + followings
   end
-  
+
   def friends
     # Reload associations just to make sure we're working with the current staff. Bad smell!
     # todo check this... if we don't should reload the relationship to get the test working...
