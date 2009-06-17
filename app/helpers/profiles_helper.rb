@@ -24,7 +24,7 @@ module ProfilesHelper
 
   def friendship_options(profile=@profile)
     if logged_in? && current_user.profile.is_friend_of?(profile)
-      link_to I18n.t("tog_social.profiles.helper.remove_friend", :name => profile.full_name), member_remove_friend_path(profile)
+      link_to I18n.t("tog_social.profiles.helper.remove_friend", :name => profile.full_name), member_unfollow_user_path(profile)
     else
       link_to I18n.t("tog_social.profiles.helper.add_friend", :name => profile.full_name), member_add_friend_path(profile)
     end
