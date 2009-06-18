@@ -1,6 +1,9 @@
 Edge
 ----
 
+0.5.1
+----
+
 * Issue tracker moved to github: http://github.com/tog/tog_social/issues 
 * Remove profile activity record
 * Fixed #1. URL for removing friends in profiles_helper_
