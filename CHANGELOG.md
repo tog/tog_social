@@ -1,6 +1,8 @@
 Edge
 ----
 
+* Fixed some locale keys
+
 0.5.1
 ----
 
