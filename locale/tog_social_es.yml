@@ -14,6 +14,12 @@ es:
     back: Volver    
     msg_yes: Si
     msg_no: No
+    more_info: Más información
+    more_links: Más enlaces
+    search: Buscar
+    tags:
+      tags: Etiquetas
+      separated_by_comma: Separadas por comas    
     sharings: 
       share: Compartir '{{name}}' 
       share_with: Compartir con '{{name}}'    
@@ -41,6 +47,8 @@ es:
         send_message: Enviar mensaje privado
       member:
         updated: Su perfíl se ha actualizado con éxito
+        update_profile: Actualizar perfíl
+        profile_details: Detalles del perfíl 
       helper:
         photo_for_user: Foto de {{name}}
         follow_user: Seguir a {{name}}
@@ -49,17 +57,30 @@ es:
         remove_friend: Eliminar a {{name}} de tu lista de amigos        
     groups:
       model:
+        members:
+          one: "1 miembro"
+          other: "{{count}} miembros"
+        members_not_found: "{{group_name}} tiene 0 miembros."      
         name: Nombre
+        description: Descripción
+        image: Imagen
+        image_help: Si no quieres cambiar la imagen deja este campo en blanco.
         created_by: Creado por
         private: Privado
+        private_help: Un grupo privado no aparecerá en los listados públicos.
         moderated: Moderado
+        moderated_help: En un grupo moderado cada solicitud de netrada debe ser aprobada.
+        moderated_by: Moderador por
+        moderated_by_you: Moderador por tí
         active: Activo
         icon: Icono
         created_at: Creado el
-        updated_at: Actualizado el        
+        updated_at: Actualizado el
+        member_status: Status        
       site:
         share: Compartir con tus grupos
         share_title: Compartir con el grupo '{{name}}'        
+        member: Eres miembro de este grupo.
         already_member: Ya eres un miembro de este grupo.
         not_member: No eres un miembro de este grupo.
         request_received: Su petición ha sido recibida. Los moderadores del grupo tomarán una decisión en breve.
@@ -68,6 +89,7 @@ es:
         leave: Abandonar este grupo
         leave_confirm: ¿Seguro que quieres abandonar este grupo?
         leaved: Has dejado de pertenecer a este grupo
+        join: Únete a este grupo
         last_moderator: Eres el último moderador de este grupo.No puedes abandonarlo hasta que nomines a un nuevo moderador
         not_found: Error. Este grupo no está activo o no existe
         unactive: Error. Este grupo no está activo
@@ -90,6 +112,16 @@ es:
       member:
         created: Grupo creado con éxito.
         pending: Tu grupo ha sido creado pero está pendiente de aprobación por un administrador
+        group_member: Grupos de los que eres miembro
+        members_pending: "{{size}} solicitudes esperando aprobación"
+        pending_members: Solicitudes pendientes
+        accept: Aceptar
+        accept_title: Acetar usuario
+        reject: Rechazar
+        reject_title: Rechazar usuario
+        edit: Editar grupo
+        edit_group: Editar grupo {{group}}
+        update: Update
         updated: Grupo '{{name}}' actualizado con éxito"
         user_doesnt_exist: El usuario no existe
         user_rejected: El usuario '{{name}}' ha sido rechazado para este grupo
