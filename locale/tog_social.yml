@@ -109,6 +109,8 @@ en:
         search_groups: Search groups
         group_tagged: Group tagged {{tag}}
         group_tags: Group tags
+        shared_ok: The sharing with the group {{name}} was successfull.
+        shared_nok: Already shared with the group {{name}}.
       member:
         created: Group created successfully.
         pending: Your group has been created but is pending for administrator's approval.

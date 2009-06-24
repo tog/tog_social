@@ -7,8 +7,10 @@ module SharingsHelper
   end
     
   def share_link(text, share_with, shareable)
-    link_to_remote text, :url => member_share_with_group_path(share_with, shareable.type, shareable.id), 
-        :html => {:title => I18n.t("tog_social.sharing.share_with", :name => share_with.name)} 
+    link_to_remote text, 
+        :update => "share_with_groups_message",
+        :url => member_share_with_group_path(share_with, shareable.type, shareable.id),
+        :html => {:title => I18n.t("tog_social.sharings.share_with", :name => share_with.name)}
   end
   
 end
