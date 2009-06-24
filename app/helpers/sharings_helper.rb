@@ -13,5 +13,13 @@ module SharingsHelper
         :html => {:title => I18n.t("tog_social.sharings.share_with", :name => share_with.name)}
   end
   
+  def shareable_title(shareable)
+    if (shareable.respond_to?(:name))
+      string = shareable.name
+    else
+      string = shareable.title
+    end
+    string
+  end  
 end
 
