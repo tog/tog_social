@@ -1,6 +1,9 @@
 Edge
 ----
 
+0.5.2
+----
+
 * Fixed some locale keys
 * Helper method for showing an object's title/name while sharing
 * Fixed sharing link in sharings_helper, now updates HTML for showing operation's result (kudos to Andrei Erdoss)
