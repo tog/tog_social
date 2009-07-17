@@ -23,8 +23,10 @@ class UserTest < ActiveSupport::TestCase
       should "have his group memberships destroyed, too" do
         assert_nil Membership.find_by_id(@membership.id)
       end
-
     end
-
+    
+    should "accepts nested attributes for profile" do
+      assert  User.instance_methods.include?("profile_attributes="), "User does not accept nested attributes for profile"
+    end
   end
 end

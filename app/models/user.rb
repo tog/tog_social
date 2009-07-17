@@ -21,6 +21,9 @@ class User < ActiveRecord::Base
   has_many :tokens, :class_name=>"OauthToken", :order=>"authorized_at desc", :include=>[:client_application]
   # => oauth support
 
+  accepts_nested_attributes_for :profile
+  attr_accessible :profile_attributes
+  
   def network
     profile.network.collect{|profile| profile.user}
   end
