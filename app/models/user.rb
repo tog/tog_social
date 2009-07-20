@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   has_many :moderated_groups, :through => :moderator_memberships,
                     :conditions => "memberships.state='active' and groups.state='active'", :source => :group
 
+  has_many :sharings, :class_name => 'GroupSharing', :dependent => :destroy, :foreign_key => 'shared_by'
+  
   # => oauth support
   has_many :client_applications
   has_many :tokens, :class_name=>"OauthToken", :order=>"authorized_at desc", :include=>[:client_application]

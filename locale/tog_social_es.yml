@@ -4,6 +4,7 @@ es:
       groups: Grupos
     member:
       my_groups: Mis grupos
+      my_sharings: Cosas que he compartido      
     site:
       profiles: Gente
       groups: Grupos
@@ -21,11 +22,23 @@ es:
       tags: Etiquetas
       separated_by_comma: Separadas por comas    
     sharings: 
-      share: Compartir '{{name}}' 
-      share_with: Compartir con '{{name}}'    
-      shared_ok: Objeto compartido con el grupo "{{name}}"!
-      shared_nok: Este objeto ya estaba compartido con el grupo "{{name}}"!           
-      removed_shared_ok: El objeto fue borrado con éxito
+      model:
+        name: Objecto compartido  
+        created_at: Compartido el
+        shared_by: Compartido por
+        group: Grupo       
+      member:
+        already_shared: Ya compartido      
+        share: Compartir '{{name}}'
+        remove_share: Dejar de compartir
+        share_with: Compartir con '{{name}}'
+        remove_share_from: Eliminar de '{{name}}'
+        shared_ok: Objecto compartido con "{{name}}"!
+        shared_nok: Este objeto ya estaba compartido con "{{name}}"! 
+        not_member: Tienes que ser miembro de ese grupo para poder compartir cosas con él
+        remove_share_ok: Objeto eliminado de '{{name}}'
+        remove_share_nok: No se ha eliminado el objeto de '{{name}}'
+        remove_confirmation: ¿Estas seguro de dejar de compartir '{{object}}' con el grupo '{{group}}' ?                   
     profiles:
       model:
         first_name: Nombre
@@ -109,8 +122,6 @@ es:
         search_groups: Busca entre los grupos
         group_tagged: Grupos etiquetados {{tag}}
         group_tags: Tags de grupos
-        shared_ok: Se ha compartido con el grupo {{name}} con éxito
-        shared_nok: Ya esta compartido con el grupo{{name}}
       member:
         created: Grupo creado con éxito.
         pending: Tu grupo ha sido creado pero está pendiente de aprobación por un administrador

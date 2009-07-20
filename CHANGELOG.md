@@ -1,6 +1,14 @@
 Edge
 ----
 
+* Clean-up of sharings (thanks to Andrei Erdoss)
+     IMPORTANT: the most important change is that to methods in Member::SharingController has been renamed, from
+                index+share+remove to the more standard new+create+destroy and routes names has been updated. 
+                If you have personalized sharing's views you will need to update those paths.
+* User's can remove it own sharings
+* Sharings are deleted when it's group is destroyed
+* Tests for sharings
+
 0.5.3
 ----
 

@@ -1,9 +1,20 @@
 class Member::SharingsController < Member::BaseController
 
-  before_filter :find_group, :except => [:index]
-#  before_filter :check_moderator, :except => [:index]
+  before_filter :find_group, :except => [:index, :new]
 
   def index
+    @order = params[:order] || 'created_at'
+    @page = params[:page] || '1'
+    @asc = params[:asc] || 'desc'
+    @sharings = current_user.sharings.paginate  :per_page => 10,
+                                                :page => @page,
+                                                :order => "#{@order} #{@asc}"    
+    respond_to do |format|
+     format.html
+    end    
+  end
+
+  def new
     @sharing = GroupSharing.new(:shareable_type => params[:shareable_type], :shareable_id => params[:shareable_id])
     @shareable = @sharing.shareable
     @groups = current_user.groups
@@ -13,53 +24,42 @@ class Member::SharingsController < Member::BaseController
     end    
   end
 
-  def share
+  def create
     if @group.members.include? current_user
       if @group.share(current_user, params[:shareable_type], params[:shareable_id])
-        message = I18n.t("tog_social.groups.site.shared_ok", :name => @group.name)
-        html_class = 'notice ok'
+        flash[:ok] = I18n.t("tog_social.sharings.member.shared_ok", :name => @group.name)
       else
-        message = I18n.t("tog_social.groups.site.shared_nok", :name => @group.name)
-        html_class = 'notice'
-      end
-      respond_to do |format|
-         format.html { render :text => "<div class=\"#{html_class}\">#{message}</div>"}
-         format.xml  { render :xml => message, :head => :ok }
+        flash[:notice] = I18n.t("tog_social.sharings.member.shared_nok", :name => @group.name)
       end
     else
-      respond_to do |format|
-         format.html { render :text => "<div class=\"notice error\">#{I18n.t("tog_social.groups.site.not_member")}</div>"}
-         format.xml  { render :xml => I18n.t("tog_social.groups.site.not_member"), :head => :error }
-      end
+      flash[:error] = I18n.t("tog_social.sharings.member.not_member", :name => @group.name)
     end
+    respond_to do |format|
+       format.html { redirect_to member_share_path(@group, params[:shareable_type], params[:shareable_id]) }
+       format.xml  { render :xml => message, :head => :ok }
+    end    
+    
   end
-  
-  def remove
-    if @group.moderators.include? current_user 
-      @shared = @group.sharings.find :first, :conditions => {:group_id => params[:id], :shareable_id => params[:shareable_id]}
-      if @shared != nil        
-        if @shared.destroy          
-          flash[:ok] = I18n.t("tog_social.sharings.removed_shared_ok")
-          respond_to do |format|
-            format.html { redirect_back_or_default(Tog::Config["plugins.tog_user.default_redirect_on_login"]) }
-            format.xml
-          end
-        end
-      end
+
+  def destroy
+    @sharing = @group.sharings.find params[:id]
+    if @sharing && (@sharing.shared_by == current_user || @group.moderators.include?(current_user) )
+      @sharing.destroy         
+      flash[:ok] = I18n.t("tog_social.sharings.member.remove_share_ok", :name => @group.name)
+    else
+      flash[:ok] = I18n.t("tog_social.sharings.member.remove_share_nok", :name => @group.name)      
     end
+    respond_to do |format|
+      format.html { redirect_to member_sharings_path }
+      format.xml
+    end    
   end
-  
+
+
   protected
 
     def find_group
-      @group = Group.find(params[:id]) if params[:id]
-    end
-
-    def check_moderator
-      unless @group.moderators.include? current_user
-        flash[:error] = I18n.t("tog_social.groups.member.not_moderator") 
-        redirect_to group_path(@group)
-      end
+      @group = Group.find(params[:group_id]) if params[:group_id]      
     end
 
 end

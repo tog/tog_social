@@ -39,12 +39,23 @@ class GroupTest < ActiveSupport::TestCase
     end
     
     should "allow a user to share a resource with it" do 
-      @pornfans.share(@chavez, "Video", 128)
-      sharing = @pornfans.sharings.first 
-      assert_equal "Video", sharing.shareable_type
-      assert_equal 128, sharing.shareable_id
+      sharing = @pornfans.share(@chavez, @chavez.profile.class.to_s, @chavez.profile.id)
+      assert_equal "Profile", sharing.shareable_type
+      assert_equal @chavez.profile.id, sharing.shareable_id
       assert_equal @chavez, sharing.shared_by
+      assert_equal @chavez.profile, sharing.shareable
     end
+
+    should "allow a user to share a resource with it only once" do 
+      assert @pornfans.share(@chavez, @chavez.profile.class.to_s, @chavez.profile.id) != nil
+      assert @pornfans.share(@chavez, @chavez.profile.class.to_s, @chavez.profile.id) == nil         
+    end
+    
+    should "respond to shared? correctly" do 
+      @pornfans.share(@chavez, @chavez.profile.class.to_s, @chavez.profile.id) != nil
+      assert @pornfans.shared?(@chavez.profile)       
+      assert !@pornfans.shared?(@chavez) 
+    end    
     
     context "that is moderated" do
       setup do
@@ -60,7 +71,7 @@ class GroupTest < ActiveSupport::TestCase
         assert @selectedporn.members(true).include?(@berlusconi)
       end
     end
-    
+
     context "that is active" do
        setup do
          @socialists = Factory(:group, :name => 'Active socialist poticians', :moderated => true, :author => @chavez) 
@@ -75,7 +86,8 @@ class GroupTest < ActiveSupport::TestCase
          assert_contains Group.site_search("socialist"), @socialists
        end
     
-     end
+    end
+        
 
   end
 

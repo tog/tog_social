@@ -4,6 +4,7 @@ en:
       groups: Groups
     member:
       my_groups: My Groups
+      my_sharings: Things I've' shared
     site:
       profiles: People
       groups: Groups
@@ -20,12 +21,24 @@ en:
     tags:
       tags: Tags
       separated_by_comma: Separated by commas
-    sharings: 
-      share: Share '{{name}}'
-      share_with: Share with '{{name}}'
-      shared_ok: Object shared with group "{{name}}"!
-      shared_nok: This object was already share with group "{{name}}"!      
-      removed_shared_ok: The object was successfully removed! 
+    sharings:
+      model:
+        name: Shared object
+        created_at: Shared at
+        shared_by: Shared by
+        group: Group
+      member: 
+        already_shared: Already shared
+        share: Share '{{name}}'
+        remove_share: Remove Share
+        share_with: Share with '{{name}}'
+        remove_share_from: Remove share from '{{name}}'
+        shared_ok: Object shared with group "{{name}}"!
+        shared_nok: This object was already shared with group "{{name}}"! 
+        not_member: You have to be member of that group to share objects with it
+        remove_share_ok: Share removed successfully from '{{name}}'
+        remove_share_nok: Share was not removed from '{{name}}'
+        remove_confirmation: Are you sure you want to stop sharing '{{object}}' with the group '{{group}}'?   
     profiles:
       model:
         first_name: First Name
@@ -109,8 +122,6 @@ en:
         search_groups: Search groups
         group_tagged: Group tagged {{tag}}
         group_tags: Group tags
-        shared_ok: The sharing with the group {{name}} was successfull.
-        shared_nok: Already shared with the group {{name}}.
       member:
         created: Group created successfully.
         pending: Your group has been created but is pending for administrator's approval.
@@ -151,7 +162,7 @@ en:
         pending_members: Pending members
         delete_group: Delete group
         please_wait: Please wait...
-        updated: Group '{{name}}' succcessfully updated!"        
+        updated: Group '{{name}}' succcessfully updated!"              
     friendships: 
       member:
         not_found: There isn't any user with this id '{{id}}'
