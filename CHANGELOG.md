@@ -1,6 +1,9 @@
 Edge
 ----
 
+0.5.4
+----
+
 * Clean-up of sharings (thanks to Andrei Erdoss)
      IMPORTANT: the most important change is that to methods in Member::SharingController has been renamed, from
                 index+share+remove to the more standard new+create+destroy and routes names has been updated. 
