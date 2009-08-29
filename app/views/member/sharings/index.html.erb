@@ -23,11 +23,11 @@
     <% for sharing in @sharings %>
     <tr<%= cycle(' class="pair"', '') -%>>
       <td><%= shareable_title(sharing) %></td>
-      <td><%= link_to sharing.group.name, group_path(sharing.group) %></td>
-      <td><%= sharing.creation_date %></td>
+      <td><%= link_to shared_to_title(sharing), sharing.shared_to %></td>
+      <td><%= I18n.l(sharing.created_at, :format => :short) %></td>
       <td><%= link_to I18n.t('tog_social.sharings.member.remove_share'), 
-              member_destroy_sharing_path(sharing.group, sharing), 
-              :method => :delete, :confirm => I18n.t('tog_social.sharings.member.remove_confirmation', :object => shareable_title(sharing), :group => sharing.group.name) %></td>
+              member_destroy_sharing_path(sharing.shared_to, sharing), 
+              :method => :delete, :confirm => I18n.t('tog_social.sharings.member.remove_confirmation', :object => shareable_title(sharing), :group => shared_to_title(sharing)) %></td>
     </tr>
     <% end %>
   </tbody>

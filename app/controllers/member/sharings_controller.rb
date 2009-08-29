@@ -15,7 +15,7 @@ class Member::SharingsController < Member::BaseController
   end
 
   def new
-    @sharing = GroupSharing.new(:shareable_type => params[:shareable_type], :shareable_id => params[:shareable_id])
+    @sharing = Share.new(:shareable_type => params[:shareable_type], :shareable_id => params[:shareable_id])
     @shareable = @sharing.shareable
     @groups = current_user.groups
     @referer = request.referer

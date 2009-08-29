@@ -17,17 +17,27 @@ module SharingsHelper
           :html => {:title => I18n.t("tog_social.sharings.member.share_with", :name => share_with.name)}
     end
   end    
-  
-  def shareable_title(shareable)
-    if (shareable.respond_to?(:name))
-      string = shareable.name
-    elsif (shareable.respond_to?(:title))
-      string = shareable.title
-    else
-      string = shareable.to_s
-    end
-    string
+
+  def shared_to_title(sharing)
+    title_for_object(sharing.shared_to)
+  end
+    
+  def shareable_title(sharing)
+    title_for_object(sharing.shareable)
   end  
+  
+  private 
+  
+    def title_for_object(obj)
+      if (obj.respond_to?(:name))
+        string = obj.name
+      elsif (obj.respond_to?(:title))
+        string = obj.title
+      else
+        string = obj.to_s
+      end
+      string      
+    end
   
 end
 
