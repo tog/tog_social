@@ -16,7 +16,8 @@ class Group < ActiveRecord::Base
   has_many :moderators, :through => :moderator_memberships, :source => :user,
                         :conditions => ['memberships.state = ?', 'active']
                         
-  has_many :sharings, :class_name => 'GroupSharing', :dependent => :destroy
+  has_many :sharings, :class_name => 'Share', :dependent => :destroy, :as => :shared_to
+  
 
   has_many :invited_members,  :through => :memberships, :source => :user, :conditions => ['memberships.state = ?', 'invited']
   named_scope :can_invite, :include => :memberships, 
@@ -104,9 +105,9 @@ class Group < ActiveRecord::Base
   end
   
   def share(user, shareable_type, shareable_id)
-    params = {:shareable_type => shareable_type, :shareable_id => shareable_id}     
+    params = {:shareable_type => shareable_type, :shareable_id => shareable_id}   
     return if self.sharings.find :first, :conditions => params
-    self.sharings.create params.merge!({:shared_by => user})
+    self.sharings.create params.merge!({:user_id => user.id})
   end
   
   def shared?(object)

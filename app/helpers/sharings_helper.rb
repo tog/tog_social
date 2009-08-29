@@ -12,7 +12,8 @@ module SharingsHelper
       "#{link_text}<br/><small>#{I18n.t('tog_social.sharings.member.already_shared')}</small>"
     else
       link_to link_text,
-          :url => member_share_path(share_with, shareable.class.to_s, shareable.id),
+          member_share_path(share_with, shareable.class.to_s, shareable.id),
+          :method => :post,
           :html => {:title => I18n.t("tog_social.sharings.member.share_with", :name => share_with.name)}
     end
   end    
@@ -27,8 +28,6 @@ module SharingsHelper
     end
     string
   end  
-  
- 
   
 end
 

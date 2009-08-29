@@ -27,12 +27,11 @@ namespace(:member) do |member|
     friendship.unfollow_user  '/unfollow/:friend_id',       :action => 'unfollow'
   end
   member.with_options(:controller => 'sharings') do |sharing|
+    sharing.share '/sharings/share/:group_id/:shareable_type/:shareable_id', :action => 'create', :method => :post    
     sharing.new_sharing '/sharings/:shareable_type/:shareable_id/new', :action => 'new'
     sharing.sharings '/sharings', :action => 'index'
     sharing.destroy_sharing '/sharings/:group_id/:id', :action => 'destroy', :method => :delete      
 #    sharing.destroy_sharing '/group/:id/remove/:shareable_type/:shareable_id', :action => 'destroy', :method => :delete  
-    sharing.share '/sharings/:group_id/:shareable_type/:shareable_id', :action => 'create', :method => :post
-
   end
 end
 

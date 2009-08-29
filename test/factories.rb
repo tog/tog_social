@@ -18,13 +18,6 @@ Factory.define :group do |g|
   g.state 'pending'
 end
 
-Factory.define :group_sharing do |gs|
-  gs.status GroupSharing::ACCEPTED
-  gs.association :group, :factory => :group
-  gs.association :shared_by, :factory => :user
-  gs.association :shareable, :factory => :profile  
-end
-
 Factory.define :activity do |f|
   f.association :user
   f.action      'kill'

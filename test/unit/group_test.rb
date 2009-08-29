@@ -42,7 +42,7 @@ class GroupTest < ActiveSupport::TestCase
       sharing = @pornfans.share(@chavez, @chavez.profile.class.to_s, @chavez.profile.id)
       assert_equal "Profile", sharing.shareable_type
       assert_equal @chavez.profile.id, sharing.shareable_id
-      assert_equal @chavez, sharing.shared_by
+      assert_equal @chavez, sharing.user
       assert_equal @chavez.profile, sharing.shareable
     end
 

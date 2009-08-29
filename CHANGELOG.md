@@ -1,6 +1,8 @@
 Edge
 ----
 
+* Replaced own sharing code by acts_as_shareable plugin. Please, install acts_as_shareable and it's migration before running plugins migrations.
+
 0.5.4
 ----
 
