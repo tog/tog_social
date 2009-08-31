@@ -6,11 +6,11 @@ class MigrateToActsAsShareable < ActiveRecord::Migration
     Share.destroy_all
     current_sharings = ActiveRecord::Base.connection.execute("select * from group_sharings")
     current_sharings.each do |r|
-      share = Share.create(:id => r["id"], 
-                           :user_id => r["shared_by"], :status => r["status"],
-                           :shareable_type => r["shareable_type"], :shareable_id => r["shareable_id"],
-                           :shared_to_type => "Group", :shared_to_id => r["group_id"],
-                           :created_at => r["created_at"], :updated_at => r["updated_at"])
+      share = Share.create(:id => r[0], 
+                           :user_id => r[4], :status => r[5],
+                           :shareable_type => r[3], :shareable_id => r[2],
+                           :shared_to_type => "Group", :shared_to_id => r[1],
+                           :created_at => r[6], :updated_at => r[7])
     end
 
     drop_table :group_sharings
