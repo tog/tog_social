@@ -12,6 +12,9 @@ class Member::SharingsControllerTest < ActionController::TestCase
       @berlusconi.activate!
       @request.session[:user_id]= @berlusconi.id      
 
+      @referer = "http://www.google.es"
+      @request.env["HTTP_REFERER"] = @referer
+
       @pornfans = Factory(:group, :name => 'Porn without frontiers', :moderated => false, :author => @berlusconi)
     end
 
@@ -30,7 +33,7 @@ class Member::SharingsControllerTest < ActionController::TestCase
         end
         
         should_set_the_flash_to /Object shared/i      
-        should_redirect_to("new share") { member_share_path(@pornfans, @berlusconi.profile.class.to_s, @berlusconi.profile.id) }
+        should_redirect_to(":back") { @referer }
         
       end
       
@@ -45,7 +48,7 @@ class Member::SharingsControllerTest < ActionController::TestCase
         end
         
         should_set_the_flash_to /already shared/i      
-        should_redirect_to("new share") { member_share_path(@pornfans, @berlusconi.profile.class.to_s, @berlusconi.profile.id) }
+        should_redirect_to(":back") { @referer }
         
       end
             
@@ -81,7 +84,7 @@ class Member::SharingsControllerTest < ActionController::TestCase
         end
 
         should_set_the_flash_to /have to be member/i      
-        should_redirect_to("new share") { member_share_path(@pornfans, @berlusconi.profile.class.to_s, @berlusconi.profile.id) }
+        should_redirect_to(":back") { @referer }
         
       end 
       
