@@ -35,7 +35,7 @@ class Member::SharingsController < Member::BaseController
       flash[:error] = I18n.t("tog_social.sharings.member.not_member", :name => @group.name)
     end
     respond_to do |format|
-       format.html { redirect_to member_share_path(@group, params[:shareable_type], params[:shareable_id]) }
+       format.html { redirect_to :back }
        format.xml  { render :xml => message, :head => :ok }
     end    
     
