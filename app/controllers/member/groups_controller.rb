@@ -14,7 +14,7 @@ class Member::GroupsController < Member::BaseController
     @group.save
 
     @group.join(current_user, true)
-    @group.activate_membership(current_user)
+#    @group.activate_membership(current_user)
 
     if @group.errors.empty?
       if current_user.admin == true || Tog::Config['plugins.tog_social.group.moderation.creation'] != true

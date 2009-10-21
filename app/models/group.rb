@@ -43,10 +43,12 @@ class Group < ActiveRecord::Base
   acts_as_taggable
   seo_urls
 
-  acts_as_state_machine :initial => :pending
-  state :pending, :enter => :make_activation_code
-  state :active,  :enter => :do_activate
-  event :activate do
+  include AASM
+  aasm_column :state
+  aasm_initial_state :pending
+  aasm_state :pending, :enter => :make_activation_code
+  aasm_state :active,  :enter => :do_activate
+  aasm_event :activate do
     transitions :from => :pending, :to => :active
   end
 
@@ -143,7 +145,7 @@ class Group < ActiveRecord::Base
   def do_activate
     self.activated_at = Time.now.utc
     self.activation_code = nil
-    self.moderator_memberships.each{|mod| mod.activate!}
+    self.moderator_memberships.each{|mod| mod.activate! unless mod.active?}
   end
 
   def set_default_image

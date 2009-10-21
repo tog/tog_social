@@ -17,6 +17,20 @@ class Member::SharingsControllerTest < ActionController::TestCase
 
       @pornfans = Factory(:group, :name => 'Porn without frontiers', :moderated => false, :author => @berlusconi)
     end
+    
+    context "can GET his sharings" do
+      setup do
+        @pornfans.join(@berlusconi, true)
+        @sharing = @pornfans.share(@berlusconi, @berlusconi.profile.class.to_s, @berlusconi.profile.id)
+        get :index
+      end 
+    
+      should_assign_to :sharings
+      
+      should "include all his sharings" do
+        assert assigns(:sharings).include?(@sharing) 
+      end      
+    end
 
     context "member of a group" do
       setup do

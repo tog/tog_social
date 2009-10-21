@@ -5,17 +5,20 @@ class Membership < ActiveRecord::Base
   
   record_activity_of :user
   
-  acts_as_state_machine :initial => :pending
-  state :pending, :enter => :make_activation_code
-  state :active, :enter => :do_activate
-  state :invited
-  event :activate do
+  include AASM
+  aasm_column :state
+  aasm_initial_state :pending
+  aasm_state :pending, :enter => :make_activation_code
+  aasm_state :active, :enter => :do_activate
+  aasm_state :invited
+  
+  aasm_event :activate do
     transitions :from => :pending, :to => :active
   end
-  event :invite do
+  aasm_event :invite do
     transitions :from => :pending, :to => :invited
   end
-  event :accept_invitation do
+  aasm_event :accept_invitation do
     transitions :from => :invited, :to => :active
   end
   

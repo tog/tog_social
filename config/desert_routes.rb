@@ -3,7 +3,7 @@
 
 resources :profiles
 
-resources :streams, :only => [:index, :show]
+resources :streams, :only => [:index, :show], :member => {:network => :get}
 
 with_options(:controller => 'groups') do |group|
   group.tag_groups       '/groups/tag/:tag',                         :action => 'tag'
@@ -27,10 +27,10 @@ namespace(:member) do |member|
     friendship.unfollow_user  '/unfollow/:friend_id',       :action => 'unfollow'
   end
   member.with_options(:controller => 'sharings') do |sharing|
-    sharing.share '/sharings/share/:group_id/:shareable_type/:shareable_id', :action => 'create', :method => :post    
+    sharing.share '/sharings/share/:group_id/:shareable_type/:shareable_id', :action => 'create', :conditions => { :method => :post }    
     sharing.new_sharing '/sharings/:shareable_type/:shareable_id/new', :action => 'new'
     sharing.sharings '/sharings', :action => 'index'
-    sharing.destroy_sharing '/sharings/:group_id/:id', :action => 'destroy', :method => :delete      
+    sharing.destroy_sharing '/sharings/:group_id/:id', :action => 'destroy', :conditions => { :method => :delete }      
 #    sharing.destroy_sharing '/group/:id/remove/:shareable_type/:shareable_id', :action => 'destroy', :method => :delete  
   end
 end
