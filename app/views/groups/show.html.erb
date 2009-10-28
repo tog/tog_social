@@ -1,7 +1,7 @@
 <div class="detail detail1">
   <div class="image"><%= link_to image_for_group(@group, 'medium', :class=>"img"), group_path(@group) %></div>
   <div class="title"><%= link_to @group.name, group_path(@group) %></div>
-  <div class="subtitle"><%= I18n.t('tog_social.groups.model.created_at') %> <%= @group.created_at.strftime("%d/%m/%Y") %>, <%=@group.members.size%> members</div>
+  <div class="subtitle"><%= I18n.t('tog_social.groups.model.created_at') %> <%= @group.created_at.strftime("%d/%m/%Y") %>, <%= I18n.t('tog_social.groups.model.members', :count => @group.members.size) %></div>
   <div class="summary"><%= I18n.t('tog_social.groups.model.moderated_by') %>:
     <% for moderator in @group.moderators -%>
       <%=link_to moderator.profile.full_name, profile_path(moderator.profile), :class=> 'maincolor4'%>
