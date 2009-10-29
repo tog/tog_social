@@ -1,0 +1,186 @@
+pt-BR:
+  interface:
+    admin:
+      groups: Grupos
+    member:
+      my_groups: Meus Grupos
+      my_sharings: Coisas que eu compartilho
+    site:
+      profiles: Pessoas
+      groups: Grupos
+  tog_social:
+    plugin_name: Social
+    plugin_description: Manage basic social objects (profiles, groups and friendships)
+    cancel: Cancelar
+    back: Voltar
+    msg_yes: Sim
+    msg_no: Não
+    more_info: Mais informações
+    more_links: Links
+    search: Buscar
+    tags:
+      tags: Tags
+      separated_by_comma: Separar por vírgulas
+    sharings:
+      model:
+        name: Objeto compartilhado
+        created_at: Compartilhado em
+        shared_by: Compartilhado por
+        group: Grupo
+      member: 
+        already_shared: Já compartilhado
+        share: "Compartilhar '{{name}}'"
+        remove_share: Remover compartilhamento
+        share_with: "Compartilhar com '{{name}}'"
+        remove_share_from: "Remover compartilhamento de '{{name}}'"
+        shared_ok: "Objeto compartilhado com o grupo '{{name}}'!"
+        shared_nok: "Esse objeto já está compartilhado com o grupo '{{name}}'!" 
+        not_member: "Você deve ser membro do grupo para compartilhar objetos com ele"
+        remove_share_ok: "Compartilhamento removido com sucesso de '{{name}}'"
+        remove_share_nok: "Compartilhamento não foi removido de '{{name}}'"
+        remove_confirmation: "Tem certeza de que deseja parar o compartilhamento de '{{object}}' com o grupo '{{group}}'?"
+    profiles:
+      model:
+        first_name: Primeiro Nome
+        last_name: Último Nome
+        website: Website
+        avatar: Avatar
+        avatar_help: "Se você quer trocar a imagem do perfil, selecione uma nova imagem."
+        username: Nome de usuário
+        friends: Amigos
+        friends_not_found: "{{profile_full_name}} tem 0 amigos."
+        followers: Seguidores
+        followers_not_found: "{{profile_full_name}} tem 0 seguidores."
+        followings: Seguindo
+        followings_not_found: "{{profile_full_name}} segue 0 pessoas."
+      site:
+        title: Perfis
+        summary: Sumário do perfil
+        edit_profile: Editar perfil
+        send_message: Enviar uma mensagem particular
+      member:
+        updated: Seu perfil foi atualizado com sucesso!
+        update_profile: Atualizar Perfil
+        profile_details: Detalhes do Perfil
+      helper:
+        photo_for_user: Foto para o usuário {{name}}
+        follow_user: Seguir {{name}}
+        unfollow_user: Para de seguir {{name}}
+        add_friend: Adicionar {{name}} como amigo
+        remove_friend: Remover {{name}} como amigo
+    groups:
+      model:
+        members:
+          one: "1 membro"
+          other: "{{count}} membros"
+        members_not_found: "{{group_name}} tem 0 membros."
+        name: Nome
+        description: Descrição
+        image: Imagem
+        image_help: "Se você quer trocar a imagem do grupo, selecione uma nova imagem."
+        created_by: Criado por
+        private: Privado
+        private_help: Um grupo privado não é exibido nas listagens.
+        moderated: Moderado
+        moderated_help: "Em um grupo moderado, cada solicitação de participação deve ser aprovada por um moderador do grupo"
+        moderated_by: Moderado por
+        moderated_by_you: Grupos moderados por você
+        active: Ativo
+        icon: Ícone
+        created_at: Criado em
+        updated_at: Atualizado em
+        member_status: Status
+      site:
+        share: Compartilhar com seus grupos
+        share_title: "Compartilhar com o grupo '{{name}}'"
+        member: Você é membro desse grupo.
+        already_member: Você já é membro desse grupo.
+        not_member: Você não é membro desse grupo.
+        request_received: Sua solicitação foi recebida. Os moderadores do grupo responderão em breve.
+        request_waiting: Sua solicitação de participação já está sendo processada. Por favor, aguarde.
+        welcome: "Bem-vindo ao grupo '{{name}}'. Aproveite a sua participação!"
+        leave: Sair desse grupo
+        leave_confirm: Tem certeza de que deseja sair desse grupo?
+        leaved: Você não é mais um membro desse grupo
+        join: Participar do grupo
+        last_moderator: Você é o último moderador do grupo. Você não pode sair do grupo antes de nomear um novo moderador
+        not_found: Erro. Esse grupo não está ativo ou não existe
+        unactive: Erro. Esse grupo não está ativo
+        invite: 
+          already_member: Esse usuário já é um membro do grupo
+          already_invited: Esse usuário já foi convidado para esse grupo
+          invited: Convite do grupo enviado
+          you_are_not_invited: Você não foi convidado para esse grupo
+          invitation_accepted: Convite aceito
+          invitation_rejected: Convite rejeitado
+          you_could_not_invite: Você não tem permissão para convidar usuários para esse grupo
+        title: Grupos
+        create_group: Criar novo grupo
+        create: Criar
+        details: Detalhes do grupo
+        last_groups: Últimos grupos
+        search_groups: Buscar grupos
+        group_tagged: Tag {{tag}} criada no grupo
+        group_tags: Tags do grupo
+      member:
+        created: Grupo criado com sucesso.
+        pending: Seu grupo foi criado mas está aguardando a aprovação do administrador.
+        group_member: Grupos que você é membro
+        members_pending: "{{size}} membros aguardando aprovação"
+        pending_members: Membros pendentes
+        accept: Aceito
+        accept_title: Usuário aceito
+        reject: Rejeitado
+        reject_title: Usuário rejeitado
+        edit: Editar grupo
+        edit_group: Editar grupo {{group}}
+        update: Atualizar
+        updated: "Grupo '{{name}}' atualizado com sucesso!"
+        user_doesnt_exist: Usuário não existe
+        user_rejected: "Usuário '{{name}}' foi rejeitado para esse grupo"
+        user_accepted: "Usuário '{{name}}' foi aceito para esse grupo"
+        error: Oooops. Alguma coisa errada aconteceu
+        not_moderator: Você não é um dos moderadores do grupo.
+        mail:
+          activation_request:
+            subject: "Solicitação para novo grupo '{{group_name}}'"
+            content: "<p>O usuário '{{user_name}}' solicitou a criação de um novo grupo chamado '{{group_name}}'.</p><p><a href=\"{{activation_url}}\">{{activation_url}}</a></p>"
+          invitation:
+            subject: Convite para o grupo {{group}}
+            accept: Aceito
+            reject: Rejeitado
+      admin:
+        groups: Grupos
+        deleted: Grupo apagado
+        activated: O grupo ativado
+        edit_group: Editar grupo
+        activate: Ativar
+        group_details: Detalhes do grupo
+        memberships: Associações
+        moderators: Moderadores
+        members: Membros
+        pending_members: Membros pendentes
+        delete_group: Apagar grupo
+        please_wait: Por favor aguarde...
+        updated: "O grupo '{{name}}' foi atualizado com sucesso!"              
+    friendships: 
+      member:
+        not_found: "Não há um usuário com id '{{id}}'"
+        followed: "Você agora está seguindo '{{user_name}}'"
+        unfollowed: "Você não está mais seguindo '{{user_name}}'"
+        friend:
+          added: "Você adicionou {{friend_name}} como contato"
+          confirmed: "Você confirmou sua amizade com {{friend_name}}"
+        mail:
+          follow:
+            subject: "{{user_name}} está seguindo você!"
+            content: "Olá {{friend_name}}, <p>{{user_name}} está seguindo você.</p> <p>Veja o perfil de {{user_name}}: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"
+          unfollow:
+            subject: "{{user_name}} não está mais seguindo você."
+            content: "Olá {{friend_name}}, <p>{{user_name}} parou de seguir você.</p> <p>Veja o perfil de {{user_name}}: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"
+          add_friend:
+            subject: "Você é o mais novo contato de {{user_name}}!"
+            content: "Olá {{friend_name}}, <p>{{user_name}} adicionou você como contato.</p> <p>Veja o perfil de {{user_name}}: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p> <p>Para confirmar você deve visitar: <br/><a href='{{confirm_url}}'>{{confirm_url}}</a>"
+          confirm_friend:
+            subject: "{{user_name}} confirmou sua amizade!"
+            content: "Olá {{friend_name}}, <p>{{user_name}} adicionou você como contato também!</p> <p>Veja o perfil de {{user_name}}: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"
