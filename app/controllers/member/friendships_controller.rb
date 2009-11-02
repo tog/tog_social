@@ -4,12 +4,12 @@ class Member::FriendshipsController < Member::BaseController
 
   def add_friend
     if @friend.add_follower(current_user.profile)
-      flash[:ok]=I18n.t("tog_social.friendships.member.friend.added", :friend_name => @friend.full_name)
+      flash[:ok]=I18n.t("tog_social.friendships.member.friend.request", :friend_name => @friend.full_name)
       Message.new(
         :from => current_user,
         :to   => @friend.user,
-        :subject => I18n.t("tog_social.friendships.member.mail.add_friend.subject", :user_name => current_user.profile.full_name),
-        :content => I18n.t("tog_social.friendships.member.mail.add_friend.content", 
+        :subject => I18n.t("tog_social.friendships.member.mail.request_friend.subject", :user_name => current_user.profile.full_name),
+        :content => I18n.t("tog_social.friendships.member.mail.request_friend.content", 
                            :user_name   => current_user.profile.full_name, 
                            :friend_name => @friend.full_name, 
                            :user_profile_url => profile_url(current_user.profile) , 
