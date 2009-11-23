@@ -5,6 +5,8 @@ Edge
 * Acts_as_state_machine code replaced by AASM gem
 * Better messages for bidirectional friendships
 * Added translations for Brazilian Portuguese
+* Fixed: searching only active profiles
+* Set profile's first name == login by default
 
 0.5.4
 ----

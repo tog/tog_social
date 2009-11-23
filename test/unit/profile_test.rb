@@ -3,11 +3,15 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ProfileTest < ActiveSupport::TestCase
   context "A Profile " do
     setup do
-      @user = Factory(:user, :login => 'chavez')  
-      @user2 = Factory(:user, :login => 'evo')  
-
+      @user  = create_active_user('chavez')
+      @user2 = create_active_user('evo') 
+      @user3 = create_active_user('fidel') 
+      @user4 = create_user('ghost')  
+      
       @chavez = Factory(:profile, :first_name => 'Hugo', :last_name => 'Chavez', :user => @user)
-      @evo = Factory(:profile, :first_name => 'Evo', :last_name => 'Morales', :user => @user2)
+      @evo    = Factory(:profile, :first_name => 'Evo', :last_name => 'Morales', :user => @user2)
+      @fidel  = Factory(:profile, :user => @user3)
+      @ghost  = Factory(:profile, :first_name => 'Ghost', :user => @user4)
     end
     
     should "return full_name correctly base on first_name and last_name" do
@@ -105,11 +109,26 @@ class ProfileTest < ActiveSupport::TestCase
       @chavez.remove_following @evo
       @chavez.follows? @evo
     end
-    
+
     should "treat a friendship as mutual follower relationship between the 2 profiles" do
       @evo.add_friend(@chavez)
       assert @evo.follows?(@chavez)
       assert @chavez.follows?(@evo)
+    end
+        
+    context "being searched " do
+      should "be found if using his first name" do
+        assert Profile.site_search('Hugo').include?(@chavez)
+      end
+      should "be found if using his last name" do
+        assert Profile.site_search('Morales').include?(@evo)
+      end
+      should "be found if using his login" do
+        assert Profile.site_search('fidel').include?(@fidel)
+      end      
+      should "not be found if user is not active" do
+        assert !Profile.site_search('Ghost').include?(@ghost)
+      end
     end
   end
 end

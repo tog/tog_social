@@ -30,7 +30,8 @@ class Profile < ActiveRecord::Base
   named_scope :active, :conditions => {'users.state' => 'active'}, :include => :user
 
   def self.site_search(query, search_options={})
-    Profile.find(:all, :conditions => ["first_name like ? or last_name like ?", "%#{query}%", "%#{query}%"])
+    q = "%#{query}%"
+    Profile.active.find(:all, :conditions => ["first_name like ? or last_name like ? or login like ?", q, q, q])
   end
 
   def network

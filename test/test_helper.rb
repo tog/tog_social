@@ -31,4 +31,14 @@ class ActiveSupport::TestCase
     assert_difference object, method, 0, &block
   end
   
+  def create_user(login)
+    Factory(:user, :login => login)
+  end
+  
+  def create_active_user(login)
+    user = create_user(login)
+    user.activate!
+    user
+  end
+  
 end
