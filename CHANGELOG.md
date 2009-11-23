@@ -6,7 +6,8 @@ Edge
 * Better messages for bidirectional friendships
 * Added translations for Brazilian Portuguese
 * Fixed: searching only active profiles
-* Set profile's first name == login by default
+* Fixed: a profile can also be found by login
+* Fixed: add rss template for groups (closes ticket #2)
 
 0.5.4
 ----
