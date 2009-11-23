@@ -8,10 +8,8 @@ class GroupsControllerTest < ActionController::TestCase
       @request    = ActionController::TestRequest.new
       @response   = ActionController::TestResponse.new
 
-      @berlusconi = Factory(:user, :login => 'berlusconi')
-      @berlusconi.activate!
-      @chavez = Factory(:user, :login => 'chavez')
-      @chavez.activate!
+      @berlusconi = create_active_user('berlusconi')
+      @chavez = create_active_user('chavez')
       @request.session[:user_id]= @berlusconi.id
     end
     

@@ -8,8 +8,7 @@ class Member::SharingsControllerTest < ActionController::TestCase
       @request    = ActionController::TestRequest.new
       @response   = ActionController::TestResponse.new
             
-      @berlusconi = Factory(:user, :login => 'berlusconi')
-      @berlusconi.activate!
+      @berlusconi = create_active_user('berlusconi')
       @request.session[:user_id]= @berlusconi.id      
 
       @referer = "http://www.google.es"

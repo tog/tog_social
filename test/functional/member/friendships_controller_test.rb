@@ -4,11 +4,9 @@ class Member::FriendshipsControllerTest < ActionController::TestCase
 
   context "A logged user" do
     setup do
-      @berlusconi = Factory(:user, :login => 'berlusconi')
-      @berlusconi.activate!
+      @berlusconi = create_active_user('berlusconi')
 
-      @chavez = Factory(:user, :login => 'chavez')
-      @chavez.activate!
+      @chavez = create_active_user('chavez')
     end
     
     context "on POST to :add_friend" do

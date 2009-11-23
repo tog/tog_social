@@ -8,8 +8,7 @@ class ProfilesControllerTest < ActionController::TestCase
       @request    = ActionController::TestRequest.new
       @response   = ActionController::TestResponse.new
 
-      @user = Factory(:user, :login => 'chavez')
-      @user.activate!  
+      @user = create_active_user('chavez')
       @user2 = Factory(:user, :login => 'evo')  
 
       @chavez = Factory(:profile, :first_name => 'Hugo', :last_name => 'Chavez', :user => @user)
