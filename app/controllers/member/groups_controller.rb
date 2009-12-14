@@ -13,10 +13,12 @@ class Member::GroupsController < Member::BaseController
     @group.author = current_user
     @group.save
 
-    @group.join(current_user, true)
-#    @group.activate_membership(current_user)
 
     if @group.errors.empty?
+
+      @group.join(current_user, true)
+      #    @group.activate_membership(current_user)
+
       if current_user.admin == true || Tog::Config['plugins.tog_social.group.moderation.creation'] != true
          @group.activate!
          flash[:ok] = I18n.t("tog_social.groups.member.created")
