@@ -1,6 +1,9 @@
 Edge
 ----
 
+0.6.0
+----
+
 * Replaced own sharing code by acts_as_shareable plugin. Please, install acts_as_shareable and it's migration before running plugins migrations.
 * Acts_as_state_machine code replaced by AASM gem
 * Better messages for bidirectional friendships
