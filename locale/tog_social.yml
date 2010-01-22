@@ -13,8 +13,8 @@ en:
     plugin_description: Manage basic social objects (profiles, groups and friendships)
     cancel: Cancel
     back: Back
-    msg_yes: Yes
-    msg_no: No
+    msg_yes: "Yes"
+    msg_no: "No"
     more_info: More Info
     more_links: More Links
     search: Search

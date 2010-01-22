@@ -14,7 +14,7 @@ es:
     cancel: Cancelar
     back: Volver    
     msg_yes: Si
-    msg_no: No
+    msg_no: "No"
     more_info: Más información
     more_links: Más enlaces
     search: Buscar
