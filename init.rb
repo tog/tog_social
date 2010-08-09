@@ -3,6 +3,7 @@ require_plugin 'tog_core'
 require_plugin 'seo_urls'
 require_plugin 'paperclip'
 require_plugin 'acts_as_shareable'
+require_plugin 'preferences'
 
 require "i18n" unless defined?(I18n)
 Dir[File.dirname(__FILE__) + '/locale/**/*.yml'].each do |file|

@@ -1,6 +1,8 @@
 Edge
 ----
 
+* Preferences system
+
 0.6.0
 ----
 

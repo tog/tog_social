@@ -14,7 +14,7 @@ es:
     cancel: Cancelar
     back: Volver    
     msg_yes: Si
-    msg_no: "No"
+    msg_no: No
     more_info: Más información
     more_links: Más enlaces
     search: Buscar
@@ -39,6 +39,9 @@ es:
         remove_share_ok: Objeto eliminado de '{{name}}'
         remove_share_nok: No se ha eliminado el objeto de '{{name}}'
         remove_confirmation: ¿Estas seguro de dejar de compartir '{{object}}' con el grupo '{{group}}' ?                   
+    preferences:
+      member:
+        saved: Se han guardado tus preferencias
     profiles:
       model:
         first_name: Nombre

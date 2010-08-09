@@ -13,8 +13,8 @@ en:
     plugin_description: Manage basic social objects (profiles, groups and friendships)
     cancel: Cancel
     back: Back
-    msg_yes: "Yes"
-    msg_no: "No"
+    msg_yes: Yes
+    msg_no: No
     more_info: More Info
     more_links: More Links
     search: Search
@@ -39,6 +39,9 @@ en:
         remove_share_ok: Share removed successfully from '{{name}}'
         remove_share_nok: Share was not removed from '{{name}}'
         remove_confirmation: Are you sure you want to stop sharing '{{object}}' with the group '{{group}}'?   
+    preferences:
+      member:
+        saved: Your preferences has been save
     profiles:
       model:
         first_name: First Name

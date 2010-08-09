@@ -1,0 +1,19 @@
+<div class="titleB">Preferences</div>
+<br/>
+
+<% form_for(:preference, :url => member_update_preferences_path, :html => { :method => :post}) do |f| %>
+  <fieldset>
+    <div class="fields">
+      <% @preferences.each do |k,v|%>
+      <p>
+        <label for="preferences[<%=k%>]"><%=k%></label>
+        <%= text_field_tag "preferences[#{k}]", v, :class => 'fieldbox' %>
+      </p>
+      <% end %>
+    </div>
+  </fieldset>
+
+  <div class="actions">
+    <%= f.submit "Save" ,:class=>"button mainaction" %>
+  </div>
+<% end %>

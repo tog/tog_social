@@ -14,6 +14,10 @@ resources :groups, :collection => { :search => :get }, :member => { :join => :ge
 namespace(:member) do |member|
   member.resources :profiles
   member.resources :groups
+  member.with_options(:controller => 'preferences') do |preferences|
+    preferences.edit_preferences   '/preferences', :action => 'edit', :conditions => { :method => :get }
+    preferences.update_preferences '/preferences', :action => 'update', :conditions => { :method => :post }
+  end
   member.with_options(:controller => 'groups') do |group|
     group.group_pending_members '/:id/members/pending',         :action => 'pending_members'
     group.group_accept_member   '/:id/members/:user_id/accept', :action => 'accept_member'
